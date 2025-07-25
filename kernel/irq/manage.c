@@ -1823,7 +1823,7 @@ int request_threaded_irq(unsigned int irq, irq_handler_t handler,
 	    ((irqflags & IRQF_NO_SUSPEND) && (irqflags & IRQF_COND_SUSPEND)))
 		return -EINVAL;
 
-	desc = irq_to_desc(irq);
+	desc = irq_to_desc(irq);	// 根据虚拟中断号获取中断描述符
 	if (!desc)
 		return -EINVAL;
 
@@ -1834,14 +1834,14 @@ int request_threaded_irq(unsigned int irq, irq_handler_t handler,
 	if (!handler) {
 		if (!thread_fn)
 			return -EINVAL;
-		handler = irq_default_primary_handler;
+		handler = irq_default_primary_handler;	// 没有上半部的话用默认上半部
 	}
 
 	action = kzalloc(sizeof(struct irqaction), GFP_KERNEL);
 	if (!action)
 		return -ENOMEM;
 
-	action->handler = handler;
+	action->handler = handler;	// 函数的主体功能，构建 action 结构体
 	action->thread_fn = thread_fn;
 	action->flags = irqflags;
 	action->name = devname;

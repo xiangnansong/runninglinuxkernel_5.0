@@ -1003,7 +1003,7 @@ irq_set_chained_handler_and_data(unsigned int irq, irq_flow_handler_t handle,
 	if (!desc)
 		return;
 
-	desc->irq_common_data.handler_data = data;
+	desc->irq_common_data.handler_data = data;	// 相比于__irq_set_handler多了这一行
 	__irq_do_set_handler(desc, handle, 1, NULL);
 
 	irq_put_desc_busunlock(desc, flags);

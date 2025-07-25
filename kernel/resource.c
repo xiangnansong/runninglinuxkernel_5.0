@@ -181,7 +181,7 @@ static struct resource *alloc_resource(gfp_t flags)
 }
 
 /* Return the conflict entry if you can't request it */
-static struct resource * __request_resource(struct resource *root, struct resource *new)
+static struct resource * __request_resource(struct resource *root, struct resource *new)	// 其实就是把 new 这个资源插入到 root 资源里面
 {
 	resource_size_t start = new->start;
 	resource_size_t end = new->end;
@@ -196,16 +196,16 @@ static struct resource * __request_resource(struct resource *root, struct resour
 	p = &root->child;
 	for (;;) {
 		tmp = *p;
-		if (!tmp || tmp->start > end) {
-			new->sibling = tmp;
+		if (!tmp || tmp->start > end) {	// 如果 tmp 非空并且与new 没有产生冲突, 就将 new 插入到 tmp 之前，并返回 null；如果tmp为空，说明 new 是第一个资源，也直接插入
+			new->sibling = tmp;	//如果 tmp 非空，并且 new 资源在 tmp 后面，就遍历到下一个资源
 			*p = new;
 			new->parent = root;
 			return NULL;
 		}
 		p = &tmp->sibling;
-		if (tmp->end < start)
+		if (tmp->end < start)	// 如果 tmp->end < start, 说明 tmp 与 new 没有冲突, 继续遍历
 			continue;
-		return tmp;
+		return tmp;	// 说明 tmp 这个资源发生了冲突，返回冲突资源
 	}
 }
 

@@ -263,7 +263,7 @@ EXPORT_SYMBOL_GPL(of_pci_check_probe_only);
  */
 int devm_of_pci_get_host_bridge_resources(struct device *dev,
 			unsigned char busno, unsigned char bus_max,
-			struct list_head *resources, resource_size_t *io_base)
+			struct list_head *resources, resource_size_t *io_base)	// 获取 host bridge 资源，包括 bus range 和 range 资源
 {
 	struct device_node *dev_node = dev->of_node;
 	struct resource *res, tmp_res;
@@ -293,7 +293,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
 		if (bus_range->end > bus_range->start + bus_max)
 			bus_range->end = bus_range->start + bus_max;
 	}
-	pci_add_resource(resources, bus_range);
+	pci_add_resource(resources, bus_range);	// 获取 bus range 资源
 
 	/* Check for ranges property */
 	err = of_pci_range_parser_init(&parser, dev_node);
@@ -301,7 +301,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
 		goto failed;
 
 	dev_dbg(dev, "Parsing ranges property...\n");
-	for_each_of_pci_range(&parser, &range) {
+	for_each_of_pci_range(&parser, &range) {	// 解析 range 字段
 		/* Read next ranges element */
 		if ((range.flags & IORESOURCE_TYPE_BITS) == IORESOURCE_IO)
 			snprintf(range_type, 4, " IO");
@@ -320,7 +320,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
 		if (range.cpu_addr == OF_BAD_ADDR || range.size == 0)
 			continue;
 
-		err = of_pci_range_to_resource(&range, dev_node, &tmp_res);
+		err = of_pci_range_to_resource(&range, dev_node, &tmp_res);	// 把 range 转换成 resource
 		if (err)
 			continue;
 
@@ -343,7 +343,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
 			*io_base = range.cpu_addr;
 		}
 
-		pci_add_resource_offset(resources, res,	res->start - range.pci_addr);
+		pci_add_resource_offset(resources, res,	res->start - range.pci_addr);	// 把 range 资源注册进来。因为 range 资源的 start 是 cpu 地址，没有地方存储 pci 地址，所以这里用 offset 来存 pci 地址
 	}
 
 	return 0;

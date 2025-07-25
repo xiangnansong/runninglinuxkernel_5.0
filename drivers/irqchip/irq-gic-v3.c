@@ -350,11 +350,11 @@ static u64 gic_mpidr_to_affinity(unsigned long mpidr)
 	return aff;
 }
 
-static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)
+static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)	//gic 的中断处理函数
 {
 	u32 irqnr;
 
-	irqnr = gic_read_iar();
+	irqnr = gic_read_iar();	// 获取硬件中断号
 
 	if (likely(irqnr > 15 && irqnr < 1020) || irqnr >= 8192) {
 		int err;
@@ -376,7 +376,7 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 		}
 		return;
 	}
-	if (irqnr < 16) {
+	if (irqnr < 16) {	// 处理 ipi 中断
 		gic_write_eoir(irqnr);
 		if (static_branch_likely(&supports_deactivate_key))
 			gic_write_dir(irqnr);
@@ -1137,7 +1137,7 @@ static int __init gic_init_bases(void __iomem *dist_base,
 			pr_err("Failed to initialize MBIs\n");
 	}
 
-	set_handle_irq(gic_handle_irq);
+	set_handle_irq(gic_handle_irq);	// 配置中断处理函数
 
 	gic_update_vlpi_properties();
 

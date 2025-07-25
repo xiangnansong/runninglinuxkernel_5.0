@@ -39,12 +39,12 @@ struct cqhci_slot {
 #define CQHCI_HOST_OTHER	BIT(4)
 };
 
-static inline u8 *get_desc(struct cqhci_host *cq_host, u8 tag)
+static inline u8 *get_desc(struct cqhci_host *cq_host, u8 tag)	// 获取 task 描述符
 {
 	return cq_host->desc_base + (tag * cq_host->slot_sz);
 }
 
-static inline u8 *get_link_desc(struct cqhci_host *cq_host, u8 tag)
+static inline u8 *get_link_desc(struct cqhci_host *cq_host, u8 tag)	// 获取 link 描述符
 {
 	u8 *desc = get_desc(cq_host, tag);
 
@@ -55,33 +55,33 @@ static inline dma_addr_t get_trans_desc_dma(struct cqhci_host *cq_host, u8 tag)
 {
 	return cq_host->trans_desc_dma_base +
 		(cq_host->mmc->max_segs * tag *
-		 cq_host->trans_desc_len);
+		 cq_host->trans_desc_len);	// max seq 表示有多少个
 }
 
-static inline u8 *get_trans_desc(struct cqhci_host *cq_host, u8 tag)
+static inline u8 *get_trans_desc(struct cqhci_host *cq_host, u8 tag)	// 获取传输描述符
 {
 	return cq_host->trans_desc_base +
 		(cq_host->trans_desc_len * cq_host->mmc->max_segs * tag);
 }
 
-static void setup_trans_desc(struct cqhci_host *cq_host, u8 tag)
+static void setup_trans_desc(struct cqhci_host *cq_host, u8 tag)	// 完成 link 描述符配置
 {
 	u8 *link_temp;
 	dma_addr_t trans_temp;
 
-	link_temp = get_link_desc(cq_host, tag);
-	trans_temp = get_trans_desc_dma(cq_host, tag);
+	link_temp = get_link_desc(cq_host, tag);	// 获取 link 描述符
+	trans_temp = get_trans_desc_dma(cq_host, tag);	// 获取 trans 描述符
 
 	memset(link_temp, 0, cq_host->link_desc_len);
 	if (cq_host->link_desc_len > 8)
 		*(link_temp + 8) = 0;
 
 	if (tag == DCMD_SLOT && (cq_host->mmc->caps2 & MMC_CAP2_CQE_DCMD)) {
-		*link_temp = CQHCI_VALID(0) | CQHCI_ACT(0) | CQHCI_END(1);
+		*link_temp = CQHCI_VALID(0) | CQHCI_ACT(0) | CQHCI_END(1);	// dcmd 不使用 link 描述符
 		return;
 	}
 
-	*link_temp = CQHCI_VALID(1) | CQHCI_ACT(0x6) | CQHCI_END(0);
+	*link_temp = CQHCI_VALID(1) | CQHCI_ACT(0x6) | CQHCI_END(0);	// 配置 link 描述符
 
 	if (cq_host->dma64) {
 		__le64 *data_addr = (__le64 __force *)(link_temp + 4);
@@ -216,14 +216,14 @@ static int cqhci_host_alloc_tdl(struct cqhci_host *cq_host)
 	cq_host->desc_base = dmam_alloc_coherent(mmc_dev(cq_host->mmc),
 						 cq_host->desc_size,
 						 &cq_host->desc_dma_base,
-						 GFP_KERNEL);
+						 GFP_KERNEL);	// 第三个参数是 dma 的物理地址。分配 task 描述符空间
 	if (!cq_host->desc_base)
 		return -ENOMEM;
 
 	cq_host->trans_desc_base = dmam_alloc_coherent(mmc_dev(cq_host->mmc),
 					      cq_host->data_size,
 					      &cq_host->trans_desc_dma_base,
-					      GFP_KERNEL);
+					      GFP_KERNEL);	// 分配 trans 描述符空间
 	if (!cq_host->trans_desc_base) {
 		dmam_free_coherent(mmc_dev(cq_host->mmc), cq_host->desc_size,
 				   cq_host->desc_base,
@@ -238,13 +238,13 @@ static int cqhci_host_alloc_tdl(struct cqhci_host *cq_host)
 		(unsigned long long)cq_host->desc_dma_base,
 		(unsigned long long)cq_host->trans_desc_dma_base);
 
-	for (; i < (cq_host->num_slots); i++)
+	for (; i < (cq_host->num_slots); i++)	// 配置 trans 描述符
 		setup_trans_desc(cq_host, i);
 
 	return 0;
 }
 
-static void __cqhci_enable(struct cqhci_host *cq_host)
+static void __cqhci_enable(struct cqhci_host *cq_host)	// 使能 cqe
 {
 	struct mmc_host *mmc = cq_host->mmc;
 	u32 cqcfg;
@@ -408,7 +408,7 @@ static void cqhci_disable(struct mmc_host *mmc)
 }
 
 static void cqhci_prep_task_desc(struct mmc_request *mrq,
-					u64 *data, bool intr)
+					u64 *data, bool intr)	//配置 task 描述符； task 描述符主要描述 blk 地址； link 描述符主要描述内存地址
 {
 	u32 req_flags = mrq->data->flags;
 
@@ -440,7 +440,7 @@ static int cqhci_dma_map(struct mmc_host *host, struct mmc_request *mrq)
 	sg_count = dma_map_sg(mmc_dev(host), data->sg,
 			      data->sg_len,
 			      (data->flags & MMC_DATA_WRITE) ?
-			      DMA_TO_DEVICE : DMA_FROM_DEVICE);
+			      DMA_TO_DEVICE : DMA_FROM_DEVICE);	// 执行 dma 映射
 	if (!sg_count) {
 		pr_err("%s: sg-len: %d\n", __func__, data->sg_len);
 		return -ENOMEM;
@@ -450,7 +450,7 @@ static int cqhci_dma_map(struct mmc_host *host, struct mmc_request *mrq)
 }
 
 static void cqhci_set_tran_desc(u8 *desc, dma_addr_t addr, int len, bool end,
-				bool dma64)
+				bool dma64)	// 配置 trans 描述符
 {
 	__le32 *attr = (__le32 __force *)desc;
 
@@ -482,14 +482,14 @@ static int cqhci_prep_tran_desc(struct mmc_request *mrq,
 	u8 *desc;
 	struct scatterlist *sg;
 
-	sg_count = cqhci_dma_map(mrq->host, mrq);
+	sg_count = cqhci_dma_map(mrq->host, mrq);	// 映射 dma 地址
 	if (sg_count < 0) {
 		pr_err("%s: %s: unable to map sg lists, %d\n",
 				mmc_hostname(mrq->host), __func__, sg_count);
 		return sg_count;
 	}
 
-	desc = get_trans_desc(cq_host, tag);
+	desc = get_trans_desc(cq_host, tag);	// 获取 tag 对应的 trans 描述符
 
 	for_each_sg(data->sg, sg, sg_count, i) {
 		addr = sg_dma_address(sg);
@@ -497,7 +497,7 @@ static int cqhci_prep_tran_desc(struct mmc_request *mrq,
 
 		if ((i+1) == sg_count)
 			end = true;
-		cqhci_set_tran_desc(desc, addr, len, end, dma64);
+		cqhci_set_tran_desc(desc, addr, len, end, dma64);	// 配置 trans 描述符
 		desc += cq_host->trans_desc_len;
 	}
 
@@ -528,7 +528,7 @@ static void cqhci_prep_dcmd_desc(struct mmc_host *mmc,
 		}
 	}
 
-	task_desc = (__le64 __force *)get_desc(cq_host, cq_host->dcmd_slot);
+	task_desc = (__le64 __force *)get_desc(cq_host, cq_host->dcmd_slot);	// 获取 task 描述符
 	memset(task_desc, 0, cq_host->task_desc_len);
 	data |= (CQHCI_VALID(1) |
 		 CQHCI_END(1) |
@@ -562,7 +562,7 @@ static inline int cqhci_tag(struct mmc_request *mrq)
 	return mrq->cmd ? DCMD_SLOT : mrq->tag;
 }
 
-static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
+static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)	// 关键函数，上层调用这里进行请求的发送
 {
 	int err = 0;
 	u64 data = 0;
@@ -594,9 +594,9 @@ static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
 
 	if (mrq->data) {
 		task_desc = (__le64 __force *)get_desc(cq_host, tag);
-		cqhci_prep_task_desc(mrq, &data, 1);
-		*task_desc = cpu_to_le64(data);
-		err = cqhci_prep_tran_desc(mrq, cq_host, tag);
+		cqhci_prep_task_desc(mrq, &data, 1);	// 注意这里的 int 是 1， 表示不使用中断聚合功能
+		*task_desc = cpu_to_le64(data);			// 写入 task 描述符
+		err = cqhci_prep_tran_desc(mrq, cq_host, tag);	// 配置 trans 描述符
 		if (err) {
 			pr_err("%s: cqhci: failed to setup tx desc: %d\n",
 			       mmc_hostname(mmc), err);
@@ -618,7 +618,7 @@ static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
 
 	cq_host->qcnt += 1;
 
-	cqhci_writel(cq_host, 1 << tag, CQHCI_TDBR);
+	cqhci_writel(cq_host, 1 << tag, CQHCI_TDBR);	// 配置完描述符之后是能对应的 dollbell
 	if (!(cqhci_readl(cq_host, CQHCI_TDBR) & (1 << tag)))
 		pr_debug("%s: cqhci: doorbell not set for tag %d\n",
 			 mmc_hostname(mmc), tag);
@@ -757,7 +757,7 @@ static void cqhci_finish_mrq(struct mmc_host *mmc, unsigned int tag)
 }
 
 irqreturn_t cqhci_irq(struct mmc_host *mmc, u32 intmask, int cmd_error,
-		      int data_error)
+		      int data_error)		// 中断处理
 {
 	u32 status;
 	unsigned long tag = 0, comp_status;

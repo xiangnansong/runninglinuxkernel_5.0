@@ -1218,7 +1218,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 	struct resource *b_res;
 	int ret;
 
-	list_for_each_entry(dev, &bus->devices, bus_list) {
+	list_for_each_entry(dev, &bus->devices, bus_list) {	// 第一层递归，这里是 host bridge
 		struct pci_bus *b = dev->subordinate;
 		if (!b)
 			continue;
@@ -1236,10 +1236,10 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 	}
 
 	/* The root bus? */
-	if (pci_is_root_bus(bus))
+	if (pci_is_root_bus(bus))	// 递归到最上层了
 		return;
 
-	switch (bus->self->class >> 8) {
+	switch (bus->self->class >> 8) {	// 上面是递归逻辑，下面是真正的处理流程
 	case PCI_CLASS_BRIDGE_CARDBUS:
 		/* don't size cardbuses yet. */
 		break;
@@ -1263,7 +1263,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 		b_res = &bus->self->resource[PCI_BRIDGE_RESOURCES];
 		mask = IORESOURCE_MEM;
 		prefmask = IORESOURCE_MEM | IORESOURCE_PREFETCH;
-		if (b_res[2].flags & IORESOURCE_MEM_64) {
+		if (b_res[2].flags & IORESOURCE_MEM_64) {	// 先看是否有 64 位的 prefetchable memory
 			prefmask |= IORESOURCE_MEM_64;
 			ret = pbus_size_mem(bus, prefmask, prefmask,
 				  prefmask, prefmask,
@@ -1287,7 +1287,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 		 * size required to put all prefetchable resources in the
 		 * 32-bit prefetchable window (if there is one).
 		 */
-		if (!type2) {
+		if (!type2) {	// 再看是否有 32 位的 prefetchable memory
 			prefmask &= ~IORESOURCE_MEM_64;
 			ret = pbus_size_mem(bus, prefmask, prefmask,
 					 prefmask, prefmask,
@@ -1320,7 +1320,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 		 * match that used here.  Specifically, we cannot put a
 		 * 32-bit prefetchable resource in a 64-bit prefetchable
 		 * window.
-		 */
+		 */ //最终内存空间分配
 		pbus_size_mem(bus, mask, IORESOURCE_MEM, type2, type3,
 				realloc_head ? 0 : additional_mem_size,
 				additional_mem_size, realloc_head);

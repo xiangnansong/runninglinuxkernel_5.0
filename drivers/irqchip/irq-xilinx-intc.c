@@ -201,7 +201,7 @@ static int __init xilinx_intc_of_init(struct device_node *intc,
 
 	/* Turn on the Master Enable. */
 	xintc_write(MER, MER_HIE | MER_ME);
-	if (!(xintc_read(MER) & (MER_HIE | MER_ME))) {
+	if (!(xintc_read(MER) & (MER_HIE | MER_ME))) {   
 		static_branch_enable(&xintc_is_be);
 		xintc_write(MER, MER_HIE | MER_ME);
 	}
@@ -214,7 +214,7 @@ static int __init xilinx_intc_of_init(struct device_node *intc,
 	}
 
 	if (parent) {
-		irq = irq_of_parse_and_map(intc, 0);
+		irq = irq_of_parse_and_map(intc, 0);	// 获取在父节点下的中断号
 		if (irq) {
 			irq_set_chained_handler_and_data(irq,
 							 xil_intc_irq_handler,

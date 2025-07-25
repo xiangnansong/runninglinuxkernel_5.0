@@ -138,7 +138,7 @@ struct irq_domain *__irq_domain_add(struct fwnode_handle *fwnode, int size,
 	static atomic_t unknown_domains;
 
 	domain = kzalloc_node(sizeof(*domain) + (sizeof(unsigned int) * size),
-			      GFP_KERNEL, of_node_to_nid(of_node));
+			      GFP_KERNEL, of_node_to_nid(of_node));	// 注册内存
 	if (WARN_ON(!domain))
 		return NULL;
 
@@ -882,18 +882,18 @@ unsigned int irq_find_mapping(struct irq_domain *domain,
 	if (domain == NULL)
 		return 0;
 
-	if (hwirq < domain->revmap_direct_max_irq) {
+	if (hwirq < domain->revmap_direct_max_irq) {		// 检查直接映射区域，一般不会走到这里
 		data = irq_domain_get_irq_data(domain, hwirq);
 		if (data && data->hwirq == hwirq)
 			return hwirq;
 	}
 
 	/* Check if the hwirq is in the linear revmap. */
-	if (hwirq < domain->revmap_size)
+	if (hwirq < domain->revmap_size)			// 检查线性映射表
 		return domain->linear_revmap[hwirq];
 
 	rcu_read_lock();
-	data = radix_tree_lookup(&domain->revmap_tree, hwirq);
+	data = radix_tree_lookup(&domain->revmap_tree, hwirq);		// 检查基数树
 	rcu_read_unlock();
 	return data ? data->irq : 0;
 }

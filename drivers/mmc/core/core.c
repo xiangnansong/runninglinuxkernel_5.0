@@ -302,12 +302,12 @@ static int mmc_mrq_prep(struct mmc_host *host, struct mmc_request *mrq)
 	unsigned int i, sz = 0;
 	struct scatterlist *sg;
 
-	if (mrq->cmd) {
+	if (mrq->cmd) {	// 初始化 cmd 
 		mrq->cmd->error = 0;
 		mrq->cmd->mrq = mrq;
 		mrq->cmd->data = mrq->data;
 	}
-	if (mrq->sbc) {
+	if (mrq->sbc) {	// 初始化 sbc
 		mrq->sbc->error = 0;
 		mrq->sbc->mrq = mrq;
 	}
@@ -463,7 +463,7 @@ int mmc_cqe_start_req(struct mmc_host *host, struct mmc_request *mrq)
 
 	mrq->host = host;
 
-	mmc_mrq_pr_debug(host, mrq, true);
+	mmc_mrq_pr_debug(host, mrq, true);	// 打印 debug 信息
 
 	err = mmc_mrq_prep(host, mrq);
 	if (err)

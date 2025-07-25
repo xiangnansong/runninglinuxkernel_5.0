@@ -53,5 +53,9 @@ case $1 in
 				    -m 100 -smp 2 -kernel arch/arm64/boot/Image \
 				    --append "rdinit=/linuxrc console=ttyAMA0" -nographic \
 				    --fsdev local,id=kmod_dev,path=$PWD/kmodules,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount \
+					-device pcie-root-port,id=root_port1,chassis=1,slot=1
+					    -device sdhci-pci \
+    					-device sd-card,drive=emmc \
+    					-drive if=none,id=emmc,file=emmc.img,format=raw \
 				    $DBG ;;
 esac

@@ -97,9 +97,9 @@ int devm_request_pci_bus_resources(struct device *dev,
 	struct resource *parent, *res;
 	int err;
 
-	resource_list_for_each_entry(win, resources) {
+	resource_list_for_each_entry(win, resources) {	// 遍历所有资源
 		res = win->res;
-		switch (resource_type(res)) {
+		switch (resource_type(res)) {	// 根据资源类型获取父资源
 		case IORESOURCE_IO:
 			parent = &ioport_resource;
 			break;
@@ -110,7 +110,7 @@ int devm_request_pci_bus_resources(struct device *dev,
 			continue;
 		}
 
-		err = devm_request_resource(dev, parent, res);
+		err = devm_request_resource(dev, parent, res);	// 把前面解析出来的 range 资源都申请注册进来
 		if (err)
 			return err;
 	}

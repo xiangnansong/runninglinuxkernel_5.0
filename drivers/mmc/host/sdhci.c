@@ -1293,7 +1293,7 @@ static void sdhci_finish_data(struct sdhci_host *host)
 	 */
 	if (data->stop &&
 	    (data->error ||
-	     !data->mrq->sbc)) {
+	     !data->mrq->sbc)) {	// 如果有 stop 并且出现了 error 的情况
 		/*
 		 * 'cap_cmd_during_tfr' request must not use the command line
 		 * after mmc_command_done() has been called. It is upper layer's
@@ -1446,7 +1446,7 @@ static void sdhci_finish_command(struct sdhci_host *host)
 
 	host->cmd = NULL;
 
-	if (cmd->flags & MMC_RSP_PRESENT) {
+	if (cmd->flags & MMC_RSP_PRESENT) {	// 读取 resp 值
 		if (cmd->flags & MMC_RSP_136) {
 			sdhci_read_rsp_136(host, cmd);
 		} else {
@@ -1467,7 +1467,7 @@ static void sdhci_finish_command(struct sdhci_host *host)
 	 *       feature so there might be some problems with older
 	 *       controllers.
 	 */
-	if (cmd->flags & MMC_RSP_BUSY) {
+	if (cmd->flags & MMC_RSP_BUSY) {	// 如果有 busy 信号，这里就不等待了
 		if (cmd->data) {
 			DBG("Cannot wait for busy signal when also doing a data transfer");
 		} else if (!(host->quirks & SDHCI_QUIRK_NO_BUSY_IRQ) &&
@@ -1478,12 +1478,12 @@ static void sdhci_finish_command(struct sdhci_host *host)
 	}
 
 	/* Finished CMD23, now send actual command. */
-	if (cmd == cmd->mrq->sbc) {
+	if (cmd == cmd->mrq->sbc) {	// 如果完成的是 sbc，后面就开始发送读写指令
 		sdhci_send_command(host, cmd->mrq->cmd);
 	} else {
 
 		/* Processed actual command. */
-		if (host->data && host->data_early)
+		if (host->data && host->data_early)	// 如果 data 提前完成了，这里就 finish data。（先不管这里，考虑正常的流程）
 			sdhci_finish_data(host);
 
 		if (!cmd->data)
@@ -2789,7 +2789,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
 		}
 	}
 
-	if (!host->cmd) {
+	if (!host->cmd) {	// 没有 cmd 却触发了 cmd 异常
 		/*
 		 * SDHCI recovers from errors by resetting the cmd and data
 		 * circuits.  Until that is done, there very well might be more
@@ -2804,7 +2804,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
 	}
 
 	if (intmask & (SDHCI_INT_TIMEOUT | SDHCI_INT_CRC |
-		       SDHCI_INT_END_BIT | SDHCI_INT_INDEX)) {
+		       SDHCI_INT_END_BIT | SDHCI_INT_INDEX)) {	// 如果是 cmd 异常
 		if (intmask & SDHCI_INT_TIMEOUT)
 			host->cmd->error = -ETIMEDOUT;
 		else
@@ -2838,7 +2838,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
 		}
 	}
 
-	if (intmask & SDHCI_INT_RESPONSE)
+	if (intmask & SDHCI_INT_RESPONSE)	// 正常完成 cmd 处理
 		sdhci_finish_command(host);
 }
 
@@ -2875,7 +2875,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
 	u32 command;
 
 	/* CMD19 generates _only_ Buffer Read Ready interrupt */
-	if (intmask & SDHCI_INT_DATA_AVAIL) {
+	if (intmask & SDHCI_INT_DATA_AVAIL) {	// 如果是 cmd19 的话就直接这里退出了
 		command = SDHCI_GET_CMD(sdhci_readw(host, SDHCI_COMMAND));
 		if (command == MMC_SEND_TUNING_BLOCK ||
 		    command == MMC_SEND_TUNING_BLOCK_HS200) {
@@ -2885,7 +2885,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
 		}
 	}
 
-	if (!host->data) {
+	if (!host->data) {	// 没有 data，但是进到了 data irq；这里是异常的情况
 		struct mmc_command *data_cmd = host->data_cmd;
 
 		/*
@@ -2946,7 +2946,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
 			host->ops->adma_workaround(host, intmask);
 	}
 
-	if (host->data->error)
+	if (host->data->error)	// 处理异常的情况
 		sdhci_finish_data(host);
 	else {
 		if (intmask & (SDHCI_INT_DATA_AVAIL | SDHCI_INT_SPACE_AVAIL))
@@ -2978,8 +2978,8 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
 			sdhci_set_sdma_addr(host, dmanow);
 		}
 
-		if (intmask & SDHCI_INT_DATA_END) {
-			if (host->cmd == host->data_cmd) {
+		if (intmask & SDHCI_INT_DATA_END) {	// 传输完成；
+			if (host->cmd == host->data_cmd) {	// 这时候正常来说应该 host->cmd = null 了
 				/*
 				 * Data managed to finish before the
 				 * command completed. Make sure we do
@@ -3058,10 +3058,10 @@ static irqreturn_t sdhci_irq(int irq, void *dev_id)
 		}
 
 		if (intmask & SDHCI_INT_CMD_MASK)
-			sdhci_cmd_irq(host, intmask & SDHCI_INT_CMD_MASK, &intmask);
+			sdhci_cmd_irq(host, intmask & SDHCI_INT_CMD_MASK, &intmask);	// 处理 cmd 中断
 
 		if (intmask & SDHCI_INT_DATA_MASK)
-			sdhci_data_irq(host, intmask & SDHCI_INT_DATA_MASK);
+			sdhci_data_irq(host, intmask & SDHCI_INT_DATA_MASK);	// 处理 data 中断
 
 		if (intmask & SDHCI_INT_BUS_POWER)
 			pr_err("%s: Card is consuming too much power!\n",

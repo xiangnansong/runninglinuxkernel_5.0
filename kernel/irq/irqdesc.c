@@ -651,7 +651,7 @@ int __handle_domain_irq(struct irq_domain *domain, unsigned int hwirq,
 
 #ifdef CONFIG_IRQ_DOMAIN
 	if (lookup)
-		irq = irq_find_mapping(domain, hwirq);
+		irq = irq_find_mapping(domain, hwirq);	// 根据 domain 和 硬件中断号找到软件中断号
 #endif
 
 	/*
@@ -662,7 +662,7 @@ int __handle_domain_irq(struct irq_domain *domain, unsigned int hwirq,
 		ack_bad_irq(irq);
 		ret = -EINVAL;
 	} else {
-		generic_handle_irq(irq);
+		generic_handle_irq(irq);	// 进一步进行中断处理
 	}
 
 	irq_exit();

@@ -1322,7 +1322,7 @@ static void mmc_blk_eval_resp_error(struct mmc_blk_request *brq)
 
 static void mmc_blk_data_prep(struct mmc_queue *mq, struct mmc_queue_req *mqrq,
 			      int disable_multi, bool *do_rel_wr_p,
-			      bool *do_data_tag_p)
+			      bool *do_data_tag_p)	// 把 blk 层的参数转化到 mmc 层
 {
 	struct mmc_blk_data *md = mq->blkdata;
 	struct mmc_card *card = md->queue.card;
@@ -2179,22 +2179,22 @@ static int mmc_blk_mq_issue_rw_rq(struct mmc_queue *mq,
 	struct request *prev_req = NULL;
 	int err = 0;
 
-	mmc_blk_rw_rq_prep(mqrq, mq->card, 0, mq);
+	mmc_blk_rw_rq_prep(mqrq, mq->card, 0, mq);	// 准备MMC命令和数据结构
 
-	mqrq->brq.mrq.done = mmc_blk_mq_req_done;
+	mqrq->brq.mrq.done = mmc_blk_mq_req_done;	// 设置完成回调函数
 
-	mmc_pre_req(host, &mqrq->brq.mrq);
+	mmc_pre_req(host, &mqrq->brq.mrq);	// 执行DMA映射等硬件相关准备
 
-	err = mmc_blk_rw_wait(mq, &prev_req);
+	err = mmc_blk_rw_wait(mq, &prev_req);	// 等待前一个请求完成
 	if (err)
 		goto out_post_req;
 
 	mq->rw_wait = true;
 
-	err = mmc_start_request(host, &mqrq->brq.mrq);
+	err = mmc_start_request(host, &mqrq->brq.mrq);	// 启动MMC硬件请求
 
 	if (prev_req)
-		mmc_blk_mq_post_req(mq, prev_req);
+		mmc_blk_mq_post_req(mq, prev_req);	// 完成前一个请求的后处理
 
 	if (err)
 		mq->rw_wait = false;
@@ -2205,7 +2205,7 @@ static int mmc_blk_mq_issue_rw_rq(struct mmc_queue *mq,
 
 out_post_req:
 	if (err)
-		mmc_post_req(host, &mqrq->brq.mrq, err);
+		mmc_post_req(host, &mqrq->brq.mrq, err);	// 执行DMA取消映射等操作
 
 	return err;
 }

@@ -400,7 +400,7 @@ tsk	.req	x28		// current thread_info
  */
 	.macro	irq_handler
 	ldr_l	x1, handle_arch_irq
-	mov	x0, sp
+	mov	x0, sp		// 把栈指针传给中断处理函数
 	irq_stack_entry
 	blr	x1
 	irq_stack_exit

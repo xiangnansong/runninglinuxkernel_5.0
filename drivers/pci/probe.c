@@ -46,7 +46,7 @@ static struct resource *get_pci_domain_busn_res(int domain_nr)
 {
 	struct pci_domain_busn_res *r;
 
-	list_for_each_entry(r, &pci_domain_busn_res_list, list)
+	list_for_each_entry(r, &pci_domain_busn_res_list, list)	// 如果从 pci_domain_busn_res_list 中遍历, 找到 domain_nr 对应的资源，就直接返回；否则就创建一个出来
 		if (r->domain_nr == domain_nr)
 			return &r->res;
 
@@ -772,7 +772,7 @@ static void pci_set_bus_msi_domain(struct pci_bus *bus)
 
 static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 {
-	struct device *parent = bridge->dev.parent;
+	struct device *parent = bridge->dev.parent;	// 控制器 dev，主要用来解析设备树中的 domain 的
 	struct resource_entry *window, *n;
 	struct pci_bus *bus, *b;
 	resource_size_t offset;
@@ -782,20 +782,20 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 	const char *name;
 	int err;
 
-	bus = pci_alloc_bus(NULL);
+	bus = pci_alloc_bus(NULL);	// 创建一个 bus
 	if (!bus)
 		return -ENOMEM;
 
 	bridge->bus = bus;
 
 	/* Temporarily move resources off the list */
-	list_splice_init(&bridge->windows, &resources);
-	bus->sysdata = bridge->sysdata;
+	list_splice_init(&bridge->windows, &resources);	// 将bridge->windows链表中的所有节点移动到临时链表resources 同时将原bridge->windows链表初始化为空链表
+	bus->sysdata = bridge->sysdata;	// 初始化 bus 的一些成员
 	bus->msi = bridge->msi;
 	bus->ops = bridge->ops;
-	bus->number = bus->busn_res.start = bridge->busnr;
+	bus->number = bus->busn_res.start = bridge->busnr;	// 注意这个 bus 的 number 是 0
 #ifdef CONFIG_PCI_DOMAINS_GENERIC
-	bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+	bus->domain_nr = pci_bus_find_domain_nr(bus, parent);	// 获取 bus 的 domain；一般来说就是控制器编号
 #endif
 
 	b = pci_find_bus(pci_domain_nr(bus), bridge->busnr);
@@ -807,13 +807,13 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 	}
 
 	dev_set_name(&bridge->dev, "pci%04x:%02x", pci_domain_nr(bus),
-		     bridge->busnr);
+		     bridge->busnr);	// 根据 domain 和 bus 号来确定 bridge 的 name
 
-	err = pcibios_root_bridge_prepare(bridge);
+	err = pcibios_root_bridge_prepare(bridge);	// 空函数
 	if (err)
 		goto free;
 
-	err = device_register(&bridge->dev);
+	err = device_register(&bridge->dev);	// 把 bridge 注册进 device 框架中
 	if (err)
 		put_device(&bridge->dev);
 
@@ -826,12 +826,12 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 		set_dev_node(bus->bridge, pcibus_to_node(bus));
 
 	bus->dev.class = &pcibus_class;
-	bus->dev.parent = bus->bridge;
+	bus->dev.parent = bus->bridge;	// bus 的 parent 是 bridge
 
-	dev_set_name(&bus->dev, "%04x:%02x", pci_domain_nr(bus), bus->number);
+	dev_set_name(&bus->dev, "%04x:%02x", pci_domain_nr(bus), bus->number);	// 名字跟 bridge 的名字很像，少了 pci 
 	name = dev_name(&bus->dev);
 
-	err = device_register(&bus->dev);
+	err = device_register(&bus->dev);	// 把 bus 注册进 device 框架
 	if (err)
 		goto unregister;
 
@@ -846,15 +846,15 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 		pr_info("PCI host bridge to bus %s\n", name);
 
 	/* Add initial resources to the bus */
-	resource_list_for_each_entry_safe(window, n, &resources) {
-		list_move_tail(&window->node, &bridge->windows);
+	resource_list_for_each_entry_safe(window, n, &resources) {	// 从 resources 中遍历, 就是遍历所有的 bridge 资源
+		list_move_tail(&window->node, &bridge->windows);	// 移动到 bridge->windows 中
 		offset = window->offset;
 		res = window->res;
 
-		if (res->flags & IORESOURCE_BUS)
-			pci_bus_insert_busn_res(bus, bus->number, res->end);
+		if (res->flags & IORESOURCE_BUS)	// 对于不同类型的资源有不同的注册方式 
+			pci_bus_insert_busn_res(bus, bus->number, res->end); // 把 [number, end] 资源插入到 bus 的 parent 资源里面
 		else
-			pci_bus_add_resource(bus, res, 0);
+			pci_bus_add_resource(bus, res, 0);	// 把非bus资源资源添加到 bus 资源链表里面来
 
 		if (offset) {
 			if (resource_type(res) == IORESOURCE_IO)
@@ -872,7 +872,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
 	}
 
 	down_write(&pci_bus_sem);
-	list_add_tail(&bus->node, &pci_root_buses);
+	list_add_tail(&bus->node, &pci_root_buses);	// 把 bus 添加到 pci_root_buses 链表中
 	up_write(&pci_bus_sem);
 
 	return 0;
@@ -1071,7 +1071,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
 	 */
 	pm_runtime_get_sync(&dev->dev);
 
-	pci_read_config_dword(dev, PCI_PRIMARY_BUS, &buses);
+	pci_read_config_dword(dev, PCI_PRIMARY_BUS, &buses); // 0x1 - 0xff
 	primary = buses & 0xFF;
 	secondary = (buses >> 8) & 0xFF;
 	subordinate = (buses >> 16) & 0xFF;
@@ -1170,7 +1170,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
 		 */
 		child = pci_find_bus(pci_domain_nr(bus), max+1);
 		if (!child) {
-			child = pci_add_new_bus(bus, dev, max+1);
+			child = pci_add_new_bus(bus, dev, max+1);	// bus 是 root， dev 是从 root 扫到的 bridge dev
 			if (!child)
 				goto out;
 			pci_bus_insert_busn_res(child, max+1,
@@ -2290,10 +2290,10 @@ static struct pci_dev *pci_scan_device(struct pci_bus *bus, int devfn)
 	struct pci_dev *dev;
 	u32 l;
 
-	if (!pci_bus_read_dev_vendor_id(bus, devfn, &l, 60*1000))
+	if (!pci_bus_read_dev_vendor_id(bus, devfn, &l, 60*1000))	// 等通过 bdf 总线读取到 vendor id
 		return NULL;
 
-	dev = pci_alloc_dev(bus);
+	dev = pci_alloc_dev(bus);	// 分配出来一个 device
 	if (!dev)
 		return NULL;
 
@@ -2303,7 +2303,7 @@ static struct pci_dev *pci_scan_device(struct pci_bus *bus, int devfn)
 
 	pci_set_of_node(dev);
 
-	if (pci_setup_device(dev)) {
+	if (pci_setup_device(dev)) {	// 对这个 device 进行配置
 		pci_bus_put(dev->bus);
 		kfree(dev);
 		return NULL;
@@ -2469,7 +2469,7 @@ struct pci_dev *pci_scan_single_device(struct pci_bus *bus, int devfn)
 {
 	struct pci_dev *dev;
 
-	dev = pci_get_slot(bus, devfn);
+	dev = pci_get_slot(bus, devfn);	// 从现有的 list 中寻找
 	if (dev) {
 		pci_dev_put(dev);
 		return dev;
@@ -2564,7 +2564,7 @@ int pci_scan_slot(struct pci_bus *bus, int devfn)
 	if (!pci_dev_is_added(dev))
 		nr++;
 
-	for (fn = next_fn(bus, dev, 0); fn > 0; fn = next_fn(bus, dev, fn)) {
+	for (fn = next_fn(bus, dev, 0); fn > 0; fn = next_fn(bus, dev, fn)) {	// 扫描不同的 function
 		dev = pci_scan_single_device(bus, devfn + fn);
 		if (dev) {
 			if (!pci_dev_is_added(dev))
@@ -2763,7 +2763,7 @@ void __weak pcibios_fixup_bus(struct pci_bus *bus)
  * hierarchy.
  */
 static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
-					      unsigned int available_buses)
+					      unsigned int available_buses)	// 枚举
 {
 	unsigned int used_buses, normal_bridges = 0, hotplug_bridges = 0;
 	unsigned int start = bus->busn_res.start;
@@ -2774,8 +2774,8 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
 	dev_dbg(&bus->dev, "scanning bus\n");
 
 	/* Go find them, Rover! */
-	for (devfn = 0; devfn < 256; devfn += 8) {
-		nr_devs = pci_scan_slot(bus, devfn);
+	for (devfn = 0; devfn < 256; devfn += 8) {	// 扫描不同的 device；这里还没有扫描对端的 bar；
+		nr_devs = pci_scan_slot(bus, devfn);	// 这里首先搜索到的是 host pci，从这个再往下游才是外接的device 
 
 		/*
 		 * The Jailhouse hypervisor may pass individual functions of a
@@ -2793,7 +2793,7 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
 
 	/* Reserve buses for SR-IOV capability */
 	used_buses = pci_iov_bus_range(bus);
-	max += used_buses;
+	max += used_buses;	// max 是 0
 
 	/*
 	 * After performing arch-dependent fixup of the bus, look behind
@@ -2822,9 +2822,9 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
 	 * unless they are misconfigured (which will be done in the second
 	 * scan below).
 	 */
-	for_each_pci_bridge(dev, bus) {
+	for_each_pci_bridge(dev, bus) {	// 遍历这个bus上面所有的 bridge pci_dev
 		cmax = max;
-		max = pci_scan_bridge_extend(bus, dev, max, 0, 0);
+		max = pci_scan_bridge_extend(bus, dev, max, 0, 0);	// rescan host brigde 后面的 bus
 
 		/*
 		 * Reserve one bus for each bridge now to avoid extending
@@ -2836,7 +2836,7 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
 	}
 
 	/* Scan bridges that need to be reconfigured */
-	for_each_pci_bridge(dev, bus) {
+	for_each_pci_bridge(dev, bus) {	// 这里第二次 rescan 才是真正的配置
 		unsigned int buses = 0;
 
 		if (!hotplug_bridges && normal_bridges == 1) {
@@ -3007,7 +3007,7 @@ int pci_bus_insert_busn_res(struct pci_bus *b, int bus, int bus_max)
 		res->flags |= IORESOURCE_PCI_FIXED;
 	}
 
-	conflict = request_resource_conflict(parent_res, res);
+	conflict = __request_resource_conflict(parent_res, res);	// 把 res 资源插入到 parent 资源里面
 
 	if (conflict)
 		dev_printk(KERN_DEBUG, &b->dev,
@@ -3054,7 +3054,7 @@ void pci_bus_release_busn_res(struct pci_bus *b)
 			res, ret ? "can not be" : "is");
 }
 
-int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
+int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)	// 枚举 root bus
 {
 	struct resource_entry *window;
 	bool found = false;
@@ -3070,7 +3070,7 @@ int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
 			break;
 		}
 
-	ret = pci_register_host_bridge(bridge);
+	ret = pci_register_host_bridge(bridge);	// 首先把前面初始化的 bridge 注册进来，同时注册了 bus 0
 	if (ret < 0)
 		return ret;
 
@@ -3084,7 +3084,7 @@ int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
 		pci_bus_insert_busn_res(b, bus, 255);
 	}
 
-	max = pci_scan_child_bus(b);
+	max = pci_scan_child_bus(b);	// 开始进行枚举
 
 	if (!found)
 		pci_bus_update_busn_res_end(b, max);

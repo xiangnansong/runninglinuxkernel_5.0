@@ -342,7 +342,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
 
 	raw_spin_lock_init(&pci->pp.lock);
 
-	cfg_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "config");
+	cfg_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "config");	// 获取 pdev 的 config 资源
 	if (cfg_res) {
 		pp->cfg0_size = resource_size(cfg_res) >> 1;
 		pp->cfg1_size = resource_size(cfg_res) >> 1;
@@ -352,21 +352,21 @@ int dw_pcie_host_init(struct pcie_port *pp)
 		dev_err(dev, "Missing *config* reg space\n");
 	}
 
-	bridge = pci_alloc_host_bridge(0);
+	bridge = pci_alloc_host_bridge(0);	// 创建一个 host bridge 成员
 	if (!bridge)
 		return -ENOMEM;
 
 	ret = devm_of_pci_get_host_bridge_resources(dev, 0, 0xff,
-					&bridge->windows, &pp->io_base);
+					&bridge->windows, &pp->io_base);	//  解析 host bridge 资源，把 bus range 和 range 资源都解析出来，解析出来的结果放在 windows 里面
 	if (ret)
 		return ret;
 
-	ret = devm_request_pci_bus_resources(dev, &bridge->windows);
+	ret = devm_request_pci_bus_resources(dev, &bridge->windows);	// 申请资源
 	if (ret)
 		goto error;
 
 	/* Get the I/O and memory ranges from DT */
-	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {
+	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {	// 用解析出来的资源初始化 pp 
 		switch (resource_type(win->res)) {
 		case IORESOURCE_IO:
 			ret = devm_pci_remap_iospace(dev, win->res,
@@ -458,7 +458,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
 			}
 		}
 
-		if (!pp->ops->msi_host_init) {
+		if (!pp->ops->msi_host_init) {	// 创建 msi 中断的 irq domain
 			ret = dw_pcie_allocate_domains(pp);
 			if (ret)
 				goto error;
@@ -474,22 +474,22 @@ int dw_pcie_host_init(struct pcie_port *pp)
 		}
 	}
 
-	if (pp->ops->host_init) {
+	if (pp->ops->host_init) {	// 进行控制器硬件初始化
 		ret = pp->ops->host_init(pp);
 		if (ret)
 			goto error;
 	}
 
-	pp->root_bus_nr = pp->busn->start;
+	pp->root_bus_nr = pp->busn->start;	// 0
 
-	bridge->dev.parent = dev;
-	bridge->sysdata = pp;
-	bridge->busnr = pp->root_bus_nr;
+	bridge->dev.parent = dev;	// 下面开始初始化 host bridge。 host bridge 是一个 device， parent device 是 控制器节点
+	bridge->sysdata = pp;		// host brige 和 pp 之间是通过 sysdata 指针联系的
+	bridge->busnr = pp->root_bus_nr;	// 0 
 	bridge->ops = &dw_pcie_ops;
 	bridge->map_irq = of_irq_parse_and_map_pci;
 	bridge->swizzle_irq = pci_common_swizzle;
 
-	ret = pci_scan_root_bus_bridge(bridge);
+	ret = pci_scan_root_bus_bridge(bridge);		// 核心函数，开始进行枚举。这里的 pci_scan_root_bus_bridge 和 bridge 都是 pci 框架层面的。前面的所有流程都是为了这一步
 	if (ret)
 		goto error;
 
@@ -618,7 +618,7 @@ static int dw_pcie_rd_conf(struct pci_bus *bus, u32 devfn, int where,
 		return PCIBIOS_DEVICE_NOT_FOUND;
 	}
 
-	if (bus->number == pp->root_bus_nr)
+	if (bus->number == pp->root_bus_nr)	// 如果是 root bus，就从自己的配置空间读取
 		return dw_pcie_rd_own_conf(pp, where, size, val);
 
 	return dw_pcie_rd_other_conf(pp, bus, devfn, where, size, val);
