@@ -52,10 +52,9 @@ case $1 in
 		qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt \
 				    -m 100 -smp 2 -kernel arch/arm64/boot/Image \
 				    --append "rdinit=/linuxrc console=ttyAMA0" -nographic \
-				    --fsdev local,id=kmod_dev,path=$PWD/kmodules,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount \
-					-device pcie-root-port,id=root_port1,chassis=1,slot=1
-					    -device sdhci-pci \
-    					-device sd-card,drive=emmc \
-    					-drive if=none,id=emmc,file=emmc.img,format=raw \
+  					-nic none \
+  					-device pcie-root-port,id=rp1,bus=pcie.0,addr=0x1,chassis=1,slot=1 \
+  					-drive file=nvme.img,if=none,id=nvme0,format=raw \
+  					-device nvme,drive=nvme0,bus=rp1,addr=0x0,serial=nvme001 \
 				    $DBG ;;
 esac

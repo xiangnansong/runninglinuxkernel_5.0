@@ -3007,7 +3007,7 @@ int pci_bus_insert_busn_res(struct pci_bus *b, int bus, int bus_max)
 		res->flags |= IORESOURCE_PCI_FIXED;
 	}
 
-	conflict = __request_resource_conflict(parent_res, res);	// 把 res 资源插入到 parent 资源里面
+	conflict = request_resource_conflict(parent_res, res);	// 把 res 资源插入到 parent 资源里面
 
 	if (conflict)
 		dev_printk(KERN_DEBUG, &b->dev,

@@ -103,7 +103,7 @@ static struct ion_heap_ops carveout_heap_ops = {
 	.unmap_kernel = ion_heap_unmap_kernel,
 };
 
-struct ion_heap *ion_carveout_heap_create(struct ion_platform_heap *heap_data)
+struct ion_heap *ion_carveout_heap_create(struct ion_platform_heap *heap_data)	// 根据设备树中的信息来分配内存
 {
 	struct ion_carveout_heap *carveout_heap;
 	int ret;
@@ -111,7 +111,7 @@ struct ion_heap *ion_carveout_heap_create(struct ion_platform_heap *heap_data)
 	struct page *page;
 	size_t size;
 
-	page = pfn_to_page(PFN_DOWN(heap_data->base));
+	page = pfn_to_page(PFN_DOWN(heap_data->base));	// 物理地址转 page
 	size = heap_data->size;
 
 	ret = ion_heap_pages_zero(page, size, pgprot_writecombine(PAGE_KERNEL));
@@ -122,7 +122,7 @@ struct ion_heap *ion_carveout_heap_create(struct ion_platform_heap *heap_data)
 	if (!carveout_heap)
 		return ERR_PTR(-ENOMEM);
 
-	carveout_heap->pool = gen_pool_create(PAGE_SHIFT, -1);
+	carveout_heap->pool = gen_pool_create(PAGE_SHIFT, -1);	// 生成管理 page 的内存池
 	if (!carveout_heap->pool) {
 		kfree(carveout_heap);
 		return ERR_PTR(-ENOMEM);

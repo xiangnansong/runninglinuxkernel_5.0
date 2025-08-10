@@ -1081,7 +1081,7 @@ static int pbus_size_mem(struct pci_bus *bus, unsigned long mask,
 		}
 	}
 
-	min_align = calculate_mem_align(aligns, max_order);
+	min_align = calculate_mem_align(aligns, max_order);	// 根据扫描出来的资源值，分配对齐值
 	min_align = max(min_align, window_alignment(bus, b_res->flags));
 	size0 = calculate_memsize(size, min_size, 0, 0, resource_size(b_res), min_align);
 	add_align = max(min_align, add_align);

@@ -1,0 +1,1419 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 00000000..29e03143
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,177 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# NOTE! Don't add files that are generated in specific
++# subdirectories here. Add them in the ".gitignore" file
++# in that subdirectory instead.
++#
++# NOTE! Please use 'git ls-files -i -c --exclude-per-directory=.gitignore'
++# command after changing this file, to see if there are
++# any tracked files which get ignored after the change.
++#
++# Normal rules (sorted alphabetically)
++#
++.*
++*.a
++*.asn1.[ch]
++*.bin
++*.bz2
++*.c.[012]*.*
++*.cover
++*.dt.yaml
++*.dtb
++*.dtbo
++*.dtb.S
++*.dtbo.S
++*.dwo
++*.elf
++*.gcno
++*.gz
++*.i
++*.ko
++*.lex.c
++*.ll
++*.lst
++*.lz4
++*.lzma
++*.lzo
++*.mbx
++*.mod
++*.mod.c
++*.o
++*.o.*
++*.patch
++*.rmeta
++*.rpm
++*.rsi
++*.s
++*.so
++*.so.dbg
++*.su
++*.symtypes
++*.symversions
++*.tab.[ch]
++*.tar
++*.usyms
++*.xz
++*.zst
++*modules.builtin
++Module.symvers
++modules.order
++
++#
++# Top-level generic files
++#
++/linux
++/modules-only.symvers
++/vmlinux
++/vmlinux.32
++/vmlinux.map
++/vmlinux.symvers
++/vmlinux-gdb.py
++/vmlinuz
++/System.map
++/Module.markers
++/modules.builtin
++/modules.builtin.modinfo
++/modules.nsdeps
++
++#
++# RPM spec file (make rpm-pkg)
++#
++/*.spec
++/rpmbuild/
++
++#
++# Debian directory (make deb-pkg)
++#
++/debian/
++
++#
++# Snap directory (make snap-pkg)
++#
++/snap/
++
++#
++# tar directory (make tar*-pkg)
++#
++/tar-install/
++
++#
++# We don't want to ignore the following even if they are dot-files
++#
++!.clang-format
++!.cocciconfig
++!.get_maintainer.ignore
++!.gitattributes
++!.gitignore
++!.kunitconfig
++!.mailmap
++!.rustfmt.toml
++
++#
++# Generated include files
++#
++/include/config/
++/include/generated/
++/include/ksym/
++/arch/*/include/generated/
++
++# stgit generated dirs
++patches-*
++
++# quilt's files
++patches
++series
++
++# ctags files
++tags
++TAGS
++
++# cscope files
++cscope.*
++ncscope.*
++
++# gnu global files
++GPATH
++GRTAGS
++GSYMS
++GTAGS
++
++# id-utils files
++ID
++
++*.orig
++*~
++\#*#
++
++#
++# Leavings from module signing
++#
++extra_certificates
++signing_key.pem
++signing_key.priv
++signing_key.x509
++x509.genkey
++
++# Kconfig presets
++/all.config
++/alldef.config
++/allmod.config
++/allno.config
++/allrandom.config
++/allyes.config
++
++# Kconfig savedefconfig output
++/defconfig
++
++# Kdevelop4
++*.kdev4
++
++# Clang's compilation database file
++/compile_commands.json
++
++# Documentation toolchain
++sphinx_*/
++
++# Rust analyzer configuration
++/rust-project.json
+diff --git a/arch/arm64/configs/busybox_defconfig b/arch/arm64/configs/busybox_defconfig
+index f346c2dd..d15eaf92 100644
+--- a/arch/arm64/configs/busybox_defconfig
++++ b/arch/arm64/configs/busybox_defconfig
+@@ -4,10 +4,10 @@
+ #
+ 
+ #
+-# Compiler: aarch64-linux-gnu-gcc (Ubuntu/Linaro 5.5.0-12ubuntu1) 5.5.0 20171010
++# Compiler: aarch64-linux-gnu-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+ #
+ CONFIG_CC_IS_GCC=y
+-CONFIG_GCC_VERSION=50500
++CONFIG_GCC_VERSION=90400
+ CONFIG_CLANG_VERSION=0
+ CONFIG_CC_HAS_ASM_GOTO=y
+ CONFIG_IRQ_WORK=y
+@@ -210,6 +210,7 @@ CONFIG_FIX_EARLYCON_MEM=y
+ CONFIG_PGTABLE_LEVELS=4
+ CONFIG_ARCH_SUPPORTS_UPROBES=y
+ CONFIG_ARCH_PROC_KCORE_TEXT=y
++CONFIG_HAVE_LIVEPATCH=y
+ 
+ #
+ # Platform selection
+@@ -353,10 +354,9 @@ CONFIG_ARM64_CNP=y
+ #
+ CONFIG_ARM64_PTR_AUTH=y
+ CONFIG_ARM64_SVE=y
+-CONFIG_ARM64_MODULE_PLTS=y
+-CONFIG_RELOCATABLE=y
+-CONFIG_RANDOMIZE_BASE=y
+-CONFIG_RANDOMIZE_MODULE_REGION_FULL=y
++# CONFIG_RANDOMIZE_BASE is not set
++CONFIG_CC_HAVE_STACKPROTECTOR_SYSREG=y
++CONFIG_STACKPROTECTOR_PER_TASK=y
+ 
+ #
+ # Boot options
+@@ -574,13 +574,13 @@ CONFIG_HAVE_VIRT_CPU_ACCOUNTING_GEN=y
+ CONFIG_HAVE_IRQ_TIME_ACCOUNTING=y
+ CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE=y
+ CONFIG_HAVE_ARCH_HUGE_VMAP=y
+-CONFIG_HAVE_MOD_ARCH_SPECIFIC=y
+ CONFIG_MODULES_USE_ELF_RELA=y
+ CONFIG_ARCH_HAS_ELF_RANDOMIZE=y
+ CONFIG_HAVE_ARCH_MMAP_RND_BITS=y
+ CONFIG_ARCH_MMAP_RND_BITS=18
+ CONFIG_HAVE_ARCH_MMAP_RND_COMPAT_BITS=y
+ CONFIG_ARCH_MMAP_RND_COMPAT_BITS=11
++CONFIG_HAVE_RELIABLE_STACKTRACE=y
+ CONFIG_CLONE_BACKWARDS=y
+ CONFIG_OLD_SIGSUSPEND3=y
+ CONFIG_COMPAT_OLD_SIGACTION=y
+@@ -1709,7 +1709,32 @@ CONFIG_LOGO_LINUX_CLUT224=y
+ CONFIG_USB_OHCI_LITTLE_ENDIAN=y
+ # CONFIG_USB_SUPPORT is not set
+ # CONFIG_UWB is not set
+-# CONFIG_MMC is not set
++CONFIG_MMC=y
++CONFIG_PWRSEQ_EMMC=y
++CONFIG_PWRSEQ_SIMPLE=y
++CONFIG_MMC_BLOCK=y
++CONFIG_MMC_BLOCK_MINORS=8
++# CONFIG_SDIO_UART is not set
++CONFIG_MMC_TEST=y
++
++#
++# MMC/SD/SDIO Host Controller Drivers
++#
++# CONFIG_MMC_DEBUG is not set
++# CONFIG_MMC_ARMMMCI is not set
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_PCI=y
++CONFIG_MMC_RICOH_MMC=y
++# CONFIG_MMC_SDHCI_ACPI is not set
++# CONFIG_MMC_SDHCI_PLTFM is not set
++# CONFIG_MMC_TIFM_SD is not set
++# CONFIG_MMC_CB710 is not set
++# CONFIG_MMC_VIA_SDMMC is not set
++# CONFIG_MMC_DW is not set
++# CONFIG_MMC_USDHI6ROL0 is not set
++CONFIG_MMC_CQHCI=y
++# CONFIG_MMC_TOSHIBA_PCI is not set
++# CONFIG_MMC_MTK is not set
+ # CONFIG_MEMSTICK is not set
+ # CONFIG_NEW_LEDS is not set
+ # CONFIG_ACCESSIBILITY is not set
+@@ -2534,6 +2559,8 @@ CONFIG_CC_HAS_KASAN_GENERIC=y
+ # CONFIG_KASAN is not set
+ CONFIG_KASAN_STACK=1
+ CONFIG_ARCH_HAS_KCOV=y
++CONFIG_CC_HAS_SANCOV_TRACE_PC=y
++# CONFIG_KCOV is not set
+ # CONFIG_DEBUG_SHIRQ is not set
+ 
+ #
+@@ -2573,6 +2600,7 @@ CONFIG_LOCK_DEBUGGING_SUPPORT=y
+ # CONFIG_DEBUG_LOCKING_API_SELFTESTS is not set
+ # CONFIG_LOCK_TORTURE_TEST is not set
+ # CONFIG_WW_MUTEX_SELFTEST is not set
++CONFIG_TRACE_IRQFLAGS=y
+ CONFIG_STACKTRACE=y
+ # CONFIG_WARN_ALL_UNSEEDED_RANDOM is not set
+ # CONFIG_DEBUG_KOBJECT is not set
+@@ -2602,6 +2630,7 @@ CONFIG_NOP_TRACER=y
+ CONFIG_HAVE_FUNCTION_TRACER=y
+ CONFIG_HAVE_FUNCTION_GRAPH_TRACER=y
+ CONFIG_HAVE_DYNAMIC_FTRACE=y
++CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS=y
+ CONFIG_HAVE_FTRACE_MCOUNT_RECORD=y
+ CONFIG_HAVE_SYSCALL_TRACEPOINTS=y
+ CONFIG_HAVE_C_RECORDMCOUNT=y
+@@ -2610,19 +2639,21 @@ CONFIG_TRACE_CLOCK=y
+ CONFIG_RING_BUFFER=y
+ CONFIG_EVENT_TRACING=y
+ CONFIG_CONTEXT_SWITCH_TRACER=y
++CONFIG_RING_BUFFER_ALLOW_SWAP=y
++CONFIG_PREEMPTIRQ_TRACEPOINTS=y
+ CONFIG_TRACING=y
+ CONFIG_GENERIC_TRACER=y
+ CONFIG_TRACING_SUPPORT=y
+ CONFIG_FTRACE=y
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_FUNCTION_GRAPH_TRACER=y
+-# CONFIG_PREEMPTIRQ_EVENTS is not set
+-# CONFIG_IRQSOFF_TRACER is not set
+-# CONFIG_SCHED_TRACER is not set
++CONFIG_PREEMPTIRQ_EVENTS=y
++CONFIG_IRQSOFF_TRACER=y
++CONFIG_SCHED_TRACER=y
+ # CONFIG_HWLAT_TRACER is not set
+ CONFIG_FTRACE_SYSCALLS=y
+ CONFIG_TRACER_SNAPSHOT=y
+-# CONFIG_TRACER_SNAPSHOT_PER_CPU_SWAP is not set
++CONFIG_TRACER_SNAPSHOT_PER_CPU_SWAP=y
+ CONFIG_BRANCH_PROFILE_NONE=y
+ # CONFIG_PROFILE_ANNOTATED_BRANCHES is not set
+ # CONFIG_PROFILE_ALL_BRANCHES is not set
+@@ -2634,6 +2665,7 @@ CONFIG_BPF_EVENTS=y
+ CONFIG_DYNAMIC_EVENTS=y
+ CONFIG_PROBE_EVENTS=y
+ CONFIG_DYNAMIC_FTRACE=y
++CONFIG_DYNAMIC_FTRACE_WITH_REGS=y
+ # CONFIG_FUNCTION_PROFILER is not set
+ CONFIG_FTRACE_MCOUNT_RECORD=y
+ # CONFIG_FTRACE_STARTUP_TEST is not set
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index 23f5c7d8..70a14e9f 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -400,7 +400,7 @@ tsk	.req	x28		// current thread_info
+  */
+ 	.macro	irq_handler
+ 	ldr_l	x1, handle_arch_irq
+-	mov	x0, sp
++	mov	x0, sp		// 把栈指针传给中断处理函数
+ 	irq_stack_entry
+ 	blr	x1
+ 	irq_stack_exit
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index 0868a9d8..ed0dcdd0 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -350,11 +350,11 @@ static u64 gic_mpidr_to_affinity(unsigned long mpidr)
+ 	return aff;
+ }
+ 
+-static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)
++static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)	//gic 的中断处理函数
+ {
+ 	u32 irqnr;
+ 
+-	irqnr = gic_read_iar();
++	irqnr = gic_read_iar();	// 获取硬件中断号
+ 
+ 	if (likely(irqnr > 15 && irqnr < 1020) || irqnr >= 8192) {
+ 		int err;
+@@ -376,7 +376,7 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
+ 		}
+ 		return;
+ 	}
+-	if (irqnr < 16) {
++	if (irqnr < 16) {	// 处理 ipi 中断
+ 		gic_write_eoir(irqnr);
+ 		if (static_branch_likely(&supports_deactivate_key))
+ 			gic_write_dir(irqnr);
+@@ -1137,7 +1137,7 @@ static int __init gic_init_bases(void __iomem *dist_base,
+ 			pr_err("Failed to initialize MBIs\n");
+ 	}
+ 
+-	set_handle_irq(gic_handle_irq);
++	set_handle_irq(gic_handle_irq);	// 配置中断处理函数
+ 
+ 	gic_update_vlpi_properties();
+ 
+diff --git a/drivers/irqchip/irq-xilinx-intc.c b/drivers/irqchip/irq-xilinx-intc.c
+index e3043ded..2023c2b2 100644
+--- a/drivers/irqchip/irq-xilinx-intc.c
++++ b/drivers/irqchip/irq-xilinx-intc.c
+@@ -201,7 +201,7 @@ static int __init xilinx_intc_of_init(struct device_node *intc,
+ 
+ 	/* Turn on the Master Enable. */
+ 	xintc_write(MER, MER_HIE | MER_ME);
+-	if (!(xintc_read(MER) & (MER_HIE | MER_ME))) {
++	if (!(xintc_read(MER) & (MER_HIE | MER_ME))) {   
+ 		static_branch_enable(&xintc_is_be);
+ 		xintc_write(MER, MER_HIE | MER_ME);
+ 	}
+@@ -214,7 +214,7 @@ static int __init xilinx_intc_of_init(struct device_node *intc,
+ 	}
+ 
+ 	if (parent) {
+-		irq = irq_of_parse_and_map(intc, 0);
++		irq = irq_of_parse_and_map(intc, 0);	// 获取在父节点下的中断号
+ 		if (irq) {
+ 			irq_set_chained_handler_and_data(irq,
+ 							 xil_intc_irq_handler,
+diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
+index 9ce8eb51..ae16206f 100644
+--- a/drivers/mmc/core/block.c
++++ b/drivers/mmc/core/block.c
+@@ -1322,7 +1322,7 @@ static void mmc_blk_eval_resp_error(struct mmc_blk_request *brq)
+ 
+ static void mmc_blk_data_prep(struct mmc_queue *mq, struct mmc_queue_req *mqrq,
+ 			      int disable_multi, bool *do_rel_wr_p,
+-			      bool *do_data_tag_p)
++			      bool *do_data_tag_p)	// 把 blk 层的参数转化到 mmc 层
+ {
+ 	struct mmc_blk_data *md = mq->blkdata;
+ 	struct mmc_card *card = md->queue.card;
+@@ -2179,22 +2179,22 @@ static int mmc_blk_mq_issue_rw_rq(struct mmc_queue *mq,
+ 	struct request *prev_req = NULL;
+ 	int err = 0;
+ 
+-	mmc_blk_rw_rq_prep(mqrq, mq->card, 0, mq);
++	mmc_blk_rw_rq_prep(mqrq, mq->card, 0, mq);	// 准备MMC命令和数据结构
+ 
+-	mqrq->brq.mrq.done = mmc_blk_mq_req_done;
++	mqrq->brq.mrq.done = mmc_blk_mq_req_done;	// 设置完成回调函数
+ 
+-	mmc_pre_req(host, &mqrq->brq.mrq);
++	mmc_pre_req(host, &mqrq->brq.mrq);	// 执行DMA映射等硬件相关准备
+ 
+-	err = mmc_blk_rw_wait(mq, &prev_req);
++	err = mmc_blk_rw_wait(mq, &prev_req);	// 等待前一个请求完成
+ 	if (err)
+ 		goto out_post_req;
+ 
+ 	mq->rw_wait = true;
+ 
+-	err = mmc_start_request(host, &mqrq->brq.mrq);
++	err = mmc_start_request(host, &mqrq->brq.mrq);	// 启动MMC硬件请求
+ 
+ 	if (prev_req)
+-		mmc_blk_mq_post_req(mq, prev_req);
++		mmc_blk_mq_post_req(mq, prev_req);	// 完成前一个请求的后处理
+ 
+ 	if (err)
+ 		mq->rw_wait = false;
+@@ -2205,7 +2205,7 @@ static int mmc_blk_mq_issue_rw_rq(struct mmc_queue *mq,
+ 
+ out_post_req:
+ 	if (err)
+-		mmc_post_req(host, &mqrq->brq.mrq, err);
++		mmc_post_req(host, &mqrq->brq.mrq, err);	// 执行DMA取消映射等操作
+ 
+ 	return err;
+ }
+diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
+index b27a1e62..f91de286 100644
+--- a/drivers/mmc/core/core.c
++++ b/drivers/mmc/core/core.c
+@@ -302,12 +302,12 @@ static int mmc_mrq_prep(struct mmc_host *host, struct mmc_request *mrq)
+ 	unsigned int i, sz = 0;
+ 	struct scatterlist *sg;
+ 
+-	if (mrq->cmd) {
++	if (mrq->cmd) {	// 初始化 cmd 
+ 		mrq->cmd->error = 0;
+ 		mrq->cmd->mrq = mrq;
+ 		mrq->cmd->data = mrq->data;
+ 	}
+-	if (mrq->sbc) {
++	if (mrq->sbc) {	// 初始化 sbc
+ 		mrq->sbc->error = 0;
+ 		mrq->sbc->mrq = mrq;
+ 	}
+@@ -463,7 +463,7 @@ int mmc_cqe_start_req(struct mmc_host *host, struct mmc_request *mrq)
+ 
+ 	mrq->host = host;
+ 
+-	mmc_mrq_pr_debug(host, mrq, true);
++	mmc_mrq_pr_debug(host, mrq, true);	// 打印 debug 信息
+ 
+ 	err = mmc_mrq_prep(host, mrq);
+ 	if (err)
+diff --git a/drivers/mmc/host/cqhci.c b/drivers/mmc/host/cqhci.c
+index a8af682a..77c61701 100644
+--- a/drivers/mmc/host/cqhci.c
++++ b/drivers/mmc/host/cqhci.c
+@@ -39,12 +39,12 @@ struct cqhci_slot {
+ #define CQHCI_HOST_OTHER	BIT(4)
+ };
+ 
+-static inline u8 *get_desc(struct cqhci_host *cq_host, u8 tag)
++static inline u8 *get_desc(struct cqhci_host *cq_host, u8 tag)	// 获取 task 描述符
+ {
+ 	return cq_host->desc_base + (tag * cq_host->slot_sz);
+ }
+ 
+-static inline u8 *get_link_desc(struct cqhci_host *cq_host, u8 tag)
++static inline u8 *get_link_desc(struct cqhci_host *cq_host, u8 tag)	// 获取 link 描述符
+ {
+ 	u8 *desc = get_desc(cq_host, tag);
+ 
+@@ -55,33 +55,33 @@ static inline dma_addr_t get_trans_desc_dma(struct cqhci_host *cq_host, u8 tag)
+ {
+ 	return cq_host->trans_desc_dma_base +
+ 		(cq_host->mmc->max_segs * tag *
+-		 cq_host->trans_desc_len);
++		 cq_host->trans_desc_len);	// max seq 表示有多少个
+ }
+ 
+-static inline u8 *get_trans_desc(struct cqhci_host *cq_host, u8 tag)
++static inline u8 *get_trans_desc(struct cqhci_host *cq_host, u8 tag)	// 获取传输描述符
+ {
+ 	return cq_host->trans_desc_base +
+ 		(cq_host->trans_desc_len * cq_host->mmc->max_segs * tag);
+ }
+ 
+-static void setup_trans_desc(struct cqhci_host *cq_host, u8 tag)
++static void setup_trans_desc(struct cqhci_host *cq_host, u8 tag)	// 完成 link 描述符配置
+ {
+ 	u8 *link_temp;
+ 	dma_addr_t trans_temp;
+ 
+-	link_temp = get_link_desc(cq_host, tag);
+-	trans_temp = get_trans_desc_dma(cq_host, tag);
++	link_temp = get_link_desc(cq_host, tag);	// 获取 link 描述符
++	trans_temp = get_trans_desc_dma(cq_host, tag);	// 获取 trans 描述符
+ 
+ 	memset(link_temp, 0, cq_host->link_desc_len);
+ 	if (cq_host->link_desc_len > 8)
+ 		*(link_temp + 8) = 0;
+ 
+ 	if (tag == DCMD_SLOT && (cq_host->mmc->caps2 & MMC_CAP2_CQE_DCMD)) {
+-		*link_temp = CQHCI_VALID(0) | CQHCI_ACT(0) | CQHCI_END(1);
++		*link_temp = CQHCI_VALID(0) | CQHCI_ACT(0) | CQHCI_END(1);	// dcmd 不使用 link 描述符
+ 		return;
+ 	}
+ 
+-	*link_temp = CQHCI_VALID(1) | CQHCI_ACT(0x6) | CQHCI_END(0);
++	*link_temp = CQHCI_VALID(1) | CQHCI_ACT(0x6) | CQHCI_END(0);	// 配置 link 描述符
+ 
+ 	if (cq_host->dma64) {
+ 		__le64 *data_addr = (__le64 __force *)(link_temp + 4);
+@@ -216,14 +216,14 @@ static int cqhci_host_alloc_tdl(struct cqhci_host *cq_host)
+ 	cq_host->desc_base = dmam_alloc_coherent(mmc_dev(cq_host->mmc),
+ 						 cq_host->desc_size,
+ 						 &cq_host->desc_dma_base,
+-						 GFP_KERNEL);
++						 GFP_KERNEL);	// 第三个参数是 dma 的物理地址。分配 task 描述符空间
+ 	if (!cq_host->desc_base)
+ 		return -ENOMEM;
+ 
+ 	cq_host->trans_desc_base = dmam_alloc_coherent(mmc_dev(cq_host->mmc),
+ 					      cq_host->data_size,
+ 					      &cq_host->trans_desc_dma_base,
+-					      GFP_KERNEL);
++					      GFP_KERNEL);	// 分配 trans 描述符空间
+ 	if (!cq_host->trans_desc_base) {
+ 		dmam_free_coherent(mmc_dev(cq_host->mmc), cq_host->desc_size,
+ 				   cq_host->desc_base,
+@@ -238,13 +238,13 @@ static int cqhci_host_alloc_tdl(struct cqhci_host *cq_host)
+ 		(unsigned long long)cq_host->desc_dma_base,
+ 		(unsigned long long)cq_host->trans_desc_dma_base);
+ 
+-	for (; i < (cq_host->num_slots); i++)
++	for (; i < (cq_host->num_slots); i++)	// 配置 trans 描述符
+ 		setup_trans_desc(cq_host, i);
+ 
+ 	return 0;
+ }
+ 
+-static void __cqhci_enable(struct cqhci_host *cq_host)
++static void __cqhci_enable(struct cqhci_host *cq_host)	// 使能 cqe
+ {
+ 	struct mmc_host *mmc = cq_host->mmc;
+ 	u32 cqcfg;
+@@ -408,7 +408,7 @@ static void cqhci_disable(struct mmc_host *mmc)
+ }
+ 
+ static void cqhci_prep_task_desc(struct mmc_request *mrq,
+-					u64 *data, bool intr)
++					u64 *data, bool intr)	//配置 task 描述符； task 描述符主要描述 blk 地址； link 描述符主要描述内存地址
+ {
+ 	u32 req_flags = mrq->data->flags;
+ 
+@@ -440,7 +440,7 @@ static int cqhci_dma_map(struct mmc_host *host, struct mmc_request *mrq)
+ 	sg_count = dma_map_sg(mmc_dev(host), data->sg,
+ 			      data->sg_len,
+ 			      (data->flags & MMC_DATA_WRITE) ?
+-			      DMA_TO_DEVICE : DMA_FROM_DEVICE);
++			      DMA_TO_DEVICE : DMA_FROM_DEVICE);	// 执行 dma 映射
+ 	if (!sg_count) {
+ 		pr_err("%s: sg-len: %d\n", __func__, data->sg_len);
+ 		return -ENOMEM;
+@@ -450,7 +450,7 @@ static int cqhci_dma_map(struct mmc_host *host, struct mmc_request *mrq)
+ }
+ 
+ static void cqhci_set_tran_desc(u8 *desc, dma_addr_t addr, int len, bool end,
+-				bool dma64)
++				bool dma64)	// 配置 trans 描述符
+ {
+ 	__le32 *attr = (__le32 __force *)desc;
+ 
+@@ -482,14 +482,14 @@ static int cqhci_prep_tran_desc(struct mmc_request *mrq,
+ 	u8 *desc;
+ 	struct scatterlist *sg;
+ 
+-	sg_count = cqhci_dma_map(mrq->host, mrq);
++	sg_count = cqhci_dma_map(mrq->host, mrq);	// 映射 dma 地址
+ 	if (sg_count < 0) {
+ 		pr_err("%s: %s: unable to map sg lists, %d\n",
+ 				mmc_hostname(mrq->host), __func__, sg_count);
+ 		return sg_count;
+ 	}
+ 
+-	desc = get_trans_desc(cq_host, tag);
++	desc = get_trans_desc(cq_host, tag);	// 获取 tag 对应的 trans 描述符
+ 
+ 	for_each_sg(data->sg, sg, sg_count, i) {
+ 		addr = sg_dma_address(sg);
+@@ -497,7 +497,7 @@ static int cqhci_prep_tran_desc(struct mmc_request *mrq,
+ 
+ 		if ((i+1) == sg_count)
+ 			end = true;
+-		cqhci_set_tran_desc(desc, addr, len, end, dma64);
++		cqhci_set_tran_desc(desc, addr, len, end, dma64);	// 配置 trans 描述符
+ 		desc += cq_host->trans_desc_len;
+ 	}
+ 
+@@ -528,7 +528,7 @@ static void cqhci_prep_dcmd_desc(struct mmc_host *mmc,
+ 		}
+ 	}
+ 
+-	task_desc = (__le64 __force *)get_desc(cq_host, cq_host->dcmd_slot);
++	task_desc = (__le64 __force *)get_desc(cq_host, cq_host->dcmd_slot);	// 获取 task 描述符
+ 	memset(task_desc, 0, cq_host->task_desc_len);
+ 	data |= (CQHCI_VALID(1) |
+ 		 CQHCI_END(1) |
+@@ -562,7 +562,7 @@ static inline int cqhci_tag(struct mmc_request *mrq)
+ 	return mrq->cmd ? DCMD_SLOT : mrq->tag;
+ }
+ 
+-static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
++static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)	// 关键函数，上层调用这里进行请求的发送
+ {
+ 	int err = 0;
+ 	u64 data = 0;
+@@ -594,9 +594,9 @@ static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
+ 
+ 	if (mrq->data) {
+ 		task_desc = (__le64 __force *)get_desc(cq_host, tag);
+-		cqhci_prep_task_desc(mrq, &data, 1);
+-		*task_desc = cpu_to_le64(data);
+-		err = cqhci_prep_tran_desc(mrq, cq_host, tag);
++		cqhci_prep_task_desc(mrq, &data, 1);	// 注意这里的 int 是 1， 表示不使用中断聚合功能
++		*task_desc = cpu_to_le64(data);			// 写入 task 描述符
++		err = cqhci_prep_tran_desc(mrq, cq_host, tag);	// 配置 trans 描述符
+ 		if (err) {
+ 			pr_err("%s: cqhci: failed to setup tx desc: %d\n",
+ 			       mmc_hostname(mmc), err);
+@@ -618,7 +618,7 @@ static int cqhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
+ 
+ 	cq_host->qcnt += 1;
+ 
+-	cqhci_writel(cq_host, 1 << tag, CQHCI_TDBR);
++	cqhci_writel(cq_host, 1 << tag, CQHCI_TDBR);	// 配置完描述符之后是能对应的 dollbell
+ 	if (!(cqhci_readl(cq_host, CQHCI_TDBR) & (1 << tag)))
+ 		pr_debug("%s: cqhci: doorbell not set for tag %d\n",
+ 			 mmc_hostname(mmc), tag);
+@@ -757,7 +757,7 @@ static void cqhci_finish_mrq(struct mmc_host *mmc, unsigned int tag)
+ }
+ 
+ irqreturn_t cqhci_irq(struct mmc_host *mmc, u32 intmask, int cmd_error,
+-		      int data_error)
++		      int data_error)		// 中断处理
+ {
+ 	u32 status;
+ 	unsigned long tag = 0, comp_status;
+diff --git a/drivers/mmc/host/sdhci.c b/drivers/mmc/host/sdhci.c
+index eba9bcc9..4ad042db 100644
+--- a/drivers/mmc/host/sdhci.c
++++ b/drivers/mmc/host/sdhci.c
+@@ -1293,7 +1293,7 @@ static void sdhci_finish_data(struct sdhci_host *host)
+ 	 */
+ 	if (data->stop &&
+ 	    (data->error ||
+-	     !data->mrq->sbc)) {
++	     !data->mrq->sbc)) {	// 如果有 stop 并且出现了 error 的情况
+ 		/*
+ 		 * 'cap_cmd_during_tfr' request must not use the command line
+ 		 * after mmc_command_done() has been called. It is upper layer's
+@@ -1446,7 +1446,7 @@ static void sdhci_finish_command(struct sdhci_host *host)
+ 
+ 	host->cmd = NULL;
+ 
+-	if (cmd->flags & MMC_RSP_PRESENT) {
++	if (cmd->flags & MMC_RSP_PRESENT) {	// 读取 resp 值
+ 		if (cmd->flags & MMC_RSP_136) {
+ 			sdhci_read_rsp_136(host, cmd);
+ 		} else {
+@@ -1467,7 +1467,7 @@ static void sdhci_finish_command(struct sdhci_host *host)
+ 	 *       feature so there might be some problems with older
+ 	 *       controllers.
+ 	 */
+-	if (cmd->flags & MMC_RSP_BUSY) {
++	if (cmd->flags & MMC_RSP_BUSY) {	// 如果有 busy 信号，这里就不等待了
+ 		if (cmd->data) {
+ 			DBG("Cannot wait for busy signal when also doing a data transfer");
+ 		} else if (!(host->quirks & SDHCI_QUIRK_NO_BUSY_IRQ) &&
+@@ -1478,12 +1478,12 @@ static void sdhci_finish_command(struct sdhci_host *host)
+ 	}
+ 
+ 	/* Finished CMD23, now send actual command. */
+-	if (cmd == cmd->mrq->sbc) {
++	if (cmd == cmd->mrq->sbc) {	// 如果完成的是 sbc，后面就开始发送读写指令
+ 		sdhci_send_command(host, cmd->mrq->cmd);
+ 	} else {
+ 
+ 		/* Processed actual command. */
+-		if (host->data && host->data_early)
++		if (host->data && host->data_early)	// 如果 data 提前完成了，这里就 finish data。（先不管这里，考虑正常的流程）
+ 			sdhci_finish_data(host);
+ 
+ 		if (!cmd->data)
+@@ -2789,7 +2789,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
+ 		}
+ 	}
+ 
+-	if (!host->cmd) {
++	if (!host->cmd) {	// 没有 cmd 却触发了 cmd 异常
+ 		/*
+ 		 * SDHCI recovers from errors by resetting the cmd and data
+ 		 * circuits.  Until that is done, there very well might be more
+@@ -2804,7 +2804,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
+ 	}
+ 
+ 	if (intmask & (SDHCI_INT_TIMEOUT | SDHCI_INT_CRC |
+-		       SDHCI_INT_END_BIT | SDHCI_INT_INDEX)) {
++		       SDHCI_INT_END_BIT | SDHCI_INT_INDEX)) {	// 如果是 cmd 异常
+ 		if (intmask & SDHCI_INT_TIMEOUT)
+ 			host->cmd->error = -ETIMEDOUT;
+ 		else
+@@ -2838,7 +2838,7 @@ static void sdhci_cmd_irq(struct sdhci_host *host, u32 intmask, u32 *intmask_p)
+ 		}
+ 	}
+ 
+-	if (intmask & SDHCI_INT_RESPONSE)
++	if (intmask & SDHCI_INT_RESPONSE)	// 正常完成 cmd 处理
+ 		sdhci_finish_command(host);
+ }
+ 
+@@ -2875,7 +2875,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
+ 	u32 command;
+ 
+ 	/* CMD19 generates _only_ Buffer Read Ready interrupt */
+-	if (intmask & SDHCI_INT_DATA_AVAIL) {
++	if (intmask & SDHCI_INT_DATA_AVAIL) {	// 如果是 cmd19 的话就直接这里退出了
+ 		command = SDHCI_GET_CMD(sdhci_readw(host, SDHCI_COMMAND));
+ 		if (command == MMC_SEND_TUNING_BLOCK ||
+ 		    command == MMC_SEND_TUNING_BLOCK_HS200) {
+@@ -2885,7 +2885,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
+ 		}
+ 	}
+ 
+-	if (!host->data) {
++	if (!host->data) {	// 没有 data，但是进到了 data irq；这里是异常的情况
+ 		struct mmc_command *data_cmd = host->data_cmd;
+ 
+ 		/*
+@@ -2946,7 +2946,7 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
+ 			host->ops->adma_workaround(host, intmask);
+ 	}
+ 
+-	if (host->data->error)
++	if (host->data->error)	// 处理异常的情况
+ 		sdhci_finish_data(host);
+ 	else {
+ 		if (intmask & (SDHCI_INT_DATA_AVAIL | SDHCI_INT_SPACE_AVAIL))
+@@ -2978,8 +2978,8 @@ static void sdhci_data_irq(struct sdhci_host *host, u32 intmask)
+ 			sdhci_set_sdma_addr(host, dmanow);
+ 		}
+ 
+-		if (intmask & SDHCI_INT_DATA_END) {
+-			if (host->cmd == host->data_cmd) {
++		if (intmask & SDHCI_INT_DATA_END) {	// 传输完成；
++			if (host->cmd == host->data_cmd) {	// 这时候正常来说应该 host->cmd = null 了
+ 				/*
+ 				 * Data managed to finish before the
+ 				 * command completed. Make sure we do
+@@ -3058,10 +3058,10 @@ static irqreturn_t sdhci_irq(int irq, void *dev_id)
+ 		}
+ 
+ 		if (intmask & SDHCI_INT_CMD_MASK)
+-			sdhci_cmd_irq(host, intmask & SDHCI_INT_CMD_MASK, &intmask);
++			sdhci_cmd_irq(host, intmask & SDHCI_INT_CMD_MASK, &intmask);	// 处理 cmd 中断
+ 
+ 		if (intmask & SDHCI_INT_DATA_MASK)
+-			sdhci_data_irq(host, intmask & SDHCI_INT_DATA_MASK);
++			sdhci_data_irq(host, intmask & SDHCI_INT_DATA_MASK);	// 处理 data 中断
+ 
+ 		if (intmask & SDHCI_INT_BUS_POWER)
+ 			pr_err("%s: Card is consuming too much power!\n",
+diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
+index 5cb40b25..66d24407 100644
+--- a/drivers/pci/bus.c
++++ b/drivers/pci/bus.c
+@@ -97,9 +97,9 @@ int devm_request_pci_bus_resources(struct device *dev,
+ 	struct resource *parent, *res;
+ 	int err;
+ 
+-	resource_list_for_each_entry(win, resources) {
++	resource_list_for_each_entry(win, resources) {	// 遍历所有资源
+ 		res = win->res;
+-		switch (resource_type(res)) {
++		switch (resource_type(res)) {	// 根据资源类型获取父资源
+ 		case IORESOURCE_IO:
+ 			parent = &ioport_resource;
+ 			break;
+@@ -110,7 +110,7 @@ int devm_request_pci_bus_resources(struct device *dev,
+ 			continue;
+ 		}
+ 
+-		err = devm_request_resource(dev, parent, res);
++		err = devm_request_resource(dev, parent, res);	// 把前面解析出来的 range 资源都申请注册进来
+ 		if (err)
+ 			return err;
+ 	}
+diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+index 721d60a5..72aac433 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-host.c
++++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+@@ -342,7 +342,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
+ 
+ 	raw_spin_lock_init(&pci->pp.lock);
+ 
+-	cfg_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "config");
++	cfg_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "config");	// 获取 pdev 的 config 资源
+ 	if (cfg_res) {
+ 		pp->cfg0_size = resource_size(cfg_res) >> 1;
+ 		pp->cfg1_size = resource_size(cfg_res) >> 1;
+@@ -352,21 +352,21 @@ int dw_pcie_host_init(struct pcie_port *pp)
+ 		dev_err(dev, "Missing *config* reg space\n");
+ 	}
+ 
+-	bridge = pci_alloc_host_bridge(0);
++	bridge = pci_alloc_host_bridge(0);	// 创建一个 host bridge 成员
+ 	if (!bridge)
+ 		return -ENOMEM;
+ 
+ 	ret = devm_of_pci_get_host_bridge_resources(dev, 0, 0xff,
+-					&bridge->windows, &pp->io_base);
++					&bridge->windows, &pp->io_base);	//  解析 host bridge 资源，把 bus range 和 range 资源都解析出来，解析出来的结果放在 windows 里面
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = devm_request_pci_bus_resources(dev, &bridge->windows);
++	ret = devm_request_pci_bus_resources(dev, &bridge->windows);	// 申请资源
+ 	if (ret)
+ 		goto error;
+ 
+ 	/* Get the I/O and memory ranges from DT */
+-	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {
++	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {	// 用解析出来的资源初始化 pp 
+ 		switch (resource_type(win->res)) {
+ 		case IORESOURCE_IO:
+ 			ret = devm_pci_remap_iospace(dev, win->res,
+@@ -458,7 +458,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
+ 			}
+ 		}
+ 
+-		if (!pp->ops->msi_host_init) {
++		if (!pp->ops->msi_host_init) {	// 创建 msi 中断的 irq domain
+ 			ret = dw_pcie_allocate_domains(pp);
+ 			if (ret)
+ 				goto error;
+@@ -474,22 +474,22 @@ int dw_pcie_host_init(struct pcie_port *pp)
+ 		}
+ 	}
+ 
+-	if (pp->ops->host_init) {
++	if (pp->ops->host_init) {	// 进行控制器硬件初始化
+ 		ret = pp->ops->host_init(pp);
+ 		if (ret)
+ 			goto error;
+ 	}
+ 
+-	pp->root_bus_nr = pp->busn->start;
++	pp->root_bus_nr = pp->busn->start;	// 0
+ 
+-	bridge->dev.parent = dev;
+-	bridge->sysdata = pp;
+-	bridge->busnr = pp->root_bus_nr;
++	bridge->dev.parent = dev;	// 下面开始初始化 host bridge。 host bridge 是一个 device， parent device 是 控制器节点
++	bridge->sysdata = pp;		// host brige 和 pp 之间是通过 sysdata 指针联系的
++	bridge->busnr = pp->root_bus_nr;	// 0 
+ 	bridge->ops = &dw_pcie_ops;
+ 	bridge->map_irq = of_irq_parse_and_map_pci;
+ 	bridge->swizzle_irq = pci_common_swizzle;
+ 
+-	ret = pci_scan_root_bus_bridge(bridge);
++	ret = pci_scan_root_bus_bridge(bridge);		// 核心函数，开始进行枚举。这里的 pci_scan_root_bus_bridge 和 bridge 都是 pci 框架层面的。前面的所有流程都是为了这一步
+ 	if (ret)
+ 		goto error;
+ 
+@@ -618,7 +618,7 @@ static int dw_pcie_rd_conf(struct pci_bus *bus, u32 devfn, int where,
+ 		return PCIBIOS_DEVICE_NOT_FOUND;
+ 	}
+ 
+-	if (bus->number == pp->root_bus_nr)
++	if (bus->number == pp->root_bus_nr)	// 如果是 root bus，就从自己的配置空间读取
+ 		return dw_pcie_rd_own_conf(pp, where, size, val);
+ 
+ 	return dw_pcie_rd_other_conf(pp, bus, devfn, where, size, val);
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index 4c4217d0..2e3f94d4 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -263,7 +263,7 @@ EXPORT_SYMBOL_GPL(of_pci_check_probe_only);
+  */
+ int devm_of_pci_get_host_bridge_resources(struct device *dev,
+ 			unsigned char busno, unsigned char bus_max,
+-			struct list_head *resources, resource_size_t *io_base)
++			struct list_head *resources, resource_size_t *io_base)	// 获取 host bridge 资源，包括 bus range 和 range 资源
+ {
+ 	struct device_node *dev_node = dev->of_node;
+ 	struct resource *res, tmp_res;
+@@ -293,7 +293,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
+ 		if (bus_range->end > bus_range->start + bus_max)
+ 			bus_range->end = bus_range->start + bus_max;
+ 	}
+-	pci_add_resource(resources, bus_range);
++	pci_add_resource(resources, bus_range);	// 获取 bus range 资源
+ 
+ 	/* Check for ranges property */
+ 	err = of_pci_range_parser_init(&parser, dev_node);
+@@ -301,7 +301,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
+ 		goto failed;
+ 
+ 	dev_dbg(dev, "Parsing ranges property...\n");
+-	for_each_of_pci_range(&parser, &range) {
++	for_each_of_pci_range(&parser, &range) {	// 解析 range 字段
+ 		/* Read next ranges element */
+ 		if ((range.flags & IORESOURCE_TYPE_BITS) == IORESOURCE_IO)
+ 			snprintf(range_type, 4, " IO");
+@@ -320,7 +320,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
+ 		if (range.cpu_addr == OF_BAD_ADDR || range.size == 0)
+ 			continue;
+ 
+-		err = of_pci_range_to_resource(&range, dev_node, &tmp_res);
++		err = of_pci_range_to_resource(&range, dev_node, &tmp_res);	// 把 range 转换成 resource
+ 		if (err)
+ 			continue;
+ 
+@@ -343,7 +343,7 @@ int devm_of_pci_get_host_bridge_resources(struct device *dev,
+ 			*io_base = range.cpu_addr;
+ 		}
+ 
+-		pci_add_resource_offset(resources, res,	res->start - range.pci_addr);
++		pci_add_resource_offset(resources, res,	res->start - range.pci_addr);	// 把 range 资源注册进来。因为 range 资源的 start 是 cpu 地址，没有地方存储 pci 地址，所以这里用 offset 来存 pci 地址
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 257b9f6f..0f9b2b20 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -46,7 +46,7 @@ static struct resource *get_pci_domain_busn_res(int domain_nr)
+ {
+ 	struct pci_domain_busn_res *r;
+ 
+-	list_for_each_entry(r, &pci_domain_busn_res_list, list)
++	list_for_each_entry(r, &pci_domain_busn_res_list, list)	// 如果从 pci_domain_busn_res_list 中遍历, 找到 domain_nr 对应的资源，就直接返回；否则就创建一个出来
+ 		if (r->domain_nr == domain_nr)
+ 			return &r->res;
+ 
+@@ -772,7 +772,7 @@ static void pci_set_bus_msi_domain(struct pci_bus *bus)
+ 
+ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ {
+-	struct device *parent = bridge->dev.parent;
++	struct device *parent = bridge->dev.parent;	// 控制器 dev，主要用来解析设备树中的 domain 的
+ 	struct resource_entry *window, *n;
+ 	struct pci_bus *bus, *b;
+ 	resource_size_t offset;
+@@ -782,20 +782,20 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	const char *name;
+ 	int err;
+ 
+-	bus = pci_alloc_bus(NULL);
++	bus = pci_alloc_bus(NULL);	// 创建一个 bus
+ 	if (!bus)
+ 		return -ENOMEM;
+ 
+ 	bridge->bus = bus;
+ 
+ 	/* Temporarily move resources off the list */
+-	list_splice_init(&bridge->windows, &resources);
+-	bus->sysdata = bridge->sysdata;
++	list_splice_init(&bridge->windows, &resources);	// 将bridge->windows链表中的所有节点移动到临时链表resources 同时将原bridge->windows链表初始化为空链表
++	bus->sysdata = bridge->sysdata;	// 初始化 bus 的一些成员
+ 	bus->msi = bridge->msi;
+ 	bus->ops = bridge->ops;
+-	bus->number = bus->busn_res.start = bridge->busnr;
++	bus->number = bus->busn_res.start = bridge->busnr;	// 注意这个 bus 的 number 是 0
+ #ifdef CONFIG_PCI_DOMAINS_GENERIC
+-	bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
++	bus->domain_nr = pci_bus_find_domain_nr(bus, parent);	// 获取 bus 的 domain；一般来说就是控制器编号
+ #endif
+ 
+ 	b = pci_find_bus(pci_domain_nr(bus), bridge->busnr);
+@@ -807,13 +807,13 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	}
+ 
+ 	dev_set_name(&bridge->dev, "pci%04x:%02x", pci_domain_nr(bus),
+-		     bridge->busnr);
++		     bridge->busnr);	// 根据 domain 和 bus 号来确定 bridge 的 name
+ 
+-	err = pcibios_root_bridge_prepare(bridge);
++	err = pcibios_root_bridge_prepare(bridge);	// 空函数
+ 	if (err)
+ 		goto free;
+ 
+-	err = device_register(&bridge->dev);
++	err = device_register(&bridge->dev);	// 把 bridge 注册进 device 框架中
+ 	if (err)
+ 		put_device(&bridge->dev);
+ 
+@@ -826,12 +826,12 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 		set_dev_node(bus->bridge, pcibus_to_node(bus));
+ 
+ 	bus->dev.class = &pcibus_class;
+-	bus->dev.parent = bus->bridge;
++	bus->dev.parent = bus->bridge;	// bus 的 parent 是 bridge
+ 
+-	dev_set_name(&bus->dev, "%04x:%02x", pci_domain_nr(bus), bus->number);
++	dev_set_name(&bus->dev, "%04x:%02x", pci_domain_nr(bus), bus->number);	// 名字跟 bridge 的名字很像，少了 pci 
+ 	name = dev_name(&bus->dev);
+ 
+-	err = device_register(&bus->dev);
++	err = device_register(&bus->dev);	// 把 bus 注册进 device 框架
+ 	if (err)
+ 		goto unregister;
+ 
+@@ -846,15 +846,15 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 		pr_info("PCI host bridge to bus %s\n", name);
+ 
+ 	/* Add initial resources to the bus */
+-	resource_list_for_each_entry_safe(window, n, &resources) {
+-		list_move_tail(&window->node, &bridge->windows);
++	resource_list_for_each_entry_safe(window, n, &resources) {	// 从 resources 中遍历, 就是遍历所有的 bridge 资源
++		list_move_tail(&window->node, &bridge->windows);	// 移动到 bridge->windows 中
+ 		offset = window->offset;
+ 		res = window->res;
+ 
+-		if (res->flags & IORESOURCE_BUS)
+-			pci_bus_insert_busn_res(bus, bus->number, res->end);
++		if (res->flags & IORESOURCE_BUS)	// 对于不同类型的资源有不同的注册方式 
++			pci_bus_insert_busn_res(bus, bus->number, res->end); // 把 [number, end] 资源插入到 bus 的 parent 资源里面
+ 		else
+-			pci_bus_add_resource(bus, res, 0);
++			pci_bus_add_resource(bus, res, 0);	// 把非bus资源资源添加到 bus 资源链表里面来
+ 
+ 		if (offset) {
+ 			if (resource_type(res) == IORESOURCE_IO)
+@@ -872,7 +872,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	}
+ 
+ 	down_write(&pci_bus_sem);
+-	list_add_tail(&bus->node, &pci_root_buses);
++	list_add_tail(&bus->node, &pci_root_buses);	// 把 bus 添加到 pci_root_buses 链表中
+ 	up_write(&pci_bus_sem);
+ 
+ 	return 0;
+@@ -1071,7 +1071,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	pm_runtime_get_sync(&dev->dev);
+ 
+-	pci_read_config_dword(dev, PCI_PRIMARY_BUS, &buses);
++	pci_read_config_dword(dev, PCI_PRIMARY_BUS, &buses); // 0x1 - 0xff
+ 	primary = buses & 0xFF;
+ 	secondary = (buses >> 8) & 0xFF;
+ 	subordinate = (buses >> 16) & 0xFF;
+@@ -1170,7 +1170,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 		 */
+ 		child = pci_find_bus(pci_domain_nr(bus), max+1);
+ 		if (!child) {
+-			child = pci_add_new_bus(bus, dev, max+1);
++			child = pci_add_new_bus(bus, dev, max+1);	// bus 是 root， dev 是从 root 扫到的 bridge dev
+ 			if (!child)
+ 				goto out;
+ 			pci_bus_insert_busn_res(child, max+1,
+@@ -2290,10 +2290,10 @@ static struct pci_dev *pci_scan_device(struct pci_bus *bus, int devfn)
+ 	struct pci_dev *dev;
+ 	u32 l;
+ 
+-	if (!pci_bus_read_dev_vendor_id(bus, devfn, &l, 60*1000))
++	if (!pci_bus_read_dev_vendor_id(bus, devfn, &l, 60*1000))	// 等通过 bdf 总线读取到 vendor id
+ 		return NULL;
+ 
+-	dev = pci_alloc_dev(bus);
++	dev = pci_alloc_dev(bus);	// 分配出来一个 device
+ 	if (!dev)
+ 		return NULL;
+ 
+@@ -2303,7 +2303,7 @@ static struct pci_dev *pci_scan_device(struct pci_bus *bus, int devfn)
+ 
+ 	pci_set_of_node(dev);
+ 
+-	if (pci_setup_device(dev)) {
++	if (pci_setup_device(dev)) {	// 对这个 device 进行配置
+ 		pci_bus_put(dev->bus);
+ 		kfree(dev);
+ 		return NULL;
+@@ -2469,7 +2469,7 @@ struct pci_dev *pci_scan_single_device(struct pci_bus *bus, int devfn)
+ {
+ 	struct pci_dev *dev;
+ 
+-	dev = pci_get_slot(bus, devfn);
++	dev = pci_get_slot(bus, devfn);	// 从现有的 list 中寻找
+ 	if (dev) {
+ 		pci_dev_put(dev);
+ 		return dev;
+@@ -2564,7 +2564,7 @@ int pci_scan_slot(struct pci_bus *bus, int devfn)
+ 	if (!pci_dev_is_added(dev))
+ 		nr++;
+ 
+-	for (fn = next_fn(bus, dev, 0); fn > 0; fn = next_fn(bus, dev, fn)) {
++	for (fn = next_fn(bus, dev, 0); fn > 0; fn = next_fn(bus, dev, fn)) {	// 扫描不同的 function
+ 		dev = pci_scan_single_device(bus, devfn + fn);
+ 		if (dev) {
+ 			if (!pci_dev_is_added(dev))
+@@ -2763,7 +2763,7 @@ void __weak pcibios_fixup_bus(struct pci_bus *bus)
+  * hierarchy.
+  */
+ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+-					      unsigned int available_buses)
++					      unsigned int available_buses)	// 枚举
+ {
+ 	unsigned int used_buses, normal_bridges = 0, hotplug_bridges = 0;
+ 	unsigned int start = bus->busn_res.start;
+@@ -2774,8 +2774,8 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+ 	dev_dbg(&bus->dev, "scanning bus\n");
+ 
+ 	/* Go find them, Rover! */
+-	for (devfn = 0; devfn < 256; devfn += 8) {
+-		nr_devs = pci_scan_slot(bus, devfn);
++	for (devfn = 0; devfn < 256; devfn += 8) {	// 扫描不同的 device；这里还没有扫描对端的 bar；
++		nr_devs = pci_scan_slot(bus, devfn);	// 这里首先搜索到的是 host pci，从这个再往下游才是外接的device 
+ 
+ 		/*
+ 		 * The Jailhouse hypervisor may pass individual functions of a
+@@ -2793,7 +2793,7 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+ 
+ 	/* Reserve buses for SR-IOV capability */
+ 	used_buses = pci_iov_bus_range(bus);
+-	max += used_buses;
++	max += used_buses;	// max 是 0
+ 
+ 	/*
+ 	 * After performing arch-dependent fixup of the bus, look behind
+@@ -2822,9 +2822,9 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+ 	 * unless they are misconfigured (which will be done in the second
+ 	 * scan below).
+ 	 */
+-	for_each_pci_bridge(dev, bus) {
++	for_each_pci_bridge(dev, bus) {	// 遍历这个bus上面所有的 bridge pci_dev
+ 		cmax = max;
+-		max = pci_scan_bridge_extend(bus, dev, max, 0, 0);
++		max = pci_scan_bridge_extend(bus, dev, max, 0, 0);	// rescan host brigde 后面的 bus
+ 
+ 		/*
+ 		 * Reserve one bus for each bridge now to avoid extending
+@@ -2836,7 +2836,7 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+ 	}
+ 
+ 	/* Scan bridges that need to be reconfigured */
+-	for_each_pci_bridge(dev, bus) {
++	for_each_pci_bridge(dev, bus) {	// 这里第二次 rescan 才是真正的配置
+ 		unsigned int buses = 0;
+ 
+ 		if (!hotplug_bridges && normal_bridges == 1) {
+@@ -3007,7 +3007,7 @@ int pci_bus_insert_busn_res(struct pci_bus *b, int bus, int bus_max)
+ 		res->flags |= IORESOURCE_PCI_FIXED;
+ 	}
+ 
+-	conflict = request_resource_conflict(parent_res, res);
++	conflict = __request_resource_conflict(parent_res, res);	// 把 res 资源插入到 parent 资源里面
+ 
+ 	if (conflict)
+ 		dev_printk(KERN_DEBUG, &b->dev,
+@@ -3054,7 +3054,7 @@ void pci_bus_release_busn_res(struct pci_bus *b)
+ 			res, ret ? "can not be" : "is");
+ }
+ 
+-int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
++int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)	// 枚举 root bus
+ {
+ 	struct resource_entry *window;
+ 	bool found = false;
+@@ -3070,7 +3070,7 @@ int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
+ 			break;
+ 		}
+ 
+-	ret = pci_register_host_bridge(bridge);
++	ret = pci_register_host_bridge(bridge);	// 首先把前面初始化的 bridge 注册进来，同时注册了 bus 0
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -3084,7 +3084,7 @@ int pci_scan_root_bus_bridge(struct pci_host_bridge *bridge)
+ 		pci_bus_insert_busn_res(b, bus, 255);
+ 	}
+ 
+-	max = pci_scan_child_bus(b);
++	max = pci_scan_child_bus(b);	// 开始进行枚举
+ 
+ 	if (!found)
+ 		pci_bus_update_busn_res_end(b, max);
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed960436..ca69f5d1 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1218,7 +1218,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
+ 	struct resource *b_res;
+ 	int ret;
+ 
+-	list_for_each_entry(dev, &bus->devices, bus_list) {
++	list_for_each_entry(dev, &bus->devices, bus_list) {	// 第一层递归，这里是 host bridge
+ 		struct pci_bus *b = dev->subordinate;
+ 		if (!b)
+ 			continue;
+@@ -1236,10 +1236,10 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
+ 	}
+ 
+ 	/* The root bus? */
+-	if (pci_is_root_bus(bus))
++	if (pci_is_root_bus(bus))	// 递归到最上层了
+ 		return;
+ 
+-	switch (bus->self->class >> 8) {
++	switch (bus->self->class >> 8) {	// 上面是递归逻辑，下面是真正的处理流程
+ 	case PCI_CLASS_BRIDGE_CARDBUS:
+ 		/* don't size cardbuses yet. */
+ 		break;
+@@ -1263,7 +1263,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
+ 		b_res = &bus->self->resource[PCI_BRIDGE_RESOURCES];
+ 		mask = IORESOURCE_MEM;
+ 		prefmask = IORESOURCE_MEM | IORESOURCE_PREFETCH;
+-		if (b_res[2].flags & IORESOURCE_MEM_64) {
++		if (b_res[2].flags & IORESOURCE_MEM_64) {	// 先看是否有 64 位的 prefetchable memory
+ 			prefmask |= IORESOURCE_MEM_64;
+ 			ret = pbus_size_mem(bus, prefmask, prefmask,
+ 				  prefmask, prefmask,
+@@ -1287,7 +1287,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
+ 		 * size required to put all prefetchable resources in the
+ 		 * 32-bit prefetchable window (if there is one).
+ 		 */
+-		if (!type2) {
++		if (!type2) {	// 再看是否有 32 位的 prefetchable memory
+ 			prefmask &= ~IORESOURCE_MEM_64;
+ 			ret = pbus_size_mem(bus, prefmask, prefmask,
+ 					 prefmask, prefmask,
+@@ -1320,7 +1320,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
+ 		 * match that used here.  Specifically, we cannot put a
+ 		 * 32-bit prefetchable resource in a 64-bit prefetchable
+ 		 * window.
+-		 */
++		 */ //最终内存空间分配
+ 		pbus_size_mem(bus, mask, IORESOURCE_MEM, type2, type3,
+ 				realloc_head ? 0 : additional_mem_size,
+ 				additional_mem_size, realloc_head);
+diff --git a/emmc.img b/emmc.img
+new file mode 100644
+index 00000000..6c5d4031
+Binary files /dev/null and b/emmc.img differ
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index 34e96906..9d2be917 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -1003,7 +1003,7 @@ irq_set_chained_handler_and_data(unsigned int irq, irq_flow_handler_t handle,
+ 	if (!desc)
+ 		return;
+ 
+-	desc->irq_common_data.handler_data = data;
++	desc->irq_common_data.handler_data = data;	// 相比于__irq_set_handler多了这一行
+ 	__irq_do_set_handler(desc, handle, 1, NULL);
+ 
+ 	irq_put_desc_busunlock(desc, flags);
+diff --git a/kernel/irq/irqdesc.c b/kernel/irq/irqdesc.c
+index ef8ad36c..cc80e06f 100644
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -651,7 +651,7 @@ int __handle_domain_irq(struct irq_domain *domain, unsigned int hwirq,
+ 
+ #ifdef CONFIG_IRQ_DOMAIN
+ 	if (lookup)
+-		irq = irq_find_mapping(domain, hwirq);
++		irq = irq_find_mapping(domain, hwirq);	// 根据 domain 和 硬件中断号找到软件中断号
+ #endif
+ 
+ 	/*
+@@ -662,7 +662,7 @@ int __handle_domain_irq(struct irq_domain *domain, unsigned int hwirq,
+ 		ack_bad_irq(irq);
+ 		ret = -EINVAL;
+ 	} else {
+-		generic_handle_irq(irq);
++		generic_handle_irq(irq);	// 进一步进行中断处理
+ 	}
+ 
+ 	irq_exit();
+diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+index 8b0be4bd..f9c5ec07 100644
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -138,7 +138,7 @@ struct irq_domain *__irq_domain_add(struct fwnode_handle *fwnode, int size,
+ 	static atomic_t unknown_domains;
+ 
+ 	domain = kzalloc_node(sizeof(*domain) + (sizeof(unsigned int) * size),
+-			      GFP_KERNEL, of_node_to_nid(of_node));
++			      GFP_KERNEL, of_node_to_nid(of_node));	// 注册内存
+ 	if (WARN_ON(!domain))
+ 		return NULL;
+ 
+@@ -882,18 +882,18 @@ unsigned int irq_find_mapping(struct irq_domain *domain,
+ 	if (domain == NULL)
+ 		return 0;
+ 
+-	if (hwirq < domain->revmap_direct_max_irq) {
++	if (hwirq < domain->revmap_direct_max_irq) {		// 检查直接映射区域，一般不会走到这里
+ 		data = irq_domain_get_irq_data(domain, hwirq);
+ 		if (data && data->hwirq == hwirq)
+ 			return hwirq;
+ 	}
+ 
+ 	/* Check if the hwirq is in the linear revmap. */
+-	if (hwirq < domain->revmap_size)
++	if (hwirq < domain->revmap_size)			// 检查线性映射表
+ 		return domain->linear_revmap[hwirq];
+ 
+ 	rcu_read_lock();
+-	data = radix_tree_lookup(&domain->revmap_tree, hwirq);
++	data = radix_tree_lookup(&domain->revmap_tree, hwirq);		// 检查基数树
+ 	rcu_read_unlock();
+ 	return data ? data->irq : 0;
+ }
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 84b54a17..4ee64fe0 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -1823,7 +1823,7 @@ int request_threaded_irq(unsigned int irq, irq_handler_t handler,
+ 	    ((irqflags & IRQF_NO_SUSPEND) && (irqflags & IRQF_COND_SUSPEND)))
+ 		return -EINVAL;
+ 
+-	desc = irq_to_desc(irq);
++	desc = irq_to_desc(irq);	// 根据虚拟中断号获取中断描述符
+ 	if (!desc)
+ 		return -EINVAL;
+ 
+@@ -1834,14 +1834,14 @@ int request_threaded_irq(unsigned int irq, irq_handler_t handler,
+ 	if (!handler) {
+ 		if (!thread_fn)
+ 			return -EINVAL;
+-		handler = irq_default_primary_handler;
++		handler = irq_default_primary_handler;	// 没有上半部的话用默认上半部
+ 	}
+ 
+ 	action = kzalloc(sizeof(struct irqaction), GFP_KERNEL);
+ 	if (!action)
+ 		return -ENOMEM;
+ 
+-	action->handler = handler;
++	action->handler = handler;	// 函数的主体功能，构建 action 结构体
+ 	action->thread_fn = thread_fn;
+ 	action->flags = irqflags;
+ 	action->name = devname;
+diff --git a/kernel/resource.c b/kernel/resource.c
+index 915c02e8..22ce070f 100644
+--- a/kernel/resource.c
++++ b/kernel/resource.c
+@@ -181,7 +181,7 @@ static struct resource *alloc_resource(gfp_t flags)
+ }
+ 
+ /* Return the conflict entry if you can't request it */
+-static struct resource * __request_resource(struct resource *root, struct resource *new)
++static struct resource * __request_resource(struct resource *root, struct resource *new)	// 其实就是把 new 这个资源插入到 root 资源里面
+ {
+ 	resource_size_t start = new->start;
+ 	resource_size_t end = new->end;
+@@ -196,16 +196,16 @@ static struct resource * __request_resource(struct resource *root, struct resour
+ 	p = &root->child;
+ 	for (;;) {
+ 		tmp = *p;
+-		if (!tmp || tmp->start > end) {
+-			new->sibling = tmp;
++		if (!tmp || tmp->start > end) {	// 如果 tmp 非空并且与new 没有产生冲突, 就将 new 插入到 tmp 之前，并返回 null；如果tmp为空，说明 new 是第一个资源，也直接插入
++			new->sibling = tmp;	//如果 tmp 非空，并且 new 资源在 tmp 后面，就遍历到下一个资源
+ 			*p = new;
+ 			new->parent = root;
+ 			return NULL;
+ 		}
+ 		p = &tmp->sibling;
+-		if (tmp->end < start)
++		if (tmp->end < start)	// 如果 tmp->end < start, 说明 tmp 与 new 没有冲突, 继续遍历
+ 			continue;
+-		return tmp;
++		return tmp;	// 说明 tmp 这个资源发生了冲突，返回冲突资源
+ 	}
+ }
+ 
+diff --git a/run_busybox.sh b/run_busybox.sh
+index 3cf9e438..0b91ddcf 100755
+--- a/run_busybox.sh
++++ b/run_busybox.sh
+@@ -53,5 +53,9 @@ case $1 in
+ 				    -m 100 -smp 2 -kernel arch/arm64/boot/Image \
+ 				    --append "rdinit=/linuxrc console=ttyAMA0" -nographic \
+ 				    --fsdev local,id=kmod_dev,path=$PWD/kmodules,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount \
++					-device pcie-root-port,id=root_port1,chassis=1,slot=1
++					    -device sdhci-pci \
++    					-device sd-card,drive=emmc \
++    					-drive if=none,id=emmc,file=emmc.img,format=raw \
+ 				    $DBG ;;
+ esac
