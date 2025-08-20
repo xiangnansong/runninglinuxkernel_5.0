@@ -732,7 +732,7 @@ __irq_alloc_descs(int irq, unsigned int from, unsigned int cnt, int node,
 	mutex_lock(&sparse_irq_lock);
 
 	start = bitmap_find_next_zero_area(allocated_irqs, IRQ_BITMAP_BITS,
-					   from, cnt, 0);
+					   from, cnt, 0);	// 找到可用的软件中断号
 	ret = -EEXIST;
 	if (irq >=0 && start != irq)
 		goto unlock;

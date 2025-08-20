@@ -990,7 +990,7 @@ static int gic_irq_domain_alloc(struct irq_domain *domain, unsigned int virq,
 	unsigned int type = IRQ_TYPE_NONE;
 	struct irq_fwspec *fwspec = arg;
 
-	ret = gic_irq_domain_translate(domain, fwspec, &hwirq, &type);
+	ret = gic_irq_domain_translate(domain, fwspec, &hwirq, &type);	// 根据 fwspec 中的数据，解析出来硬件中断号和中断类型
 	if (ret)
 		return ret;
 

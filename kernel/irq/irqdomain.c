@@ -763,7 +763,7 @@ unsigned int irq_create_fwspec_mapping(struct irq_fwspec *fwspec)
 		return 0;
 	}
 
-	if (irq_domain_translate(domain, fwspec, &hwirq, &type))
+	if (irq_domain_translate(domain, fwspec, &hwirq, &type))	// 解析硬件中断号和中断类型
 		return 0;
 
 	/*
@@ -777,7 +777,7 @@ unsigned int irq_create_fwspec_mapping(struct irq_fwspec *fwspec)
 	 * If we've already configured this interrupt,
 	 * don't do it again, or hell will break loose.
 	 */
-	virq = irq_find_mapping(domain, hwirq);
+	virq = irq_find_mapping(domain, hwirq);	// 查找硬件中断号对应的软件中断号
 	if (virq) {
 		/*
 		 * If the trigger type is not specified or matches the
@@ -837,7 +837,7 @@ unsigned int irq_create_of_mapping(struct of_phandle_args *irq_data)
 	struct irq_fwspec fwspec;
 
 	of_phandle_args_to_fwspec(irq_data, &fwspec);
-	return irq_create_fwspec_mapping(&fwspec);
+	return irq_create_fwspec_mapping(&fwspec);	// 根据设备树中解析出来的数据进行 irq 的初始化
 }
 EXPORT_SYMBOL_GPL(irq_create_of_mapping);
 
