@@ -93,6 +93,25 @@
 #define EARLY_PMDS(vstart, vend) (0)
 #endif
 
+/*
+EARLY_PAGES = 1 + 1 + 1 + 1 = 4 pages
+
+INIT_DIR_SIZE = PAGE_SIZE * 4 = 4096 * 4 = 16KB
+```
+
+## 内存布局示意
+```
+物理内存中的页表区域 (INIT_DIR_SIZE = 16KB)
+┌─────────────────┐ ← init_pg_dir
+│   PGD (4KB)     │  L0: 1个页，512条目，每条目管512GB
+├─────────────────┤
+│   PUD (4KB)     │  L1: 1个页，其中1条目指向PMD
+├─────────────────┤
+│   PMD (4KB)     │  L2: 1个页，其中1条目指向PTE
+├─────────────────┤
+│   PMD2(4KB)     │  (若跨越更大范围则需要更多)
+└─────────────────┘
+*/
 #define EARLY_PAGES(vstart, vend) ( 1 			/* PGDIR page */				\
 			+ EARLY_PGDS((vstart), (vend)) 	/* each PGDIR needs a next level page table */	\
 			+ EARLY_PUDS((vstart), (vend))	/* each PUD needs a next level page table */	\

@@ -146,7 +146,7 @@ not_in_zone:
 	return -EINVAL;
 }
 
-static int __init cma_init_reserved_areas(void)
+static int __init cma_init_reserved_areas(void)	// cma 区域进入伙伴系统
 {
 	int i;
 
@@ -187,7 +187,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
 		return -ENOSPC;
 	}
 
-	if (!size || !memblock_is_region_reserved(base, size))
+	if (!size || !memblock_is_region_reserved(base, size))	// 如果 size 是 0，并且没有 reserved 空间，则返回 -EINVAL
 		return -EINVAL;
 
 	/* ensure minimal alignment required by mm core */
@@ -205,7 +205,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
 	 * Each reserved area must be initialised later, when more kernel
 	 * subsystems (like slab allocator) are available.
 	 */
-	cma = &cma_areas[cma_area_count];
+	cma = &cma_areas[cma_area_count];	// 初始化 cma 数组里面的 cma 结构体
 	if (name) {
 		cma->name = name;
 	} else {
@@ -214,8 +214,8 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
 			return -ENOMEM;
 	}
 	cma->base_pfn = PFN_DOWN(base);
-	cma->count = size >> PAGE_SHIFT;
-	cma->order_per_bit = order_per_bit;
+	cma->count = size >> PAGE_SHIFT;	// page 大小
+	cma->order_per_bit = order_per_bit;	// 0
 	*res_cma = cma;
 	cma_area_count++;
 	totalcma_pages += (size / PAGE_SIZE);

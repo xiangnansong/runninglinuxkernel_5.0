@@ -1230,7 +1230,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
 
 		case PCI_CLASS_BRIDGE_PCI:
 		default:
-			__pci_bus_size_bridges(b, realloc_head);
+			__pci_bus_size_bridges(b, realloc_head);	// 自底向上
 			break;
 		}
 	}

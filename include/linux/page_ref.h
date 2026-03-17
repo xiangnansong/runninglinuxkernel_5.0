@@ -136,7 +136,7 @@ static inline int page_ref_inc_return(struct page *page)
 
 static inline int page_ref_dec_and_test(struct page *page)
 {
-	int ret = atomic_dec_and_test(&page->_refcount);
+	int ret = atomic_dec_and_test(&page->_refcount);	// 函数用于减少页面的引用计数，并检查引用计数是否降到了 0
 
 	if (page_ref_tracepoint_active(__tracepoint_page_ref_mod_and_test))
 		__page_ref_mod_and_test(page, -1, ret);

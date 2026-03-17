@@ -103,14 +103,14 @@ static phys_addr_t __init early_pgtable_alloc(void)
 	phys_addr_t phys;
 	void *ptr;
 
-	phys = memblock_phys_alloc(PAGE_SIZE, PAGE_SIZE);
+	phys = memblock_phys_alloc(PAGE_SIZE, PAGE_SIZE);	// 从 memblock 中申请一块内存出来
 
 	/*
 	 * The FIX_{PGD,PUD,PMD} slots may be in active use, but the FIX_PTE
 	 * slot will be free, so we can (ab)use the FIX_PTE slot to initialise
 	 * any level of table.
 	 */
-	ptr = pte_set_fixmap(phys);
+	ptr = pte_set_fixmap(phys);	// 给这个地址建立映射，以便于后续对这个地址进行访问。这里用的是 fixmap 的 pte 空间，跟前面映射 pgd 用的空间不是同一个，不用担心被踩到
 
 	memset(ptr, 0, PAGE_SIZE);
 
@@ -118,7 +118,7 @@ static phys_addr_t __init early_pgtable_alloc(void)
 	 * Implicit barriers also ensure the zeroed page is visible to the page
 	 * table walker
 	 */
-	pte_clear_fixmap();
+	pte_clear_fixmap();	// 又把这个地址取消映射
 
 	return phys;
 }
@@ -248,7 +248,7 @@ static void alloc_init_cont_pmd(pud_t *pudp, unsigned long addr,
 				phys_addr_t (*pgtable_alloc)(void), int flags)
 {
 	unsigned long next;
-	pud_t pud = READ_ONCE(*pudp);
+	pud_t pud = READ_ONCE(*pudp);	// 读取 pud 表项，正常来说应该是 0
 
 	/*
 	 * Check for initial section mappings in the pgd/pud.
@@ -257,8 +257,8 @@ static void alloc_init_cont_pmd(pud_t *pudp, unsigned long addr,
 	if (pud_none(pud)) {
 		phys_addr_t pmd_phys;
 		BUG_ON(!pgtable_alloc);
-		pmd_phys = pgtable_alloc();
-		__pud_populate(pudp, pmd_phys, PUD_TYPE_TABLE);
+		pmd_phys = pgtable_alloc();	// 申请一个 pmd 出来
+		__pud_populate(pudp, pmd_phys, PUD_TYPE_TABLE);	// 使用 pmd 物理地址填充 pud 表项
 		pud = READ_ONCE(*pudp);
 	}
 	BUG_ON(pud_bad(pud));
@@ -271,7 +271,7 @@ static void alloc_init_cont_pmd(pud_t *pudp, unsigned long addr,
 		/* use a contiguous mapping if the range is suitably aligned */
 		if ((((addr | next | phys) & ~CONT_PMD_MASK) == 0) &&
 		    (flags & NO_CONT_MAPPINGS) == 0)
-			__prot = __pgprot(pgprot_val(prot) | PTE_CONT);
+			__prot = __pgprot(pgprot_val(prot) | PTE_CONT);	// 这里判断是不是连续的
 
 		init_pmd(pudp, addr, next, phys, __prot, pgtable_alloc, flags);
 
@@ -298,29 +298,29 @@ static void alloc_init_pud(pgd_t *pgdp, unsigned long addr, unsigned long end,
 {
 	unsigned long next;
 	pud_t *pudp;
-	pgd_t pgd = READ_ONCE(*pgdp);
+	pgd_t pgd = READ_ONCE(*pgdp);	// 读取 pgd 页表项
 
-	if (pgd_none(pgd)) {
+	if (pgd_none(pgd)) {	// 如果是 0
 		phys_addr_t pud_phys;
 		BUG_ON(!pgtable_alloc);
-		pud_phys = pgtable_alloc();
-		__pgd_populate(pgdp, pud_phys, PUD_TYPE_TABLE);
+		pud_phys = pgtable_alloc();	// 分配出 pud 的内存出来，这个返回值是物理地址。需要把这个威力地址写入到 pdg 页表里面去
+		__pgd_populate(pgdp, pud_phys, PUD_TYPE_TABLE);	// 把 pud 的物理地址写入到 pgd 页表项里面去
 		pgd = READ_ONCE(*pgdp);
 	}
 	BUG_ON(pgd_bad(pgd));
 
-	pudp = pud_set_fixmap_offset(pgdp, addr);
+	pudp = pud_set_fixmap_offset(pgdp, addr);	// 后面需要访问到 pud 页表项，所以这里需要建立 pud 页表到 fixmap 的映射
 	do {
 		pud_t old_pud = READ_ONCE(*pudp);
 
-		next = pud_addr_end(addr, end);
+		next = pud_addr_end(addr, end);	// 以 1G 大小为单位，进行循环映射
 
 		/*
 		 * For 4K granule only, attempt to put down a 1GB block
 		 */
 		if (use_1G_block(addr, next, phys) &&
 		    (flags & NO_BLOCK_MAPPINGS) == 0) {
-			pud_set_huge(pudp, phys, prot);
+			pud_set_huge(pudp, phys, prot);	// 建立断映射
 
 			/*
 			 * After the PUD entry has been populated once, we
@@ -348,7 +348,7 @@ static void __create_pgd_mapping(pgd_t *pgdir, phys_addr_t phys,
 				 int flags)
 {
 	unsigned long addr, length, end, next;
-	pgd_t *pgdp = pgd_offset_raw(pgdir, virt);
+	pgd_t *pgdp = pgd_offset_raw(pgdir, virt);	// 获取这个虚拟地址对应的 pgd 指针。 主要就是 pgdir 的基地址加上 virt 中 bit48 - bit39 的 index。下面需要对这个地址的 pgd页表 进行填充。pgd 的内存是在链接脚本中分配好的，不用调用内存分配函数。后续的 pud pmd 这些页表内存比较大，只能用分配函数动态分配内存
 
 	/*
 	 * If the virtual and physical address don't have the same offset
@@ -363,7 +363,7 @@ static void __create_pgd_mapping(pgd_t *pgdir, phys_addr_t phys,
 
 	end = addr + length;
 	do {
-		next = pgd_addr_end(addr, end);
+		next = pgd_addr_end(addr, end);	// 以 PGDIR_SIZE 为单位，进行循环映射。 PGDIR_SIZE 是 512G，一般不会超过这个范围
 		alloc_init_pud(pgdp, addr, next, phys, prot, pgtable_alloc,
 			       flags);
 		phys += next - addr;
@@ -531,7 +531,7 @@ static void __init map_kernel_segment(pgd_t *pgdp, void *va_start, void *va_end,
 				      pgprot_t prot, struct vm_struct *vma,
 				      int flags, unsigned long vm_flags)
 {
-	phys_addr_t pa_start = __pa_symbol(va_start);
+	phys_addr_t pa_start = __pa_symbol(va_start);	// 获取 start 对应的物理地址。因为 va_start 是链接地址，所以使用 __pa_symbol 来进行转换
 	unsigned long size = va_end - va_start;
 
 	BUG_ON(!PAGE_ALIGNED(pa_start));
@@ -660,10 +660,10 @@ static void __init map_kernel(pgd_t *pgdp)
  * maps and sets up the zero page.
  */
 void __init paging_init(void)
-{
-	pgd_t *pgdp = pgd_set_fixmap(__pa_symbol(swapper_pg_dir));
+{	//此时 swapper_pg_dir 还没有进行地址映射，所以需要先在 fixmap 这里进行以下映射
+	pgd_t *pgdp = pgd_set_fixmap(__pa_symbol(swapper_pg_dir));	// swapper_pg_dir 数组是在链接脚本中被定义的，大小是 4k。0xffff000011a15000 在 vmalloc 区域
 
-	map_kernel(pgdp);
+	map_kernel(pgdp);	// 上面流程把 swapper_pg_dir 映射到了 fixmap 区域，访问 fixmap 区域就相当于在访问 swapper_pg_dir 数组了，映射了一条，总共是 4k 大小。
 	map_mem(pgdp);
 
 	pgd_clear_fixmap();
@@ -856,16 +856,16 @@ void __init early_fixmap_init(void)
 void __set_fixmap(enum fixed_addresses idx,
 			       phys_addr_t phys, pgprot_t flags)
 {
-	unsigned long addr = __fix_to_virt(idx);
+	unsigned long addr = __fix_to_virt(idx);	// fixmap 区域是在 pci 区域下面 2M 的空间里面。并且 fixmap 区域中有很多了小区域，用于不同的功能，每个区域的大小是 4k 为单位的
 	pte_t *ptep;
-
+	// 这里的 addr 是 fixmap 里面的虚拟地址
 	BUG_ON(idx <= FIX_HOLE || idx >= __end_of_fixed_addresses);
 
-	ptep = fixmap_pte(addr);
+	ptep = fixmap_pte(addr);	// 获取这个物理地址对应的 pte 指针, addr 是 0xffff7dfffe637000
 
-	if (pgprot_val(flags)) {
+	if (pgprot_val(flags)) {	// 建立映射
 		set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-	} else {
+	} else {	// 清除映射
 		pte_clear(&init_mm, addr, ptep);
 		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
 	}

@@ -176,7 +176,7 @@ typedef int (*sched_domain_flags_f)(void);
 #define SDTL_OVERLAP	0x01
 
 struct sd_data {
-	struct sched_domain **__percpu sd;
+	struct sched_domain **__percpu sd;	// 双层指针是因为这里其实是一个指针数组，每个 cpu 都有一个 sched_domain * 结构体
 	struct sched_domain_shared **__percpu sds;
 	struct sched_group **__percpu sg;
 	struct sched_group_capacity **__percpu sgc;

@@ -222,7 +222,7 @@ ENDPROC(preserve_boot_args)
 	and	\iend, \iend, \istart	// iend = (vend >> shift) & (ptrs - 1)
 	mov	\istart, \ptrs
 	mul	\istart, \istart, \count
-	add	\iend, \iend, \istart	// iend += (count - 1) * ptrs
+	add	\iend, \iend, \istart	// iend += (count) * ptrs。用于进行偏移修正，如果 count为0的时候不用管
 					// our entries span multiple tables
 
 	lsr	\istart, \vstart, \shift
@@ -232,7 +232,30 @@ ENDPROC(preserve_boot_args)
 
 	sub	\count, \iend, \istart
 	.endm
+/*
+上述代码转成c语言的代码如下：
+static inline void compute_indices(
+    unsigned long  vstart,
+    unsigned long  vend,
+    unsigned long  shift,
+    unsigned long  ptrs,
+    unsigned long *istart,
+    unsigned long *iend,
+    unsigned long *count)
+{
+    /* iend = (vend >> shift) & (ptrs - 1) */
+    *iend = (vend >> shift) & (ptrs - 1);
 
+    /* iend += count * ptrs  (跨多个页表时的展开偏移) */
+    *iend += (*count) * ptrs;
+
+    /* istart = (vstart >> shift) & (ptrs - 1) */
+    *istart = (vstart >> shift) & (ptrs - 1);
+
+    /* count = iend - istart  (本级页表需处理的条目数) */
+    *count = *iend - *istart;
+}
+*
 /*
  * Map memory for specified virtual address range. Each level of page table needed supports
  * multiple entries. If a level requires n entries the next page table level is assumed to be
@@ -276,7 +299,25 @@ ENDPROC(preserve_boot_args)
 	bic \count, \phys, #SWAPPER_BLOCK_SIZE - 1
 	populate_entries \tbl, \count, \istart, \iend, \flags, #SWAPPER_BLOCK_SIZE, \tmp
 	.endm
+/*
+上述代码转成c语言如下：
+static inline void populate_entries(
+    uint64_t *tbl,
+    uint64_t  rtbl,
+    uint64_t  index,
+    uint64_t  eindex,
+    uint64_t  flags,
+    uint64_t  inc)
+{
+    do {
+        uint64_t tmp1 = rtbl | flags;   // phys_to_pte + orr flags
+        tbl[index] = tmp1;              // str [\tbl, \index, lsl #3]
 
+        rtbl  += inc;                   // 下一个页表页
+        index += 1;
+    } while (index <= eindex);          // b.ls（lower or same）
+}
+*/
 /*
  * Setup the initial page tables. We only setup the barest amount which is
  * required to get the kernel running. The following sections are required:
@@ -328,9 +369,9 @@ __create_page_tables:
 	mov	x5, #VA_BITS
 1:
 	adr_l	x6, vabits_user
-	str	x5, [x6]
+	str	x5, [x6]	// 把 #VA_BITS 写入变量 vabits_user
 	dmb	sy
-	dc	ivac, x6		// Invalidate potentially stale cache line
+	dc	ivac, x6		// Invalidate potentially stale cache line 保证 #VA_BITS 的值更新进去
 
 	/*
 	 * VA_BITS may be too small to allow for an ID mapping to be created
@@ -376,14 +417,14 @@ __create_page_tables:
 	 * If VA_BITS == 48, we don't have to configure an additional
 	 * translation level, but the top-level table has more entries.
 	 */
-	mov	x4, #1 << (PHYS_MASK_SHIFT - PGDIR_SHIFT)
+	mov	x4, #1 << (PHYS_MASK_SHIFT - PGDIR_SHIFT)	// 1 << ( 48 - 39 ) 512 个页表项
 	str_l	x4, idmap_ptrs_per_pgd, x5
 #endif
 1:
 	ldr_l	x4, idmap_ptrs_per_pgd
 	mov	x5, x3				// __pa(__idmap_text_start)
 	adr_l	x6, __idmap_text_end		// __pa(__idmap_text_end)
-
+	// 先映射对等页面。 
 	map_memory x0, x1, x3, x6, x7, x3, x4, x10, x11, x12, x13, x14
 
 	/*
@@ -397,7 +438,7 @@ __create_page_tables:
 	adrp	x3, _text			// runtime __pa(_text)
 	sub	x6, x6, x3			// _end - _text
 	add	x6, x6, x5			// runtime __va(_end)
-
+	// 然后映射 init 页面
 	map_memory x0, x1, x5, x6, x7, x3, x4, x10, x11, x12, x13, x14
 
 	/*

@@ -92,7 +92,7 @@ static void tick_periodic(int cpu)
 /*
  * Event handler for periodic ticks
  */
-void tick_handle_periodic(struct clock_event_device *dev)
+void tick_handle_periodic(struct clock_event_device *dev)	// 这个是最开始的 tick 中断
 {
 	int cpu = smp_processor_id();
 	ktime_t next = dev->next_event;
@@ -243,15 +243,15 @@ void tick_install_replacement(struct clock_event_device *newdev)
 static bool tick_check_percpu(struct clock_event_device *curdev,
 			      struct clock_event_device *newdev, int cpu)
 {
-	if (!cpumask_test_cpu(cpu, newdev->cpumask))
+	if (!cpumask_test_cpu(cpu, newdev->cpumask))	// 如果新设备的cpumask不包含当前cpu，则返回false
 		return false;
-	if (cpumask_equal(newdev->cpumask, cpumask_of(cpu)))
+	if (cpumask_equal(newdev->cpumask, cpumask_of(cpu)))	// 如果新设备的cpumask等于当前cpu的cpumask，则返回true
 		return true;
 	/* Check if irq affinity can be set */
-	if (newdev->irq >= 0 && !irq_can_set_affinity(newdev->irq))
+	if (newdev->irq >= 0 && !irq_can_set_affinity(newdev->irq))	// 如果新设备的中断号大于等于0，并且不能设置中断亲和性，则返回false
 		return false;
 	/* Prefer an existing cpu local device */
-	if (curdev && cpumask_equal(curdev->cpumask, cpumask_of(cpu)))
+	if (curdev && cpumask_equal(curdev->cpumask, cpumask_of(cpu)))	//如果已经存在一个CPU本地设备，则优先使用现有设备
 		return false;
 	return true;
 }
@@ -260,10 +260,10 @@ static bool tick_check_preferred(struct clock_event_device *curdev,
 				 struct clock_event_device *newdev)
 {
 	/* Prefer oneshot capable device */
-	if (!(newdev->features & CLOCK_EVT_FEAT_ONESHOT)) {
-		if (curdev && (curdev->features & CLOCK_EVT_FEAT_ONESHOT))
+	if (!(newdev->features & CLOCK_EVT_FEAT_ONESHOT)) {	// 如果新设备不支持单次触发模式
+		if (curdev && (curdev->features & CLOCK_EVT_FEAT_ONESHOT))	// 如果当前设备存在且支持单次触发模式，则返回false
 			return false;
-		if (tick_oneshot_mode_active())
+		if (tick_oneshot_mode_active())	// 如果当前系统正在使用oneshot模式，则返回false
 			return false;
 	}
 
@@ -273,7 +273,7 @@ static bool tick_check_preferred(struct clock_event_device *curdev,
 	 */
 	return !curdev ||
 		newdev->rating > curdev->rating ||
-	       !cpumask_equal(curdev->cpumask, newdev->cpumask);
+	       !cpumask_equal(curdev->cpumask, newdev->cpumask);	// 即使新设备的评级较低，但如果它是CPU本地设备（即只服务于特定CPU），而当前设备是非CPU本地设备（服务于多个CPU），则仍然优先选择新设备
 }
 
 /*
@@ -300,18 +300,18 @@ void tick_check_new_device(struct clock_event_device *newdev)
 	int cpu;
 
 	cpu = smp_processor_id();
-	td = &per_cpu(tick_cpu_device, cpu);
+	td = &per_cpu(tick_cpu_device, cpu);	// 获取当前cpu的tick_device， tick device 是声明的全局变量
 	curdev = td->evtdev;
 
 	/* cpu local device ? */
-	if (!tick_check_percpu(curdev, newdev, cpu))
+	if (!tick_check_percpu(curdev, newdev, cpu))	// 如果新设备不能用于当前cpu，则返回false
 		goto out_bc;
 
 	/* Preference decision */
-	if (!tick_check_preferred(curdev, newdev))
+	if (!tick_check_preferred(curdev, newdev))	// 如果新设备不是首选设备，则返回false。 优先选择本地 cpu 的设备，其次有限选择精度高的设备
 		goto out_bc;
 
-	if (!try_module_get(newdev->owner))
+	if (!try_module_get(newdev->owner))	// 尝试增加新设备的模块引用计数
 		return;
 
 	/*

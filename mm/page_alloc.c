@@ -837,12 +837,12 @@ static inline void __free_one_page(struct page *page,
 
 continue_merging:
 	while (order < max_order - 1) {
-		buddy_pfn = __find_buddy_pfn(pfn, order);
-		buddy = page + (buddy_pfn - pfn);
+		buddy_pfn = __find_buddy_pfn(pfn, order); // 计算 buddy 页的 pfn
+		buddy = page + (buddy_pfn - pfn);	// 获得 buddy 页结构体指针
 
-		if (!pfn_valid_within(buddy_pfn))
+		if (!pfn_valid_within(buddy_pfn))	// 检查 buddy 页的 pfn 是否有效，伙伴页面的页帧号无效，则跳转到 done_merging 标签，不进行合并
 			goto done_merging;
-		if (!page_is_buddy(page, buddy, order))
+		if (!page_is_buddy(page, buddy, order))	// 检查 buddy 页是否可合并，如果不可合并，则跳转到 done_merging 标签
 			goto done_merging;
 		/*
 		 * Our buddy is free or it is CONFIG_DEBUG_PAGEALLOC guard page,
@@ -853,13 +853,13 @@ continue_merging:
 		} else {
 			list_del(&buddy->lru);
 			zone->free_area[order].nr_free--;
-			rmv_page_order(buddy);
+			rmv_page_order(buddy);	// 把 buddy 页从 buddy 列表中移除
 		}
 		combined_pfn = buddy_pfn & pfn;
 		page = page + (combined_pfn - pfn);
 		pfn = combined_pfn;
 		order++;
-	}
+	}	// 一直合并到最上层的 order
 	if (max_order < MAX_ORDER) {
 		/* If we are here, it means order is >= pageblock_order.
 		 * We want to prevent merge between freepages on isolate
@@ -869,7 +869,7 @@ continue_merging:
 		 * We don't want to hit this code for the more frequent
 		 * low-order merging.
 		 */
-		if (unlikely(has_isolate_pageblock(zone))) {
+		if (unlikely(has_isolate_pageblock(zone))) {	//是否存在隔离页面块
 			int buddy_mt;
 
 			buddy_pfn = __find_buddy_pfn(pfn, order);
@@ -910,7 +910,7 @@ done_merging:
 		}
 	}
 
-	list_add(&page->lru, &zone->free_area[order].free_list[migratetype]);
+	list_add(&page->lru, &zone->free_area[order].free_list[migratetype]);	// 把 page 加入到对应 order 的空闲链表中
 out:
 	zone->free_area[order].nr_free++;
 }
@@ -3410,7 +3410,7 @@ retry:
 	no_fallback = alloc_flags & ALLOC_NOFRAGMENT;
 	z = ac->preferred_zoneref;
 	for_next_zone_zonelist_nodemask(zone, z, ac->zonelist, ac->high_zoneidx,
-								ac->nodemask) {
+								ac->nodemask) {	// 遍历 zone
 		struct page *page;
 		unsigned long mark;
 
@@ -3437,7 +3437,7 @@ retry:
 		 * will require awareness of nodes in the
 		 * dirty-throttling and the flusher threads.
 		 */
-		if (ac->spread_dirty_pages) {
+		if (ac->spread_dirty_pages) {	// 防止单个节点积累过多的脏页
 			if (last_pgdat_dirty_limit == zone->zone_pgdat)
 				continue;
 
@@ -3448,7 +3448,7 @@ retry:
 		}
 
 		if (no_fallback && nr_online_nodes > 1 &&
-		    zone != ac->preferred_zoneref->zone) {
+		    zone != ac->preferred_zoneref->zone) {	// 本地性优先于碎片避免
 			int local_nid;
 
 			/*
@@ -3487,18 +3487,18 @@ retry:
 			    !zone_allows_reclaim(ac->preferred_zoneref->zone, zone))
 				continue;
 
-			ret = node_reclaim(zone->zone_pgdat, gfp_mask, order);
+			ret = node_reclaim(zone->zone_pgdat, gfp_mask, order);	// 尝试回收页面以释放内存
 			switch (ret) {
-			case NODE_RECLAIM_NOSCAN:
+			case NODE_RECLAIM_NOSCAN:	//没有进行扫描，继续尝试下一个zone
 				/* did not scan */
 				continue;
-			case NODE_RECLAIM_FULL:
+			case NODE_RECLAIM_FULL:	// 扫描了但没有可回收的页面，继续尝试下一个zone
 				/* scanned but unreclaimable */
 				continue;
 			default:
 				/* did we reclaim enough */
 				if (zone_watermark_ok(zone, order, mark,
-						ac_classzone_idx(ac), alloc_flags))
+						ac_classzone_idx(ac), alloc_flags))	// 检查水位是否满足要求，如果满足则跳转到try_this_zone尝试分配
 					goto try_this_zone;
 
 				continue;
@@ -4514,7 +4514,7 @@ static inline void finalise_ac(gfp_t gfp_mask, struct alloc_context *ac)
  */
 struct page *
 __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
-							nodemask_t *nodemask)
+							nodemask_t *nodemask)	// preferred_nid 是 0， nodemask 是 0
 {
 	struct page *page;
 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
@@ -4532,7 +4532,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
 
 	gfp_mask &= gfp_allowed_mask;
 	alloc_mask = gfp_mask;
-	if (!prepare_alloc_pages(gfp_mask, order, preferred_nid, nodemask, &ac, &alloc_mask, &alloc_flags))
+	if (!prepare_alloc_pages(gfp_mask, order, preferred_nid, nodemask, &ac, &alloc_mask, &alloc_flags))	// 初始化 ac
 		return NULL;
 
 	finalise_ac(gfp_mask, &ac);
@@ -4611,7 +4611,7 @@ static inline void free_the_page(struct page *page, unsigned int order)
 
 void __free_pages(struct page *page, unsigned int order)
 {
-	if (put_page_testzero(page))
+	if (put_page_testzero(page))	// 只有当引用计数为零时，才真正释放页面
 		free_the_page(page, order);
 }
 EXPORT_SYMBOL(__free_pages);
@@ -6866,13 +6866,13 @@ static void __init find_zone_movable_pfns_for_nodes(void)
 	struct memblock_region *r;
 
 	/* Need to find movable_zone earlier when movable_node is specified. */
-	find_usable_zone_for_movable();
+	find_usable_zone_for_movable();	// 找到最高的可用 zone。就是变量 movable_zone
 
 	/*
 	 * If movable_node is specified, ignore kernelcore and movablecore
 	 * options.
 	 */
-	if (movable_node_is_enabled()) {
+	if (movable_node_is_enabled()) {	// false
 		for_each_memblock(memory, r) {
 			if (!memblock_is_hotpluggable(r))
 				continue;
@@ -6891,7 +6891,7 @@ static void __init find_zone_movable_pfns_for_nodes(void)
 	/*
 	 * If kernelcore=mirror is specified, ignore movablecore option
 	 */
-	if (mirrored_kernelcore) {
+	if (mirrored_kernelcore) {	// 0
 		bool mem_below_4gb_not_mirrored = false;
 
 		for_each_memblock(memory, r) {
@@ -7091,7 +7091,7 @@ static void check_for_memory(pg_data_t *pgdat, int nid)
  * starts where the previous one ended. For example, ZONE_DMA32 starts
  * at arch_max_dma_pfn.
  */
-void __init free_area_init_nodes(unsigned long *max_zone_pfn)
+void __init free_area_init_nodes(unsigned long *max_zone_pfn)	//把物理地址放到各个 zone 里面
 {
 	unsigned long start_pfn, end_pfn;
 	int i, nid;
@@ -7102,15 +7102,15 @@ void __init free_area_init_nodes(unsigned long *max_zone_pfn)
 	memset(arch_zone_highest_possible_pfn, 0,
 				sizeof(arch_zone_highest_possible_pfn));
 
-	start_pfn = find_min_pfn_with_active_regions();
+	start_pfn = find_min_pfn_with_active_regions();	// 起始的物理地址
 
 	for (i = 0; i < MAX_NR_ZONES; i++) {
 		if (i == ZONE_MOVABLE)
 			continue;
 
 		end_pfn = max(max_zone_pfn[i], start_pfn);
-		arch_zone_lowest_possible_pfn[i] = start_pfn;
-		arch_zone_highest_possible_pfn[i] = end_pfn;
+		arch_zone_lowest_possible_pfn[i] = start_pfn;	// 每个 zone 起始的物理地址
+		arch_zone_highest_possible_pfn[i] = end_pfn;	// 每个 zone 结束的物理地址
 
 		start_pfn = end_pfn;
 	}

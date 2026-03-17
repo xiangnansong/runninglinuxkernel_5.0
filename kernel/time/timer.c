@@ -1713,7 +1713,7 @@ void run_local_timers(void)
 		if (time_before(jiffies, base->clk))
 			return;
 	}
-	raise_softirq(TIMER_SOFTIRQ);
+	raise_softirq(TIMER_SOFTIRQ);	// 触发 timer 软中断
 }
 
 /*

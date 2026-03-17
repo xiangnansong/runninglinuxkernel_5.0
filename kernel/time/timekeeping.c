@@ -1389,7 +1389,7 @@ static int change_clocksource(void *data)
  * This function is called from clocksource.c after a new, better clock
  * source has been registered. The caller holds the clocksource_mutex.
  */
-int timekeeping_notify(struct clocksource *clock)
+int timekeeping_notify(struct clocksource *clock)	// 用于安装新的时钟源
 {
 	struct timekeeper *tk = &tk_core.timekeeper;
 

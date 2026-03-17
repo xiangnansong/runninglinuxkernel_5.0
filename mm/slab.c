@@ -1729,7 +1729,7 @@ static void slabs_destroy(struct kmem_cache *cachep, struct list_head *list)
  * towards high-order requests, this should be changed.
  */
 static size_t calculate_slab_order(struct kmem_cache *cachep,
-				size_t size, slab_flags_t flags)
+				size_t size, slab_flags_t flags)	// 确定一个slab缓存应该使用多少阶(order)的页面来存储对象，以在内存利用率和性能之间找到最佳平衡点
 {
 	size_t left_over = 0;
 	int gfporder;
@@ -1738,7 +1738,7 @@ static size_t calculate_slab_order(struct kmem_cache *cachep,
 		unsigned int num;
 		size_t remainder;
 
-		num = cache_estimate(gfporder, size, flags, &remainder);
+		num = cache_estimate(gfporder, size, flags, &remainder);	// 计算在给定阶数下可以容纳多少个对象，以及剩余空间大小
 		if (!num)
 			continue;
 
@@ -1790,7 +1790,7 @@ static size_t calculate_slab_order(struct kmem_cache *cachep,
 		/*
 		 * Acceptable internal fragmentation?
 		 */
-		if (left_over * 8 <= (PAGE_SIZE << gfporder))
+		if (left_over * 8 <= (PAGE_SIZE << gfporder))	// 内部剩余的空间比较小的时候停止。此时表示浪费的空间比较小
 			break;
 	}
 	return left_over;

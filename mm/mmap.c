@@ -189,7 +189,7 @@ static struct vm_area_struct *remove_vma(struct vm_area_struct *vma)
 static int do_brk_flags(unsigned long addr, unsigned long request, unsigned long flags,
 		struct list_head *uf);
 SYSCALL_DEFINE1(brk, unsigned long, brk)
-{
+{	// do_sys_brk 函数系统调用
 	unsigned long retval;
 	unsigned long newbrk, oldbrk, origbrk;
 	struct mm_struct *mm = current->mm;
@@ -230,9 +230,9 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
 			      mm->end_data, mm->start_data))
 		goto out;
 
-	newbrk = PAGE_ALIGN(brk);
-	oldbrk = PAGE_ALIGN(mm->brk);
-	if (oldbrk == newbrk) {
+	newbrk = PAGE_ALIGN(brk);	// 用户申请的新的堆边界
+	oldbrk = PAGE_ALIGN(mm->brk);	// 当前的堆边界
+	if (oldbrk == newbrk) {	// 增量不足一个 page，直接更新 mm->brk,不用进行后续的处理。
 		mm->brk = brk;
 		goto success;
 	}
@@ -241,7 +241,7 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
 	 * Always allow shrinking brk.
 	 * __do_munmap() may downgrade mmap_sem to read.
 	 */
-	if (brk <= mm->brk) {
+	if (brk <= mm->brk) {	// 申请的 brk 小于当前的 brk，说明是在缩小堆空间
 		int ret;
 
 		/*
@@ -261,14 +261,14 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
 	}
 
 	/* Check against existing mmap mappings. */
-	next = find_vma(mm, oldbrk);
-	if (next && newbrk + PAGE_SIZE > vm_start_gap(next))
+	next = find_vma(mm, oldbrk);	// 查找 oldbrk 对应的 vma
+	if (next && newbrk + PAGE_SIZE > vm_start_gap(next))	// 说明已经有现成的 vma 可以用了
 		goto out;
 
 	/* Ok, looks good - let it rip. */
-	if (do_brk_flags(oldbrk, newbrk-oldbrk, 0, &uf) < 0)
+	if (do_brk_flags(oldbrk, newbrk-oldbrk, 0, &uf) < 0)	// 关键函数！ 如果前面没有找到 vma ，这里申请一个新的 vma
 		goto out;
-	mm->brk = brk;
+	mm->brk = brk;	// 更新 mm->brk 为用户申请的新的堆边界
 
 success:
 	populate = newbrk > oldbrk && (mm->def_flags & VM_LOCKED) != 0;
@@ -278,7 +278,7 @@ success:
 		up_write(&mm->mmap_sem);
 	userfaultfd_unmap_complete(mm, &uf);
 	if (populate)
-		mm_populate(oldbrk, newbrk - oldbrk);
+		mm_populate(oldbrk, newbrk - oldbrk);	// 关键函数！ 表示立刻为 VMA 分配物理地址
 	return brk;
 
 out:

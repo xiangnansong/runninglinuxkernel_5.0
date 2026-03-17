@@ -34,7 +34,7 @@
 #define VMALLOC_START		(MODULES_END)
 #define VMALLOC_END		(PAGE_OFFSET - PUD_SIZE - VMEMMAP_SIZE - SZ_64K)
 
-#define vmemmap			((struct page *)VMEMMAP_START - (memstart_addr >> PAGE_SHIFT))
+#define vmemmap			((struct page *)VMEMMAP_START - (memstart_addr >> PAGE_SHIFT))	// 这个地址是一个假的地址，因为物理地址是从 0 开始的
 
 #define FIRST_USER_ADDRESS	0UL
 
@@ -69,11 +69,11 @@ extern unsigned long empty_zero_page[PAGE_SIZE / sizeof(unsigned long)];
 	((pte_val(pte) & PTE_ADDR_LOW) | ((pte_val(pte) & PTE_ADDR_HIGH) << 36))
 #define __phys_to_pte_val(phys)	(((phys) | ((phys) >> 36)) & PTE_ADDR_MASK)
 #else
-#define __pte_to_phys(pte)	(pte_val(pte) & PTE_ADDR_MASK)
+#define __pte_to_phys(pte)	(pte_val(pte) & PTE_ADDR_MASK)	// 取 pte 中的物理地址，即 bit 12- 48
 #define __phys_to_pte_val(phys)	(phys)
 #endif
 
-#define pte_pfn(pte)		(__pte_to_phys(pte) >> PAGE_SHIFT)
+#define pte_pfn(pte)		(__pte_to_phys(pte) >> PAGE_SHIFT)	// 就是获取 pte 中的bit 12- 48，即物理页号
 #define pfn_pte(pfn,prot)	\
 	__pte(__phys_to_pte_val((phys_addr_t)(pfn) << PAGE_SHIFT) | pgprot_val(prot))
 
@@ -576,7 +576,7 @@ static inline phys_addr_t pud_page_paddr(pud_t pud)
 
 static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
 {
-	if (in_swapper_pgdir(pgdp)) {
+	if (in_swapper_pgdir(pgdp)) {	// 如果是 swapper_pg_dir，就用 set_swapper_pgd 来设置。区别就是会在 fixmap 区建立映射；
 		set_swapper_pgd(pgdp, pgd);
 		return;
 	}
@@ -601,8 +601,8 @@ static inline phys_addr_t pgd_page_paddr(pgd_t pgd)
 #define pud_offset_phys(dir, addr)	(pgd_page_paddr(READ_ONCE(*(dir))) + pud_index(addr) * sizeof(pud_t))
 #define pud_offset(dir, addr)		((pud_t *)__va(pud_offset_phys((dir), (addr))))
 
-#define pud_set_fixmap(addr)		((pud_t *)set_fixmap_offset(FIX_PUD, addr))
-#define pud_set_fixmap_offset(pgd, addr)	pud_set_fixmap(pud_offset_phys(pgd, addr))
+#define pud_set_fixmap(addr)		((pud_t *)set_fixmap_offset(FIX_PUD, addr))	//  addr 是物理地址，建立映射到 fixmap pud 区域
+#define pud_set_fixmap_offset(pgd, addr)	pud_set_fixmap(pud_offset_phys(pgd, addr))	// 参数的含义：从pgd中读取出来 pud 的物理地址（就是页表项），加上 index 就是 addr 对应的 pud 的页表项
 #define pud_clear_fixmap()		clear_fixmap(FIX_PUD)
 
 #define pgd_page(pgd)		pfn_to_page(__phys_to_pfn(__pgd_to_phys(pgd)))
@@ -626,9 +626,9 @@ static inline phys_addr_t pgd_page_paddr(pgd_t pgd)
 #define pgd_ERROR(pgd)		__pgd_error(__FILE__, __LINE__, pgd_val(pgd))
 
 /* to find an entry in a page-table-directory */
-#define pgd_index(addr)		(((addr) >> PGDIR_SHIFT) & (PTRS_PER_PGD - 1))
+#define pgd_index(addr)		(((addr) >> PGDIR_SHIFT) & (PTRS_PER_PGD - 1))	// 这里只看 48 - 39 这部分，来计算 index
 
-#define pgd_offset_raw(pgd, addr)	((pgd) + pgd_index(addr))
+#define pgd_offset_raw(pgd, addr)	((pgd) + pgd_index(addr))	// 及地址，加上索引的偏移
 
 #define pgd_offset(mm, addr)	(pgd_offset_raw((mm)->pgd, (addr)))
 

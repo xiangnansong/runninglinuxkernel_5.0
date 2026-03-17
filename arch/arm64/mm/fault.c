@@ -400,11 +400,11 @@ static vm_fault_t __do_page_fault(struct mm_struct *mm, unsigned long addr,
 	struct vm_area_struct *vma;
 	vm_fault_t fault;
 
-	vma = find_vma(mm, addr);
+	vma = find_vma(mm, addr);	// 查找虚拟地址对应的VMA
 	fault = VM_FAULT_BADMAP;
 	if (unlikely(!vma))
 		goto out;
-	if (unlikely(vma->vm_start > addr))
+	if (unlikely(vma->vm_start > addr))	// 地址在VMA范围之外
 		goto check_stack;
 
 	/*

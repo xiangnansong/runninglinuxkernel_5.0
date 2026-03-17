@@ -320,7 +320,7 @@ static inline void *phys_to_virt(phys_addr_t x)
 	((void *)__addr);						\
 })
 
-#define virt_to_page(vaddr)	((struct page *)((__virt_to_pgoff(vaddr)) | VMEMMAP_START))
+#define virt_to_page(vaddr)	((struct page *)((__virt_to_pgoff(vaddr)) | VMEMMAP_START))	// 通过虚拟地址找到对应的page位置
 
 #define _virt_addr_valid(kaddr)	pfn_valid((((u64)(kaddr) & ~PAGE_OFFSET) \
 					   + PHYS_OFFSET) >> PAGE_SHIFT)

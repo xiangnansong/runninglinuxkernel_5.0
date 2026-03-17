@@ -1190,12 +1190,12 @@ static inline void tick_nohz_activate(struct tick_sched *ts, int mode)
 /**
  * tick_nohz_switch_to_nohz - switch to nohz mode
  */
-static void tick_nohz_switch_to_nohz(void)
+static void tick_nohz_switch_to_nohz(void)	//周期性tick模式切换到低精度的nohz(tickless)模式
 {
 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
 	ktime_t next;
-
-	if (!tick_nohz_enabled)
+ 
+	if (!tick_nohz_enabled)	//如果nohz功能未启用，直接返回。这是一个全局开关，通常通过内核启动参数控制。默认是0
 		return;
 
 	if (tick_switch_to_oneshot(tick_nohz_handler))
@@ -1365,22 +1365,22 @@ void tick_oneshot_notify(void)
  * mode, because high resolution timers are disabled (either compile
  * or runtime). Called with interrupts disabled.
  */
-int tick_check_oneshot_change(int allow_nohz)
+int tick_check_oneshot_change(int allow_nohz)	// allow_nohz: 信号标志，表示是否允许切换到低精度nohz模式
 {
 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
 
-	if (!test_and_clear_bit(0, &ts->check_clocks))
+	if (!test_and_clear_bit(0, &ts->check_clocks))	// 检查位图，如果位图为0，则返回0
 		return 0;
 
-	if (ts->nohz_mode != NOHZ_MODE_INACTIVE)
+	if (ts->nohz_mode != NOHZ_MODE_INACTIVE) // 已经激活了某种nohz模式，则返回0
 		return 0;
 
-	if (!timekeeping_valid_for_hres() || !tick_is_oneshot_available())
+	if (!timekeeping_valid_for_hres() || !tick_is_oneshot_available())	// 检查时间保持系统是否支持高精度模式， 单次定时器是否可用
 		return 0;
 
 	if (!allow_nohz)
-		return 1;
+		return 1;	// 这里推出表示不允许切换到低精度nohz模式
 
-	tick_nohz_switch_to_nohz();
+	tick_nohz_switch_to_nohz();	// 运行不到这里，不用管
 	return 0;
 }

@@ -81,7 +81,7 @@
 #define PGDIR_SIZE		(_AC(1, UL) << PGDIR_SHIFT)
 #define PGDIR_MASK		(~(PGDIR_SIZE-1))
 #define PTRS_PER_PGD		(1 << (MAX_USER_VA_BITS - PGDIR_SHIFT))
-
+// PTRS_PER_PGD 是 1 << (48 - 39)，表示PGD 中有 512 个条目
 /*
  * Section address mask and size definitions.
  */

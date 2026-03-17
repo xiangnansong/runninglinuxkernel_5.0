@@ -263,17 +263,17 @@ asmlinkage __visible void __softirq_entry __do_softirq(void)
 	 */
 	current->flags &= ~PF_MEMALLOC;
 
-	pending = local_softirq_pending();
-	account_irq_enter_time(current);
+	pending = local_softirq_pending();	// 读取当前 cpu pending 位图
+	account_irq_enter_time(current);	// 记录中断进入时间
 
-	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
-	in_hardirq = lockdep_softirq_start();
+	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);	//禁用本地软中断，防止重入
+	in_hardirq = lockdep_softirq_start();	// 启用跟踪
 
 restart:
 	/* Reset the pending bitmask before enabling irqs */
-	set_softirq_pending(0);
+	set_softirq_pending(0);	// 清空 pending 位图
 
-	local_irq_enable();
+	local_irq_enable();	// 开启中断
 
 	h = softirq_vec;
 
@@ -286,12 +286,12 @@ restart:
 		vec_nr = h - softirq_vec;
 		prev_count = preempt_count();
 
-		kstat_incr_softirqs_this_cpu(vec_nr);
+		kstat_incr_softirqs_this_cpu(vec_nr);	// 更新统计信息
 
 		trace_softirq_entry(vec_nr);
-		h->action(h);
+		h->action(h);	// 执行软中断函数
 		trace_softirq_exit(vec_nr);
-		if (unlikely(prev_count != preempt_count())) {
+		if (unlikely(prev_count != preempt_count())) {	// 检测抢占数是否被修改
 			pr_err("huh, entered softirq %u %s %p with preempt_count %08x, exited with %08x?\n",
 			       vec_nr, softirq_to_name[vec_nr], h->action,
 			       prev_count, preempt_count());
@@ -303,22 +303,22 @@ restart:
 
 	if (__this_cpu_read(ksoftirqd) == current)
 		rcu_softirq_qs();
-	local_irq_disable();
+	local_irq_disable();	// 关闭中断
 
 	pending = local_softirq_pending();
 	if (pending) {
 		if (time_before(jiffies, end) && !need_resched() &&
-		    --max_restart)
+		    --max_restart)	// 如果还有待处理的软中断 且时间未超限 且不需要重新调度 且重启次数未超限 则跳转到restart标签重新处理
 			goto restart;
 
-		wakeup_softirqd();
+		wakeup_softirqd();	//	如果无法立即处理，唤醒ksoftirqd内核线程延后处理
 	}
 
 	lockdep_softirq_end(in_hardirq);
-	account_irq_exit_time(current);
-	__local_bh_enable(SOFTIRQ_OFFSET);
+	account_irq_exit_time(current);	// 记录中断退出时间
+	__local_bh_enable(SOFTIRQ_OFFSET);	// 重新启用软中断
 	WARN_ON_ONCE(in_interrupt());
-	current_restore_flags(old_flags, PF_MEMALLOC);
+	current_restore_flags(old_flags, PF_MEMALLOC);	// 恢复进程标志位
 }
 
 asmlinkage __visible void do_softirq(void)
@@ -370,7 +370,7 @@ static inline void invoke_softirq(void)
 		 * it is the irq stack, because it should be near empty
 		 * at this stage.
 		 */
-		__do_softirq();
+		__do_softirq();	// 处理软中断
 #else
 		/*
 		 * Otherwise, irq_exit() is called on the task stack that can
@@ -379,7 +379,7 @@ static inline void invoke_softirq(void)
 		 */
 		do_softirq_own_stack();
 #endif
-	} else {
+	} else {	// 强制线程化放到线程里面处理
 		wakeup_softirqd();
 	}
 }

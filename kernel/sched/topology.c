@@ -1281,7 +1281,7 @@ sd_init(struct sched_domain_topology_level *tl,
 	struct sched_domain *child, int dflags, int cpu)
 {
 	struct sd_data *sdd = &tl->data;
-	struct sched_domain *sd = *per_cpu_ptr(sdd->sd, cpu);
+	struct sched_domain *sd = *per_cpu_ptr(sdd->sd, cpu);	// 获取该 cpu 上面的 sd 结构体
 	int sd_id, sd_weight, sd_flags = 0;
 
 #ifdef CONFIG_NUMA
@@ -1302,7 +1302,7 @@ sd_init(struct sched_domain_topology_level *tl,
 	/* Apply detected topology flags */
 	sd_flags |= dflags;
 
-	*sd = (struct sched_domain){
+	*sd = (struct sched_domain){	// 配置 sd 结构体
 		.min_interval		= sd_weight,
 		.max_interval		= 2*sd_weight,
 		.busy_factor		= 32,

@@ -242,7 +242,7 @@ static const struct reserved_mem_ops rmem_cma_ops = {
 	.device_release = rmem_cma_device_release,
 };
 
-static int __init rmem_cma_setup(struct reserved_mem *rmem)
+static int __init rmem_cma_setup(struct reserved_mem *rmem)	// cma 的初始化函数，在扫描所有 reserved 空间 __reserved_mem_init_node 中被调用
 {
 	phys_addr_t align = PAGE_SIZE << max(MAX_ORDER - 1, pageblock_order);
 	phys_addr_t mask = align - 1;
@@ -251,7 +251,7 @@ static int __init rmem_cma_setup(struct reserved_mem *rmem)
 	int err;
 
 	if (!of_get_flat_dt_prop(node, "reusable", NULL) ||
-	    of_get_flat_dt_prop(node, "no-map", NULL))
+	    of_get_flat_dt_prop(node, "no-map", NULL))	// 需要有 reusable 允许内核在空闲时使用，设备需要时回收；同时不能有 no-map
 		return -EINVAL;
 
 	if ((rmem->base & mask) || (rmem->size & mask)) {

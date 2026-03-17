@@ -1589,13 +1589,13 @@ static inline void __hrtimer_peek_ahead_timers(void) { }
 /*
  * Called from run_local_timers in hardirq context every jiffy
  */
-void hrtimer_run_queues(void)
+void hrtimer_run_queues(void)	// 运行 htimer 队列。是hrtimer子系统在低精度模式下的核心调度函数
 {
 	struct hrtimer_cpu_base *cpu_base = this_cpu_ptr(&hrtimer_bases);
 	unsigned long flags;
 	ktime_t now;
 
-	if (__hrtimer_hres_active(cpu_base))
+	if (__hrtimer_hres_active(cpu_base))	//如果高精度定时器模式已经激活，则直接返回。在高精度模式下，定时器由专门的中断处理程序管理，不需要这个函数处理。
 		return;
 
 	/*
@@ -1605,13 +1605,13 @@ void hrtimer_run_queues(void)
 	 * there only sets the check bit in the tick_oneshot code,
 	 * otherwise we might deadlock vs. xtime_lock.
 	 */
-	if (tick_check_oneshot_change(!hrtimer_is_hres_enabled())) {
+	if (tick_check_oneshot_change(!hrtimer_is_hres_enabled())) {	//周期性检查是否可以切换到高精度模式或无滴答。刚开始的时候不会进入这里，当 arm timer 注册进来之后会进入这里的 if 分支里面去
 		hrtimer_switch_to_hres();
 		return;
 	}
 
 	raw_spin_lock_irqsave(&cpu_base->lock, flags);
-	now = hrtimer_update_base(cpu_base);
+	now = hrtimer_update_base(cpu_base);	//更新时间基准，获取当前时间
 
 	if (!ktime_before(now, cpu_base->softirq_expires_next)) {
 		cpu_base->softirq_expires_next = KTIME_MAX;

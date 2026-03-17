@@ -3918,7 +3918,7 @@ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
  * return value.  See filemap_fault() and __lock_page_or_retry().
  */
 vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
-		unsigned int flags)
+		unsigned int flags)	// 核心的函数是 __handle_mm_fault，其余都是进行统计和检查
 {
 	vm_fault_t ret;
 

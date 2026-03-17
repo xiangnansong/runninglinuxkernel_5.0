@@ -461,7 +461,7 @@ void clockevents_register_device(struct clock_event_device *dev)
 
 	raw_spin_lock_irqsave(&clockevents_lock, flags);
 
-	list_add(&dev->list, &clockevent_devices);
+	list_add(&dev->list, &clockevent_devices);	// 添加到clockevent_devices链表
 	tick_check_new_device(dev);
 	clockevents_notify_released();
 
