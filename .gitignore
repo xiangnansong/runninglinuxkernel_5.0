@@ -177,3 +177,10 @@ sphinx_*/
 /rust-project.json
 
 kmodules/spec2006*
+
+nvme2.img
+
+rootfs_debian_arm64.ext4
+vmlinux.S
+vmlinux_debian
+
