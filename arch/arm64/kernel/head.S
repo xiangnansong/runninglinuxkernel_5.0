@@ -233,29 +233,29 @@ ENDPROC(preserve_boot_args)
 	sub	\count, \iend, \istart
 	.endm
 /*
-上述代码转成c语言的代码如下：
-static inline void compute_indices(
-    unsigned long  vstart,
-    unsigned long  vend,
-    unsigned long  shift,
-    unsigned long  ptrs,
-    unsigned long *istart,
-    unsigned long *iend,
-    unsigned long *count)
-{
-    /* iend = (vend >> shift) & (ptrs - 1) */
-    *iend = (vend >> shift) & (ptrs - 1);
-
-    /* iend += count * ptrs  (跨多个页表时的展开偏移) */
-    *iend += (*count) * ptrs;
-
-    /* istart = (vstart >> shift) & (ptrs - 1) */
-    *istart = (vstart >> shift) & (ptrs - 1);
-
-    /* count = iend - istart  (本级页表需处理的条目数) */
-    *count = *iend - *istart;
-}
-*
+ * 上述代码转成c语言的代码如下：
+ * static inline void compute_indices(
+ *     unsigned long  vstart,
+ *     unsigned long  vend,
+ *     unsigned long  shift,
+ *     unsigned long  ptrs,
+ *     unsigned long *istart,
+ *     unsigned long *iend,
+ *     unsigned long *count)
+ * {
+ *     // iend = (vend >> shift) & (ptrs - 1)
+ *     *iend = (vend >> shift) & (ptrs - 1);
+ *
+ *     // iend += count * ptrs  (跨多个页表时的展开偏移)
+ *     *iend += (*count) * ptrs;
+ *
+ *     // istart = (vstart >> shift) & (ptrs - 1)
+ *     *istart = (vstart >> shift) & (ptrs - 1);
+ *
+ *     // count = iend - istart  (本级页表需处理的条目数)
+ *     *count = *iend - *istart;
+ * }
+ */
 /*
  * Map memory for specified virtual address range. Each level of page table needed supports
  * multiple entries. If a level requires n entries the next page table level is assumed to be

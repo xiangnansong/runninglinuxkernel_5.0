@@ -1,0 +1,10 @@
+{
+    "clangd.arguments": [
+      "--compile-commands-dir=${workspaceFolder}",
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=never",
+      "--query-driver=/usr/bin/gcc,/usr/bin/g++,/usr/bin/clang*",
+      "--query-driver=/usr/bin/aarch64-linux-gnu-gcc"
+    ]
+  }
