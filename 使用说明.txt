@@ -1,0 +1,192 @@
+================================================================================
+内核启动函数调用追踪工具 - 使用说明
+================================================================================
+
+项目位置: /home/doula/project/runninglinuxkernel_5.0
+
+================================================================================
+一、已创建的文件
+================================================================================
+
+1. trace_kernel_boot.sh          - 主追踪工具（14KB）
+2. TRACE_KERNEL_BOOT_README.md   - 详细文档（11KB）
+3. PROJECT_SUMMARY.md            - 项目总结（7.7KB）
+4. demo_trace.sh                 - 交互式演示（1.8KB）
+5. quick_start.sh                - 快速开始脚本（新）
+
+================================================================================
+二、三种使用方式
+================================================================================
+
+【方式一：一键快速开始（推荐新手）】
+------------------------------------
+./quick_start.sh
+
+这将自动完成所有设置，然后启动 QEMU。
+在 QEMU 中执行: /trace_boot_init.sh
+
+
+【方式二：手动分步执行（推荐）】
+------------------------------------
+步骤1: 设置环境
+  ./trace_kernel_boot.sh setup
+
+步骤2: 启动追踪
+  ./trace_kernel_boot.sh ftrace
+
+步骤3: 在 QEMU 控制台中执行
+  /trace_boot_init.sh
+
+步骤4: 查看结果（在 QEMU 中）
+  cat /tmp/boot_trace_full.txt | less
+  cat /tmp/boot_trace_key_functions.txt
+  cat /tmp/boot_trace_stat.txt
+
+
+【方式三：GDB 调试模式（高级）】
+------------------------------------
+终端1:
+  ./trace_kernel_boot.sh gdb
+
+终端2:
+  aarch64-linux-gnu-gdb vmlinux
+  (gdb) target remote :1234
+  (gdb) break start_kernel
+  (gdb) continue
+  (gdb) backtrace
+
+================================================================================
+三、输出文件说明
+================================================================================
+
+在 QEMU 内部（/tmp/目录）：
+  - boot_trace_full.txt              完整的函数调用追踪（10-100MB）
+  - boot_trace_key_functions.txt     关键启动函数
+  - boot_trace_stat.txt              函数调用统计
+  - boot_trace_function_count.txt    函数调用次数排序
+
+在主机上（boot_trace_output/目录）：
+  - key_functions.txt                提取的关键函数
+  - top_50_functions.txt             调用最多的50个函数
+
+================================================================================
+四、关键启动函数流程
+================================================================================
+
+primary_entry (汇编入口)
+  └─ start_kernel (C语言入口)
+      ├─ setup_arch()          架构初始化
+      ├─ mm_init()             内存管理初始化
+      ├─ sched_init()          调度器初始化
+      ├─ init_IRQ()            中断初始化
+      ├─ time_init()           时间初始化
+      └─ rest_init()           其余初始化
+          └─ kernel_init()     内核线程
+              └─ do_initcalls()  执行所有初始化回调
+
+================================================================================
+五、常用命令
+================================================================================
+
+查看帮助:
+  ./trace_kernel_boot.sh help
+
+只追踪特定函数:
+  ./trace_kernel_boot.sh ftrace function_graph "start_kernel,kernel_init"
+
+增加缓冲区大小:
+  ./trace_kernel_boot.sh ftrace function_graph "" 20M
+
+清理输出:
+  ./trace_kernel_boot.sh clean
+
+分析结果:
+  ./trace_kernel_boot.sh analyze
+
+================================================================================
+六、QEMU 操作
+================================================================================
+
+退出 QEMU:
+  方法1: 按 Ctrl+A 然后按 X
+  方法2: 在控制台输入 poweroff
+
+查看追踪数据:
+  cat /tmp/boot_trace_full.txt | less
+  cat /tmp/boot_trace_key_functions.txt
+
+手动启动追踪:
+  mount -t tracefs none /sys/kernel/tracing
+  echo function_graph > /sys/kernel/tracing/current_tracer
+  echo 1 > /sys/kernel/tracing/tracing_on
+  cat /sys/kernel/tracing/trace > /tmp/trace.txt
+
+================================================================================
+七、内核配置验证
+================================================================================
+
+已验证以下配置已启用:
+  CONFIG_FTRACE=y
+  CONFIG_FUNCTION_TRACER=y
+  CONFIG_FUNCTION_GRAPH_TRACER=y
+  CONFIG_DYNAMIC_FTRACE=y
+  CONFIG_STACKTRACE=y
+
+检查命令:
+  grep CONFIG_FTRACE .config
+
+================================================================================
+八、故障排除
+================================================================================
+
+问题1: 追踪数据为空
+解决: 检查内核配置，增加缓冲区大小
+
+问题2: QEMU 无法启动
+解决: 检查 arch/arm64/boot/Image 是否存在
+
+问题3: GDB 无法连接
+解决: 确保安装了 aarch64-linux-gnu-gdb
+
+问题4: 数据量太大
+解决: 使用过滤器只追踪关键函数
+
+================================================================================
+九、查看文档
+================================================================================
+
+详细文档:
+  cat TRACE_KERNEL_BOOT_README.md | less
+
+项目总结:
+  cat PROJECT_SUMMARY.md | less
+
+在线帮助:
+  ./trace_kernel_boot.sh help
+
+================================================================================
+十、示例：完整追踪流程
+================================================================================
+
+# 1. 快速开始
+./quick_start.sh
+
+# 2. 在 QEMU 中执行
+/trace_boot_init.sh
+
+# 3. 查看结果
+cat /tmp/boot_trace_full.txt | less
+
+# 4. 查看关键函数
+cat /tmp/boot_trace_key_functions.txt
+
+# 5. 查看统计信息
+cat /tmp/boot_trace_stat.txt
+
+# 6. 退出 QEMU
+按 Ctrl+A 然后按 X
+
+================================================================================
+创建日期: 2026-03-21
+项目路径: /home/doula/project/runninglinuxkernel_5.0
+================================================================================
