@@ -1,0 +1,480 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x411fd070]
+[    0.000000] Linux version 5.0.0+ (doula@ROG) (gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2)) #11 SMP Sat Mar 21 01:43:42 CST 2026
+[    0.000000] Machine model: linux,dummy-virt
+[    0.000000] efi: Getting EFI parameters from FDT:
+[    0.000000] efi: UEFI not found.
+[    0.000000] cma: Reserved 64 MiB at 0x000000004c000000
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x000000004fffffff]
+[    0.000000] NUMA: NODE_DATA [mem 0x4bf78840-0x4bf79fff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000040000000-0x000000004fffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000040000000-0x000000004fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x000000004fffffff]
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv0.2 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] random: get_random_bytes called from start_kernel+0xa0/0x630 with crng_init=0
+[    0.000000] percpu: Embedded 30 pages/cpu @(____ptrval____) s84888 r8192 d29800 u122880
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: ARM erratum 832075
+[    0.000000] CPU features: detected: EL2 vector hardening
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 64512
+[    0.000000] Policy zone: DMA32
+[    0.000000] Kernel command line: rdinit=/linuxrc console=ttyAMA0
+[    0.000000] Memory: 146124K/262144K available (23740K kernel code, 1060K rwdata, 2424K rodata, 3904K init, 495K bss, 50484K reserved, 65536K cma-reserved)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     modules : 0xffff000008000000 - 0xffff000010000000   (   128 MB)
+[    0.000000]     vmalloc : 0xffff000010000000 - 0xffff7dffbfff0000   (129022 GB)
+[    0.000000]       .text : 0xffff000010080000 - 0xffff0000117b0000   ( 23744 KB)
+[    0.000000]       .init : 0xffff000011a20000 - 0xffff000011df0000   (  3904 KB)
+[    0.000000]     .rodata : 0xffff0000117b0000 - 0xffff000011a0e000   (  2424 KB)
+[    0.000000]       .data : 0xffff000011df0000 - 0xffff000011ef9200   (  1061 KB)
+[    0.000000]        .bss : 0xffff000011ef9200 - 0xffff000011f74ef0   (   496 KB)
+[    0.000000]     fixed   : 0xffff7dfffe7f9000 - 0xffff7dfffec00000   (  4124 KB)
+[    0.000000]     PCI I/O : 0xffff7dfffee00000 - 0xffff7dffffe00000   (    16 MB)
+[    0.000000]     vmemmap : 0xffff7e0000000000 - 0xffff800000000000   (  2048 GB maximum)
+[    0.000000]               0xffff7e0000000000 - 0xffff7e0000400000   (     4 MB actual)
+[    0.000000]     memory  : 0xffff800000000000 - 0xffff800010000000   (   256 MB)
+[    0.000000]     PAGE_OFFSET  : 0xffff800000000000
+[    0.000000]     kimage_voffset : 0xfffeffffd0000000
+[    0.000000]     PHYS_OFFSET  : 0x40000000
+[    0.000000]     start memory  : 0x40000000
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] ftrace: allocating 36374 entries in 143 pages
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=2.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv2m: range[mem 0x08020000-0x08020fff], SPI[80:143]
+[    0.000000] arch_timer: cp15 timer(s) running at 62.50MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x1cd42e208c, max_idle_ns: 881590405314 ns
+[    0.000160] sched_clock: 56 bits at 62MHz, resolution 16ns, wraps every 4398046511096ns
+[    0.017201] Console: colour dummy device 80x25
+[    0.021079] Calibrating delay loop (skipped), value calculated using timer frequency.. 125.00 BogoMIPS (lpj=250000)
+[    0.021317] pid_max: default: 32768 minimum: 301
+[    0.026381] Dentry cache hash table entries: 32768 (order: 6, 262144 bytes)
+[    0.027243] Inode-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.027818] Mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+[    0.027880] Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes)
+[    0.097208] ASID allocator initialised with 32768 entries
+[    0.098932] rcu: Hierarchical SRCU implementation.
+[    0.111862] EFI services will not be available.
+[    0.119227] smp: Bringing up secondary CPUs ...
+[    0.124506] Detected PIPT I-cache on CPU1
+[    0.125570] CPU1: Booted secondary processor 0x0000000001 [0x411fd070]
+[    0.134669] smp: Brought up 1 node, 2 CPUs
+[    0.134775] SMP: Total of 2 processors activated.
+[    0.134949] CPU features: detected: 32-bit EL0 Support
+[    0.135086] CPU features: detected: CRC32 instructions
+[    0.143945] CPU: All CPU(s) started at EL1
+[    0.144635] alternatives: patching kernel code
+[    0.177360] devtmpfs: initialized
+[    0.199549] Registered cp15_barrier emulation handler
+[    0.199842] Registered setend emulation handler
+[    0.203647] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.204030] futex hash table entries: 512 (order: 3, 32768 bytes)
+[    0.221180] DMI not present or invalid.
+[    0.223814] NET: Registered protocol family 16
+[    0.238106] cpuidle: using governor ladder
+[    0.238711] cpuidle: using governor menu
+[    0.240435] vdso: 2 pages (1 code @ (____ptrval____), 1 data @ (____ptrval____))
+[    0.240673] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.256420] DMA: preallocated 256 KiB pool for atomic allocations
+[    0.257351] Serial: AMBA PL011 UART driver
+[    0.316494] 9000000.pl011: ttyAMA0 at MMIO 0x9000000 (irq = 39, base_baud = 0) is a PL011 rev1
+[    0.356336] printk: console [ttyAMA0] enabled
+[    0.396662] HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.396925] HugeTLB registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.397413] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.397786] HugeTLB registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.407233] ACPI: Interpreter disabled.
+[    0.409530] vgaarb: loaded
+[    0.432442] clocksource: Switched to clocksource arch_sys_counter
+[    0.696301] pnp: PnP ACPI: disabled
+[    0.754577] NET: Registered protocol family 2
+[    0.767651] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes)
+[    0.768465] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.769411] TCP bind hash table entries: 2048 (order: 3, 32768 bytes)
+[    0.769796] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.773637] UDP hash table entries: 256 (order: 1, 8192 bytes)
+[    0.774146] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes)
+[    0.777785] NET: Registered protocol family 1
+[    1.093833] hw perfevents: enabled with armv8_pmuv3 PMU driver, 5 counters available
+[    1.103023] Initialise system trusted keyrings
+[    1.106516] workingset: timestamp_bits=60 max_order=16 bucket_order=0
+[    1.126131] zbud: loaded
+[    1.134319] 9p: Installing v9fs 9p2000 file system support
+[    6.751497] Key type asymmetric registered
+[    6.751786] Asymmetric key parser 'x509' registered
+[    6.752871] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+[    6.753368] io scheduler mq-deadline registered
+[    6.761941] pl061_gpio 9030000.pl061: PL061 GPIO chip @0x0000000009030000 registered
+[    6.764396] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    6.765760] pci-host-generic 4010000000.pcie: host bridge /pcie@10000000 ranges:
+[    6.766921] pci-host-generic 4010000000.pcie:    IO 0x3eff0000..0x3effffff -> 0x00000000
+[    6.767955] pci-host-generic 4010000000.pcie:   MEM 0x10000000..0x3efeffff -> 0x10000000
+[    6.769998] pci-host-generic 4010000000.pcie:   MEM 0x8000000000..0xffffffffff -> 0x8000000000
+[    6.771770] pci-host-generic 4010000000.pcie: ECAM at [mem 0x4010000000-0x401fffffff] for [bus 00-ff]
+[    6.774188] pci-host-generic 4010000000.pcie: PCI host bridge to bus 0000:00
+[    6.774754] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    6.775080] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+[    6.775785] pci_bus 0000:00: root bus resource [mem 0x10000000-0x3efeffff]
+[    6.777172] pci_bus 0000:00: root bus resource [mem 0x8000000000-0xffffffffff]
+[    6.791466] pci 0000:00:01.0: BAR 6: assigned [mem 0x10000000-0x1007ffff pref]
+[    6.792238] pci 0000:00:01.0: BAR 4: assigned [mem 0x8000000000-0x8000003fff 64bit pref]
+[    6.793150] pci 0000:00:01.0: BAR 1: assigned [mem 0x10080000-0x10080fff]
+[    6.793424] pci 0000:00:01.0: BAR 0: assigned [io  0x1000-0x101f]
+[    6.815296] virtio-pci 0000:00:01.0: enabling device (0000 -> 0003)
+[    6.822033] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    6.827784] Serial: AMBA driver
+[    6.832599] cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    6.857034] virtio_blk virtio0: [vda] 1048576 512-byte logical blocks (537 MB/512 MiB)
+[    6.907935] virtio_blk virtio1: [vdb] 524288 512-byte logical blocks (268 MB/256 MiB)
+[    6.939103] mousedev: PS/2 mouse device common for all mice
+[    6.949002] rtc-pl031 9010000.pl031: registered as rtc0
+[    6.956561] sdhci: Secure Digital Host Controller Interface driver
+[    6.956726] sdhci: Copyright(c) Pierre Ossman
+[    6.959931] ipip: IPv4 and MPLS over IPv4 tunneling driver
+[    6.964481] gre: GRE over IPv4 demultiplexor driver
+[    6.964647] ip_gre: GRE over IPv4 tunneling driver
+[    6.970281] IPv4 over IPsec tunneling driver
+[    6.976525] NET: Registered protocol family 10
+[    7.014075] Segment Routing with IPv6
+[    7.015815] mip6: Mobile IPv6
+[    7.020376] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    7.030473] ip6_gre: GRE over IPv6 tunneling driver
+[    7.034244] NET: Registered protocol family 17
+[    7.034847] NET: Registered protocol family 15
+[    7.060102] 9pnet: Installing 9P2000 support
+[    7.135494] Loading compiled-in X.509 certificates
+[    7.142513] zswap: loaded using pool lzo/zbud
+[    7.162431] rtc-pl031 9010000.pl031: setting system clock to 2026-07-26T22:04:58 UTC (1785103498)
+[    7.223435] Freeing unused kernel memory: 3904K
+[    7.242989] Run /linuxrc as init process
+/etc/init.d/rcS: line 9: can't create /proc/sys/kernel/hotplug: nonexistent directory
+Memory for crashkernel is not reserved
+Please reserve memory by passing"crashkernel=X@Y" parameter to kernel
+Then try to loading kdump kernel
+
+Please press Enter to activate this console. 
+>>> 
+
+/ # 
+>>> stty -echo 2>/dev/null; echo __SHELL_OK__
+stty -echo 2>/dev/null; echo __SHELL_OK__
+>>> ls /mnt/mm_lab/scripts; printf '\n%s\n' DONE1785103498736
+
+__SHELL_OK__
+/ # [0;0mdrop_caches.sh[m      [0;0mshow_watermark.sh[m   [0;0mtrace_reclaim.sh[m
+[0;0mfill_cache.sh[m       [0;0mswappiness_test.sh[m  [0;0mtrace_stack.sh[m
+[0;0mmm_setup.sh[m         [0;0mtrace_func.sh[m
+[0;0mrun_lab_host.py[m     [0;0mtrace_oom.sh[m
+
+DONE1785103498736
+
+
+===== STEP setup =====
+
+>>> sh /mnt/mm_lab/scripts/mm_setup.sh; printf '\n%s\n' DONE1785103498798
+/ # data disk = /dev/vda , swap disk = /dev/vdb
+=== [1/3] mount tracefs ===
+tracefs ready: /sys/kernel/debug/tracing
+=== [2/3] prepare data disk (/dev/vda -> /data) ===
+[    7.953596] EXT4-fs (vda): warning: mounting unchecked fs, running e2fsck is recommended
+[    7.977156] EXT4-fs (vda): mounted filesystem without journal. Opts: (null)
+-rw-r--r--    1 0        0        201326592 Jul 26 22:03 [0;0m/data/bigfile[m
+=== [3/3] prepare swap (/dev/vdb) ===
+[    8.020722] random: mkswap: uninitialized urandom read (16 bytes read)
+[    8.048388] Adding 262140k swap on /dev/vdb.  Priority:-2 extents:1 across:262140k FS
+Filename				Type		Size	Used	Priority
+/dev/vdb                                partition	262140	0	-2
+
+=== 环境就绪 ===
+              total        used        free      shared  buff/cache   available
+Mem:         215564       27080      184500        3844        3984      186772
+Swap:        262140           0      262140
+
+可用脚���(都��� /mnt/mm_lab/scripts/ ���):
+  show_watermark.sh    # �� zone 水��线和 kswapd �����
+  drop_caches.sh       # 清��� page cache,回到干净���点
+  fill_cache.sh        # 用大文件灌满 page cache,制���内存紧张
+  trace_reclaim.sh     # 打开 vmscan tracepoint 观察一次回收(主力脚本)
+  trace_stack.sh       # 给某个回����件��� stacktrace,����������������
+  trace_func.sh        # function tracer ��回收�����的函数�����关��
+  swappiness_test.sh   # 对��� swappiness ��� 匿名��/���件页 取舍的影响
+  trace_oom.sh         # 关��� swap,��察回��������� OOM 的���过程
+
+DONE1785103498798
+
+
+===== STEP watermark =====
+
+>>> sh /mnt/mm_lab/scripts/show_watermark.sh; printf '\n%s\n' DONE1785103499069
+/ # page size = 4096 bytes
+
+Node 0, zone DMA32    free=46106    min=382     low=477     high=572      (充��)
+
+--- /proc/meminfo 关键项 ---
+MemTotal:         215564 kB
+MemFree:          184488 kB
+MemAvailable:     186796 kB
+Cached:             3836 kB
+Active(anon):       2672 kB
+Inactive(anon):     1364 kB
+Active(file):        112 kB
+Inactive(file):        8 kB
+SwapTotal:        262140 kB
+SwapFree:         262140 kB
+Dirty:                 4 kB
+Writeback:             0 kB
+WritebackTmp:          0 kB
+
+--- kswapd 状态 ---
+pid=32 state=S  (S=睡眠 R=运行 D=不可中���)
+
+DONE1785103499069
+
+
+===== STEP exp1 =====
+
+>>> sh /mnt/mm_lab/scripts/drop_caches.sh; sh /mnt/mm_lab/scripts/trace_reclaim.sh 'cat /data/bigfile > /dev/null' /tmp/exp1.trace; printf '\n%s\n' DONE1785103499483
+/ # [    8.544759] sh (181): drop_caches: 3
+--- after drop_caches ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       27188      184524        3844        3852      186856
+Swap:        262140           0      262140
+Cached:             3844 kB
+SwapCached:            0 kB
+Active(file):          4 kB
+Inactive(file):        8 kB
+AnonPages:           192 kB
+=== run: cat /data/bigfile > /dev/null ===
+[    9.848203] random: fast init done
+
+=== ftrace 事件统计 (/tmp/exp1.trace) ===
+mm_shrink_slab_end                       96
+mm_shrink_slab_start                     96
+mm_vmscan_direct_reclaim_begin            4
+mm_vmscan_direct_reclaim_end              4
+mm_vmscan_inactive_list_is_low          170
+mm_vmscan_kswapd_wake                    15
+mm_vmscan_lru_isolate                   232
+mm_vmscan_lru_shrink_inactive           232
+mm_vmscan_wakeup_kswapd                  14
+
+=== 回收统计������ (/proc/vmstat 差值) ===
+allocstall_normal                          +1
+pgactivate                                +19
+pgsteal_kswapd                          +5603
+pgsteal_direct                           +238
+pgscan_kswapd                           +5608
+pgscan_direct                            +238
+slabs_scanned                           +1301
+kswapd_low_wmark_hit_quickly              +11
+kswapd_high_wmark_hit_quickly              +3
+
+原始 trace: /tmp/exp1.trace  (共 863 条回收事件)
+
+DONE1785103499483
+
+
+===== STEP exp2 =====
+
+>>> sh /mnt/mm_lab/scripts/fill_cache.sh; sh /mnt/mm_lab/scripts/trace_reclaim.sh '/mnt/mm_lab/memhog 150 3 16' /tmp/exp2.trace; printf '\n%s\n' DONE1785103502405
+/ # --- before ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       35888        2712        4028      176964      176212
+201326592 bytes (192.0MB) copied, 1.376781 seconds, 139.5MB/s
+--- after ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       35924        3996        4028      175644      176192
+Cached:           175304 kB
+Active(file):        344 kB
+Inactive(file):   171292 kB
+=== run: /mnt/mm_lab/memhog 150 3 16 ===
+[memhog] pid=206 target=150MB step=16MB hold=3s
+[memhog] allocated 16 MB
+[memhog] allocated 32 MB
+[memhog] allocated 48 MB
+[memhog] allocated 64 MB
+[memhog] allocated 80 MB
+[memhog] allocated 96 MB
+[memhog] allocated 112 MB
+[memhog] allocated 128 MB
+[memhog] allocated 144 MB
+[memhog] allocated 150 MB
+[memhog] hold 3 sec ...
+[memhog] done, freed 150 MB
+
+=== ftrace 事件统计 (/tmp/exp2.trace) ===
+mm_shrink_slab_end                     3693
+mm_shrink_slab_start                   3693
+mm_vmscan_direct_reclaim_begin          206
+mm_vmscan_direct_reclaim_end            206
+mm_vmscan_inactive_list_is_low         2724
+mm_vmscan_kswapd_sleep                    1
+mm_vmscan_kswapd_wake                    16
+mm_vmscan_lru_isolate                  3777
+mm_vmscan_lru_shrink_active             922
+mm_vmscan_lru_shrink_inactive          2855
+mm_vmscan_wakeup_kswapd                  11
+mm_vmscan_writepage                   12196
+
+=== 回收���计口�� (/proc/vmstat 差��) ===
+nr_vmscan_write                        +12196
+pgpgout                                +48784
+pswpin                                   +177
+pswpout                                +12194
+allocstall_normal                        +197
+pgactivate                               +162
+pgdeactivate                           +24638
+pgrefill                               +24667
+pgsteal_kswapd                         +44068
+pgsteal_direct                          +9428
+pgscan_kswapd                          +52724
+pgscan_direct                          +13110
+slabs_scanned                              +4
+kswapd_low_wmark_hit_quickly               +8
+kswapd_high_wmark_hit_quickly              +7
+
+原始 trace: /tmp/exp2.trace  (��� 30300 条回收事件)
+
+DONE1785103502405
+
+
+===== STEP exp3 =====
+
+>>> sh /mnt/mm_lab/scripts/fill_cache.sh; sh /mnt/mm_lab/scripts/trace_stack.sh mm_vmscan_direct_reclaim_begin '/mnt/mm_lab/memhog 160 1 16 >/dev/null' /tmp/exp3.stack; printf '\n%s\n' DONE1785103512712
+/ # --- before ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       36288      173236        5956        6040      175796
+201326592 bytes (192.0MB) copied, 1.251967 seconds, 153.4MB/s
+--- after ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       36584        3136        6004      175844      173564
+Cached:           175808 kB
+Active(file):         36 kB
+Inactive(file):   169776 kB
+=== run: /mnt/mm_lab/memhog 160 1 16 >/dev/null ===
+
+=== 第��条 mm_vmscan_direct_reclaim_begin 的调用��� ===
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+
+=== 命中次数: 203  完整结果: /tmp/exp3.stack ===
+
+DONE1785103512712
+
+
+===== STEP exp4 =====
+
+>>> sh /mnt/mm_lab/scripts/fill_cache.sh; sh /mnt/mm_lab/scripts/trace_func.sh '/mnt/mm_lab/memhog 160 1 16 >/dev/null' /tmp/exp4.func; printf '\n%s\n' DONE1785103517890
+/ # --- before ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       36452      178408         680         704      180952
+201326592 bytes (192.0MB) copied, 1.216454 seconds, 157.8MB/s
+--- after ---
+              total        used        free      shared  buff/cache   available
+Mem:         215564       36592        3708         756      175264      178808
+Cached:           175256 kB
+Active(file):          8 kB
+Inactive(file):   174460 kB
+filter functions: 17
+=== run: /mnt/mm_lab/memhog 160 1 16 >/dev/null ===
+
+=== 调��片段 ===
+          memhog-236   [000] ....    30.421907: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422462: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422552: wakeup_kswapd <-wake_all_kswapds
+         kswapd0-32    [001] ....    30.422571: balance_pgdat <-kswapd
+          memhog-236   [000] ....    30.422603: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422622: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422639: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422654: wakeup_kswapd <-wake_all_kswapds
+         kswapd0-32    [001] ....    30.422671: shrink_active_list <-age_active_anon
+          memhog-236   [000] ....    30.422681: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422736: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422751: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422765: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422780: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422794: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422809: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422830: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422844: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422859: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422878: wakeup_kswapd <-wake_all_kswapds
+          memhog-236   [000] ....    30.422900: wakeup_kswapd <-wake_all_kswapds
+
+=== 各函数调用次数 ===
+__remove_mapping                40319
+wakeup_kswapd                   14588
+shrink_list                      1648
+shrink_page_list                 1632
+shrink_inactive_list             1632
+shrink_slab                       598
+shrink_node_memcg                 598
+shrink_node                       598
+get_scan_count                    598
+shrink_zones                      534
+shrink_active_list                425
+try_to_free_pages                 128
+do_try_to_free_pages              128
+__perform_reclaim                 128
+kswapd_shrink_node                 64
+balance_pgdat                       3
+
+=== 调用关系(被调��者 <- ���������)===
+  40319 __remove_mapping <-shrink_page_list
+  14584 wakeup_kswapd <-wake_all_kswapds
+   1648 shrink_list <-shrink_node_memcg
+   1632 shrink_page_list <-shrink_inactive_list
+   1632 shrink_inactive_list <-shrink_list
+    598 shrink_slab <-shrink_node
+    598 shrink_node_memcg <-shrink_node
+    598 get_scan_count <-shrink_node_memcg
+    534 shrink_zones <-do_try_to_free_pages
+    534 shrink_node <-shrink_zones
+    351 shrink_active_list <-shrink_node_memcg
+    128 try_to_free_pages <-__perform_reclaim
+    128 do_try_to_free_pages <-try_to_free_pages
+    128 __perform_reclaim <-__alloc_pages_nodemask
+     64 shrink_node <-kswapd_shrink_node
+     64 kswapd_shrink_node <-balance_pgdat
+     60 shrink_active_list <-age_active_anon
+     14 shrink_active_list <-shrink_list
+      4 wakeup_kswapd <-get_page_from_freelist
+      3 balance_pgdat <-kswapd
+
+完整结���: /tmp/exp4.func
+
+DONE1785103517890
+
+
+===== STEP copy =====
+
+>>> cp /tmp/exp1.trace /tmp/exp2.trace /tmp/exp3.stack /tmp/exp4.func /mnt/mm_lab/; ls -l /mnt/mm_lab/exp1.trace /mnt/mm_lab/exp2.trace /mnt/mm_lab/exp3.stack /mnt/mm_lab/exp4.func; printf '\n%s\n' DONE1785103538882
+/ # -rw-r--r--    1 0        0           179926 Jul 26 22:05 [0;0m/mnt/mm_lab/exp1.trace[m
+-rw-r--r--    1 0        0          5448922 Jul 26 22:05 [0;0m/mnt/mm_lab/exp2.trace[m
+-rw-r--r--    1 0        0           102034 Jul 26 22:05 [0;0m/mnt/mm_lab/exp3.stack[m
+-rw-r--r--    1 0        0          5287965 Jul 26 22:05 [0;0m/mnt/mm_lab/exp4.func[m
+
+DONE1785103538882
+
+>>> poweroff -f

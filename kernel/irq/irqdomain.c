@@ -1037,7 +1037,7 @@ static void irq_domain_insert_irq(int virq)
 		struct irq_domain *domain = data->domain;
 
 		domain->mapcount++;
-		irq_domain_set_mapping(domain, data->hwirq, data);
+		irq_domain_set_mapping(domain, data->hwirq, data);	// 在每一层的 domain 的查找表中都注册上这个 irq 的 data
 
 		/* If not already assigned, give the domain the chip's name */
 		if (!domain->name && data->chip)
@@ -1111,10 +1111,10 @@ static int irq_domain_alloc_irq_data(struct irq_domain *domain,
 	/* The outermost irq_data is embedded in struct irq_desc */
 	for (i = 0; i < nr_irqs; i++) {
 		irq_data = irq_get_irq_data(virq + i);
-		irq_data->domain = domain;
+		irq_data->domain = domain;	// 设置 irq_data 的 domain 指针
 
 		for (parent = domain->parent; parent; parent = parent->parent) {
-			irq_data = irq_domain_insert_irq_data(parent, irq_data);
+			irq_data = irq_domain_insert_irq_data(parent, irq_data);	// 为这个中断在每个parent domain层都申请一个data
 			if (!irq_data) {
 				irq_domain_free_irq_data(virq, i + 1);
 				return -ENOMEM;
@@ -1300,7 +1300,7 @@ int __irq_domain_alloc_irqs(struct irq_domain *domain, int irq_base,
 		virq = irq_base;
 	} else {
 		virq = irq_domain_alloc_descs(irq_base, nr_irqs, 0, node,
-					      affinity);
+					      affinity);	// 创建 desc 结构体。对于普通的层级 irq domain 而言，后面再进行一个关联就可以了。这里的 hierarchy irq的处理比较特别
 		if (virq < 0) {
 			pr_debug("cannot allocate IRQ(base %d, count %d)\n",
 				 irq_base, nr_irqs);
@@ -1308,20 +1308,20 @@ int __irq_domain_alloc_irqs(struct irq_domain *domain, int irq_base,
 		}
 	}
 
-	if (irq_domain_alloc_irq_data(domain, virq, nr_irqs)) {
+	if (irq_domain_alloc_irq_data(domain, virq, nr_irqs)) {	// 为 irq 的每个parent domain层都申请一个 irq data
 		pr_debug("cannot allocate memory for IRQ%d\n", virq);
 		ret = -ENOMEM;
 		goto out_free_desc;
 	}
 
 	mutex_lock(&irq_domain_mutex);
-	ret = irq_domain_alloc_irqs_hierarchy(domain, virq, nr_irqs, arg);
+	ret = irq_domain_alloc_irqs_hierarchy(domain, virq, nr_irqs, arg);	// 直接调用 alloc 回调
 	if (ret < 0) {
 		mutex_unlock(&irq_domain_mutex);
 		goto out_free_irq_data;
 	}
 	for (i = 0; i < nr_irqs; i++)
-		irq_domain_insert_irq(virq + i);
+		irq_domain_insert_irq(virq + i);	// 在每一层的 domain 的查找表中都注册上这个 irq 的 data
 	mutex_unlock(&irq_domain_mutex);
 
 	return virq;

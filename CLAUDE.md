@@ -68,6 +68,28 @@ The project also supports RISC-V and x86_64:
 - `./run_debian_riscv.sh` - RISC-V architecture
 - `./run_debian_x86_64.sh` - x86_64 architecture
 
+### BusyBox Environment
+
+For lightweight experiments (faster boot, minimal userspace), a BusyBox-based
+rootfs is available via `./run_busybox.sh`:
+
+```bash
+./run_busybox.sh arm64          # BusyBox on ARM64 virt (default)
+./run_busybox.sh arm64 debug    # enable GDB stub (-s -S) on :1234
+./run_busybox.sh arm64_pci      # ARM64 with PCIe devices (edu + NVMe) for pci_lab
+./run_busybox.sh x86_64         # BusyBox on x86_64
+./run_busybox.sh arm32          # BusyBox on ARM vexpress-a9
+```
+
+The `arm64_pci` mode additionally attaches:
+- QEMU `edu` device — teaching PCI device (`vendor:device = 1234:11e8`) exposing
+  an MMIO BAR0 with identification / liveness / factorial / IRQ / DMA registers
+- QEMU `nvme` device — a real PCIe NVMe controller behind a `pcie-root-port`
+  (backed by `nvme_disk.img`, auto-created on first run)
+
+The BusyBox rootfs is very minimal (no gcc/make); cross-compile kernel modules
+on the host and share them into the VM over 9P (see the PCIe lab below).
+
 ### Manual Kernel Build
 
 If you need to build manually:
@@ -82,9 +104,10 @@ make -j$(nproc)
 
 ### Lab Structure
 
-Experimental code is organized in `kmodules/rlk_lab/`:
-- `rlk_basic/` - Basic experiments (入门篇 - Beginner's Guide)
-- `rlk_senior/` - Advanced experiments (卷1和卷2 - Volumes 1 & 2)
+Experimental code is organized under `kmodules/`:
+- `rlk_lab/rlk_basic/` - Basic experiments (入门篇 - Beginner's Guide)
+- `rlk_lab/rlk_senior/` - Advanced experiments (卷1和卷2 - Volumes 1 & 2)
+- `pci_lab/` - Progressive PCI/PCIe driver labs (see below)
 
 ### Building Kernel Modules
 

@@ -3410,7 +3410,7 @@ retry:
 	no_fallback = alloc_flags & ALLOC_NOFRAGMENT;
 	z = ac->preferred_zoneref;
 	for_next_zone_zonelist_nodemask(zone, z, ac->zonelist, ac->high_zoneidx,
-								ac->nodemask) {	// 遍历 zone
+								ac->nodemask) {
 		struct page *page;
 		unsigned long mark;
 

@@ -7504,24 +7504,24 @@ static int detach_tasks(struct lb_env *env)
 		 * We don't want to steal all, otherwise we may be treated likewise,
 		 * which could at worst lead to a livelock crash.
 		 */
-		if (env->idle != CPU_NOT_IDLE && env->src_rq->nr_running <= 1)
+		if (env->idle != CPU_NOT_IDLE && env->src_rq->nr_running <= 1)	// 如果目标 cpu 只有一个任务，则停止迁移
 			break;
 
-		p = list_last_entry(tasks, struct task_struct, se.group_node);
+		p = list_last_entry(tasks, struct task_struct, se.group_node);	// 从链表的尾部取出一个任务。尾部的任务 cache 是冷的
 
 		env->loop++;
 		/* We've more or less seen every task there is, call it quits */
-		if (env->loop > env->loop_max)
+		if (env->loop > env->loop_max)	// 大于 loop max 就退出
 			break;
 
 		/* take a breather every nr_migrate tasks */
-		if (env->loop > env->loop_break) {
+		if (env->loop > env->loop_break) {	// 限流，每 32 个任务就休息一下
 			env->loop_break += sched_nr_migrate_break;
 			env->flags |= LBF_NEED_BREAK;
 			break;
 		}
 
-		if (!can_migrate_task(p, env))
+		if (!can_migrate_task(p, env))	// 判断刚才取出来的任务是否可以迁移
 			goto next;
 
 		load = task_h_load(p);
@@ -7529,7 +7529,7 @@ static int detach_tasks(struct lb_env *env)
 		if (sched_feat(LB_MIN) && load < 16 && !env->sd->nr_balance_failed)
 			goto next;
 
-		if ((load / 2) > env->imbalance)
+		if ((load / 2) > env->imbalance)	// load 过重的时候不迁移
 			goto next;
 
 		detach_task(p, env);
@@ -7552,7 +7552,7 @@ static int detach_tasks(struct lb_env *env)
 		 * We only want to steal up to the prescribed amount of
 		 * weighted load.
 		 */
-		if (env->imbalance <= 0)
+		if (env->imbalance <= 0)	// 如果已经达到要求了就退出
 			break;
 
 		continue;

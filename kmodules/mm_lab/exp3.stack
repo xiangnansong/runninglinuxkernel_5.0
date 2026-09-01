@@ -1,0 +1,3254 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 406/406   #P:2
+#
+#                              _-----=> irqs-off
+#                             / _----=> need-resched
+#                            | / _---=> hardirq/softirq
+#                            || / _--=> preempt-depth
+#                            ||| /     delay
+#           TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
+#              | |       |   ||||       |         |
+          memhog-222   [000] ....    23.455604: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_HIGHUSER_MOVABLE classzone_idx=2
+          memhog-222   [000] ....    23.458380: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.466150: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_HIGHUSER_MOVABLE classzone_idx=2
+          memhog-222   [000] ....    23.466180: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.686544: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_HIGHUSER_MOVABLE classzone_idx=2
+          memhog-222   [000] ....    23.686699: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.697265: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_HIGHUSER_MOVABLE classzone_idx=2
+          memhog-222   [000] ....    23.697300: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.707544: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_HIGHUSER_MOVABLE classzone_idx=2
+          memhog-222   [000] ....    23.707577: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_vma
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.779045: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.779086: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.781854: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.781886: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.784479: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.784502: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.786374: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.786392: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.788313: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.788331: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.790895: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.790935: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.793203: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.793231: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.795077: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.795098: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.797458: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.797487: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.799436: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.799458: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.801391: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.801408: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.803662: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.803680: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.806191: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.806223: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.808531: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.808553: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.810397: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.810418: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.812789: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.812817: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.814796: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.814830: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.817114: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.817138: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.819103: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.820746: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.822731: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.822823: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.824935: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.824960: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.826965: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.827012: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.829213: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.829235: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.831051: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.831070: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.833244: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.833266: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.835116: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.835136: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.837441: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.837471: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.840314: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.840354: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.842463: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.842496: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.846106: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.846144: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.850380: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.850416: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.854025: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.854061: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.857106: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.857137: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.859535: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.859556: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.863891: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.863940: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.866812: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.866861: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.870445: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.870487: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.873531: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.873555: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.875969: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.875987: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.878942: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.878972: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.881910: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.881935: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.884977: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.885032: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.887598: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.887632: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.890512: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.890550: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.893340: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.893367: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.896424: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.896453: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.898809: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.898830: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.901739: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.901797: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.904762: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.904784: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.907020: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.907037: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.909853: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.909886: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.911528: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.911554: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.912885: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.912902: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.914048: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.914062: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.915139: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.915153: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.916658: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.916687: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.917846: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.917865: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.918940: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.918963: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.919975: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.919989: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.921376: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.921396: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.922565: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.922581: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.924309: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.924348: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.925495: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.925512: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.926588: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.926602: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.927627: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.927657: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.928885: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.928901: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.929931: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.929945: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.930997: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.931010: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.932282: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.932301: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.933303: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.933317: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.934368: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.934382: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.935322: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.935335: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.936442: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.936456: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.937476: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.937490: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.938498: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.938512: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.939662: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.939687: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.940839: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.940857: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.941827: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.941842: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.942819: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.942833: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.943814: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.943828: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.944948: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.944962: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.945859: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.945872: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.946808: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.946823: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.948255: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.948282: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.949158: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.949175: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.950163: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.950181: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.951107: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.951121: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.952120: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.952152: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.953115: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.953130: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.954235: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.954254: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.955138: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.955153: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.956223: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.956240: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.957134: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.957148: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.958090: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.958105: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.958994: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.959010: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.959807: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.959820: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.960985: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.961004: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.961901: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.961915: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.962772: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.962786: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.963902: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.963924: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.965142: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.965165: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.966190: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.966207: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.967076: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.967091: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.968216: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.968235: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.969034: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.969050: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.969940: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.969955: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.971477: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.971496: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.973117: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.973137: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.974483: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.974498: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.975803: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.975818: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.977242: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.977271: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.978591: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.978629: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.980613: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.980638: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.981984: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.982007: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.983305: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.983324: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.984817: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.984836: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.986037: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.986053: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.987278: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.987302: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.988937: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.988958: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    23.990361: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    23.990379: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.078906: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.078943: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.110045: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.110082: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.117219: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.117249: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.254963: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.255077: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.266574: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.266611: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.273980: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.274018: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.280969: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.281006: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.294884: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.294925: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.341548: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.341587: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.352783: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.352825: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.361540: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.361576: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.362997: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.363020: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.473289: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.473327: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.476642: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.476677: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.525691: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.525733: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.535947: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.535982: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.545428: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.545470: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.578038: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.578075: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.580606: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.580640: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.604510: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.604552: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.606247: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.606276: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.648910: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.648960: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.653053: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.653102: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.661210: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.661250: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.662575: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.662596: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.671226: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.671280: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.692261: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.692298: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.704303: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.704337: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.710869: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.710902: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.717961: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.717992: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.725606: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.725641: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.733832: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.733864: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.741229: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.741286: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.762579: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.762618: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.776897: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.776942: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.790908: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.790944: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.797032: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.797066: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.799606: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.799632: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.807390: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.807421: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.851614: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.851650: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.862668: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.862705: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.865500: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.865534: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.881285: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.881325: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.882986: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.883012: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.911878: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.911914: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.926194: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.926230: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.934178: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.934211: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.954772: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.954821: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.969350: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.969394: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    24.972427: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    24.972733: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    24.980675: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    24.980714: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.038441: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.038486: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.042386: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.042413: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.053759: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.053801: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.055434: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.055464: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.066844: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.066884: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.067981: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.068000: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.090149: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.090231: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.103487: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.103553: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.113131: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.113169: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.121192: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.121241: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.163377: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.163416: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.178499: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.178539: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.187693: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.187733: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.192916: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.192952: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.219724: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.219780: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    25.234418: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    25.234458: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [000] ....    25.245231: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [000] ....    25.245270: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.252517: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.252559: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.290134: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.290271: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.302157: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.302200: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.303782: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.303802: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.322656: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.322994: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.338937: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.338977: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.354078: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.354129: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.358973: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.359007: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.365976: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.366010: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da
+          memhog-222   [001] ....    25.369796: mm_vmscan_direct_reclaim_begin: order=0 may_writepage=1 gfp_flags=GFP_KERNEL|__GFP_ZERO classzone_idx=1
+          memhog-222   [001] ....    25.369834: <stack trace>
+ => try_to_free_pages
+ => __perform_reclaim
+ => __alloc_pages_nodemask
+ => alloc_pages_current
+ => __pte_alloc
+ => do_anonymous_page
+ => handle_pte_fault
+ => __handle_mm_fault
+ => handle_mm_fault
+ => __do_page_fault
+ => do_page_fault
+ => do_translation_fault
+ => do_mem_abort
+ => el0_da

@@ -308,7 +308,7 @@ static void alloc_init_pud(pgd_t *pgdp, unsigned long addr, unsigned long end,
 		pgd = READ_ONCE(*pgdp);
 	}
 	BUG_ON(pgd_bad(pgd));
-
+	// 因为 pgd 的空间是在链接脚本分配好的，所以不用分配内存。pud 的空间是需要分配内存，然后再进行映射
 	pudp = pud_set_fixmap_offset(pgdp, addr);	// 后面需要访问到 pud 页表项，所以这里需要建立 pud 页表到 fixmap 的映射
 	do {
 		pud_t old_pud = READ_ONCE(*pudp);
@@ -320,7 +320,7 @@ static void alloc_init_pud(pgd_t *pgdp, unsigned long addr, unsigned long end,
 		 */
 		if (use_1G_block(addr, next, phys) &&
 		    (flags & NO_BLOCK_MAPPINGS) == 0) {
-			pud_set_huge(pudp, phys, prot);	// 建立断映射
+			pud_set_huge(pudp, phys, prot);	// 建立段映射
 
 			/*
 			 * After the PUD entry has been populated once, we
@@ -770,7 +770,7 @@ void vmemmap_free(unsigned long start, unsigned long end,
 static inline pud_t * fixmap_pud(unsigned long addr)
 {
 	pgd_t *pgdp = pgd_offset_k(addr);
-	pgd_t pgd = READ_ONCE(*pgdp);
+	pgd_t pgd = READ_ONCE(*pgdp);	// 就是 addr 对应的 pgd 的表项
 
 	BUG_ON(pgd_none(pgd) || pgd_bad(pgd));
 
@@ -801,6 +801,7 @@ static inline pte_t * fixmap_pte(unsigned long addr)
 void __init early_fixmap_init(void)
 {
 	pgd_t *pgdp, pgd;
+
 	pud_t *pudp;
 	pmd_t *pmdp;
 	unsigned long addr = FIXADDR_START;

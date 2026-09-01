@@ -244,7 +244,7 @@ ENDPROC(preserve_boot_args)
  *     unsigned long *count)
  * {
  *     // iend = (vend >> shift) & (ptrs - 1)
- *     *iend = (vend >> shift) & (ptrs - 1);
+ *     *iend = (vend >> shift) & (ptrs - 1);	// 这里要进行 mask，因为 mmu 只看这 8 bit，前面的mmu不会看到
  *
  *     // iend += count * ptrs  (跨多个页表时的展开偏移)
  *     *iend += (*count) * ptrs;
@@ -345,7 +345,7 @@ __create_page_tables:
 	adrp	x0, init_pg_dir
 	adrp	x1, init_pg_end
 	sub	x1, x1, x0
-1:	stp	xzr, xzr, [x0], #16
+1:	stp	xzr, xzr, [x0], #16			// 先清空init pg dir
 	stp	xzr, xzr, [x0], #16
 	stp	xzr, xzr, [x0], #16
 	stp	xzr, xzr, [x0], #16
@@ -426,7 +426,21 @@ __create_page_tables:
 	adr_l	x6, __idmap_text_end		// __pa(__idmap_text_end)
 	// 先映射对等页面。 
 	map_memory x0, x1, x3, x6, x7, x3, x4, x10, x11, x12, x13, x14
-
+/*
+*map_memory x0, x1, x3, x6, x7, x3, x4, ...
+*// tbl   = idmap_pg_dir
+*// vstart= __pa(__idmap_text_start) = 0x417a4000
+*// vend  = __pa(__idmap_text_end)   = 0x417a4618
+*// phys  = 0x417a4000
+*// pgds  = 512
+*
+*
+*	idmap_pg_dir (PGD)
+*	└── [0] ──→ 中间表 @ +0x1000
+*	            └── [1] ──→ Section页 @ +0x2000
+*	                        └── [11] ──→ PA 0x41600000 (2MB block, Normal, Executable)
+*
+*/
 	/*
 	 * Map the kernel image (starting with PHYS_OFFSET).
 	 */
@@ -440,6 +454,11 @@ __create_page_tables:
 	add	x6, x6, x5			// runtime __va(_end)
 	// 然后映射 init 页面
 	map_memory x0, x1, x5, x6, x7, x3, x4, x10, x11, x12, x13, x14
+
+// vstart = KIMAGE_VADDR + TEXT_OFFSET ≈ _text = 0xffff000010080000
+// vend   = __va(_end)               = 0xffff000011f78000  (~31MB)
+// phys   = __pa(_text)              = 0x40080000 (QEMU 典型)
+// pgds   = 512
 
 	/*
 	 * Since the page tables have been populated with non-cacheable

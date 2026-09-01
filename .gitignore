@@ -179,6 +179,13 @@ sphinx_*/
 kmodules/spec2006*
 
 nvme2.img
+mm_data.img
+mm_swap.img
+nvme_disk.img
+/JESD84-B51 (1).pdf
+/MindShare_PCI Express Technology 3.0.pdf
+/SD.pdf
+kmodules/mm_lab/memhog
 
 rootfs_debian_arm64.ext4
 vmlinux.S

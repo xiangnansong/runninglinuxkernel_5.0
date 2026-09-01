@@ -1,0 +1,19 @@
+[host] starting qemu, log=/home/doula/project/runninglinuxkernel_5.0/kmodules/mm_lab/lab_run.log
+[host] waiting for shell...
+[host] shell ready
+[host] === setup ===
+[host] setup OK
+[host] === watermark ===
+[host] watermark OK
+[host] === exp1 ===
+[host] exp1 OK
+[host] === exp2 ===
+[host] exp2 OK
+[host] === exp3 ===
+[host] exp3 OK
+[host] === exp4 ===
+[host] exp4 OK
+[host] === copy ===
+[host] copy OK
+[host] poweroff
+[host] done, see /home/doula/project/runninglinuxkernel_5.0/kmodules/mm_lab/lab_run.log

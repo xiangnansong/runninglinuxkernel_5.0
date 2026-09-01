@@ -31,7 +31,7 @@
  * VMALLOC_END: extends to the available space below vmmemmap, PCI I/O space
  *	and fixed mappings
  */
-#define VMALLOC_START		(MODULES_END)
+#define VMALLOC_START		(MODULES_END)	// 就是 KIMAGE_OFFSET 也就是 kernel 内核映像的起始地址
 #define VMALLOC_END		(PAGE_OFFSET - PUD_SIZE - VMEMMAP_SIZE - SZ_64K)
 
 #define vmemmap			((struct page *)VMEMMAP_START - (memstart_addr >> PAGE_SHIFT))	// 这个地址是一个假的地址，因为物理地址是从 0 开始的
@@ -598,7 +598,7 @@ static inline phys_addr_t pgd_page_paddr(pgd_t pgd)
 /* Find an entry in the frst-level page table. */
 #define pud_index(addr)		(((addr) >> PUD_SHIFT) & (PTRS_PER_PUD - 1))
 
-#define pud_offset_phys(dir, addr)	(pgd_page_paddr(READ_ONCE(*(dir))) + pud_index(addr) * sizeof(pud_t))
+#define pud_offset_phys(dir, addr)	(pgd_page_paddr(READ_ONCE(*(dir))) + pud_index(addr) * sizeof(pud_t))	// 得到 addr 的地址，对应的 pud 的表项的物理地址
 #define pud_offset(dir, addr)		((pud_t *)__va(pud_offset_phys((dir), (addr))))
 
 #define pud_set_fixmap(addr)		((pud_t *)set_fixmap_offset(FIX_PUD, addr))	//  addr 是物理地址，建立映射到 fixmap pud 区域

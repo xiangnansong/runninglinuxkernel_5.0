@@ -33,7 +33,7 @@
  * physical memory with fixmap indices.
  *
  */
-enum fixed_addresses {
+enum fixed_addresses {	// 是以page为单位的
 	FIX_HOLE,
 
 	/*

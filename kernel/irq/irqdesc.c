@@ -379,7 +379,7 @@ static struct irq_desc *alloc_desc(int irq, int node, unsigned int flags,
 	if (!desc)
 		return NULL;
 	/* allocate based on nr_cpu_ids */
-	desc->kstat_irqs = alloc_percpu(unsigned int);
+	desc->kstat_irqs = alloc_percpu(unsigned int);	// 中断在每个 cpu 上触发的次数
 	if (!desc->kstat_irqs)
 		goto err_desc;
 
